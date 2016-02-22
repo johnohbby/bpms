@@ -13,17 +13,11 @@ namespace CodeProject.Business.Entities
     using System.Collections.Generic;
 
 
-    public partial class groupType
+    public class GroupType
     {
-        public groupType()
-        {
-            this.groups = new HashSet<group>();
-        }
-
-   
-        public long id { get; set; }
-        public string name { get; set; }
+        
+        public long Id { get; set; }
+        public string Name { get; set; }
     
-        public virtual ICollection<group> groups { get; set; }
     }
 }

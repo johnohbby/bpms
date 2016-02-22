@@ -13,27 +13,16 @@ namespace CodeProject.Business.Entities
     using System.Collections.Generic;
 
 
-    public partial class workflow
+    public class Workflow
     {
-        public workflow()
-        {
-            this.actions = new HashSet<Action>();
-            this.actions1 = new HashSet<Action>();
-        }
-
-
-        public long id { get; set; }
-        public string name { get; set; }
-        public string case_number { get; set; }
-        public long workflow_type_id { get; set; }
-        public Nullable<long> last_action_id { get; set; }
-        public System.DateTime created { get; set; }
-        public long created_by { get; set; }
-        public bool is_deleted { get; set; }
-    
-        public virtual ICollection<Action> actions { get; set; }
-        public virtual ICollection<Action> actions1 { get; set; }
-        public virtual user user { get; set; }
-        public virtual workflowType workflowType { get; set; }
+        
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string CaseNumber { get; set; }
+        public long WorkflowTypeId { get; set; }
+        public Nullable<long> LastActionId { get; set; }
+        public System.DateTime Created { get; set; }
+        public long CreatedBy { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

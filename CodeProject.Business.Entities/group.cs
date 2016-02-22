@@ -13,21 +13,13 @@ namespace CodeProject.Business.Entities
     using System.Collections.Generic;
     
 
-    public partial class group
+    public class Group
     {
-        public group()
-        {
-            this.contentRights = new HashSet<contentRight>();
-            this.userGroups = new HashSet<userGroup>();
-        }
-  
-        public long id { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public long group_type_id { get; set; }
+       
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public long GroupTypeId { get; set; }
     
-        public virtual ICollection<contentRight> contentRights { get; set; }
-        public virtual groupType groupType { get; set; }
-        public virtual ICollection<userGroup> userGroups { get; set; }
     }
 }

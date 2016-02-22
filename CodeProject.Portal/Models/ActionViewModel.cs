@@ -16,8 +16,8 @@ namespace CodeProject.Portal.Models
         public bool IsDeleted { get; set; }
 
         public ActionType ActionType { get; set; }
-        public user User { get; set; }
-        public workflow Workflow { get; set; }
-        public workflow Workflow1 { get; set; }
+        public User User { get; set; }
+        public Workflow Workflow { get; set; }
+        public Workflow Workflow1 { get; set; }
     }
 }

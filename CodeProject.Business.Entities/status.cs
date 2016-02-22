@@ -12,18 +12,13 @@ namespace CodeProject.Business.Entities
     using System;
     using System.Collections.Generic;
 
-    public partial class status
+    public class Status
     {
-        public status()
-        {
-            this.statusTranslations = new HashSet<statusTranslation>();
-            this.statusTranslations1 = new HashSet<statusTranslation>();
-        }
-
-           public long id { get; set; }
-        public string name { get; set; }
+       
+        public long Id { get; set; }
+        public string Name { get; set; }
     
-        public virtual ICollection<statusTranslation> statusTranslations { get; set; }
-        public virtual ICollection<statusTranslation> statusTranslations1 { get; set; }
+        public virtual ICollection<StatusTranslation> statusTranslations { get; set; }
+        public virtual ICollection<StatusTranslation> statusTranslations1 { get; set; }
     }
 }

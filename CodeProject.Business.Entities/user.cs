@@ -13,28 +13,18 @@ namespace CodeProject.Business.Entities
     using System.Collections.Generic;
 
    
-    public class user
+    public class User
     {
-        public user()
-        {
-            this.actions = new HashSet<Action>();
-            this.userGroups = new HashSet<userGroup>();
-            this.workflows = new HashSet<workflow>();
-        }
-
+     
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public bool IsActive { get; set; }
+        public System.DateTime Created { get; set; }
+        public string Created_by { get; set; }
     
-        public long id { get; set; }
-        public string name { get; set; }
-        public string surname { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string email { get; set; }
-        public bool is_active { get; set; }
-        public System.DateTime created { get; set; }
-        public string created_by { get; set; }
-    
-        public virtual ICollection<Action> actions { get; set; }
-        public virtual ICollection<userGroup> userGroups { get; set; }
-        public virtual ICollection<workflow> workflows { get; set; }
     }
 }

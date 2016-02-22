@@ -13,17 +13,12 @@ namespace CodeProject.Business.Entities
     using System.Collections.Generic;
 
 
-    public partial class contentType
+    public partial class ContentType
     {
-        public contentType()
-        {
-            this.contentRights = new HashSet<ContentRight>();
-        }
-  
-        public long id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
+
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     
-        public virtual ICollection<ContentRight> contentRights { get; set; }
     }
 }
