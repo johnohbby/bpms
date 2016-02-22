@@ -17,13 +17,13 @@ namespace CodeProject.Business.Entities
     {
         public contentType()
         {
-            this.contentRights = new HashSet<contentRight>();
+            this.contentRights = new HashSet<ContentRight>();
         }
   
         public long id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
     
-        public virtual ICollection<contentRight> contentRights { get; set; }
+        public virtual ICollection<ContentRight> contentRights { get; set; }
     }
 }
