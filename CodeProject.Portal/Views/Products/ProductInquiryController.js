@@ -1,7 +1,7 @@
 ﻿
 console.log("product inquiry");
 
-angular.module("codeProject").register.controller('productInquiryController', ['$routeParams', '$location', 'ajaxService', 'dataGridService', 'alertService',
+angular.module('app').register.controller('productInquiryController', ['$routeParams', '$location', 'ajaxService', 'dataGridService', 'alertService',
     function ($routeParams, $location, ajaxService, dataGridService, alertService) {
 
         "use strict";

@@ -1,7 +1,7 @@
 ﻿
 console.log("about");
 
-angular.module("codeProject").register.controller('initializeDataController', ['$routeParams', '$location','ajaxService',
+angular.module('app').register.controller('initializeDataController', ['$routeParams', '$location', 'ajaxService',
     function ($routeParams, $location, ajaxService) {
 
     "use strict";

@@ -1,4 +1,4 @@
-﻿angular.module('codeProject').service('ajaxService',['$http', 'blockUI', function ($http, blockUI) {
+﻿angular.module('app').service('ajaxService', ['$http', 'blockUI', function ($http, blockUI) {
 
     "use strict";
 

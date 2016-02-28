@@ -1,7 +1,7 @@
 ﻿
 console.log("index");
 
-angular.module("codeProject").register.controller('indexController', ['$routeParams', '$location', function ($routeParams, $location) {
+angular.module('app').register.controller('indexController', ['$routeParams', '$location', function ($routeParams, $location) {
 
     "use strict";
 

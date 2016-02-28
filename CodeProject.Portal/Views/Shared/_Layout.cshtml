@@ -57,7 +57,7 @@
     <base href="@baseUrl" />
 
 </head>
-<body ng-app="codeProject" ng-controller="masterController as vm" ng-init="vm.initializeController()">
+<body ng-app="app" ng-controller="masterController as vm" ng-init="vm.initializeController()">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -103,7 +103,7 @@
 
         (function () {
 
-            var codeProjectApplication = angular.module('codeProject');
+            var codeProjectApplication = angular.module('app');
             codeProjectApplication.provider('applicationConfiguration', function () {
                 var _version;
                 var _bundles;

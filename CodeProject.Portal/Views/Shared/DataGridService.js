@@ -1,7 +1,7 @@
 ﻿//alert("data grid service")
 console.log("data grid service");
 
-angular.module('codeProject').service('dataGridService', [function () {
+angular.module('app').service('dataGridService', [function () {
 
     var dataGrid = new Object();
 

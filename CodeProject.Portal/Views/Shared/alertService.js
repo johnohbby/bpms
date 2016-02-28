@@ -1,4 +1,4 @@
-﻿angular.module('codeProject').service('alertService', ['$rootScope', function ($rootScope) {
+﻿angular.module('app').service('alertService', ['$rootScope', function ($rootScope) {
 
     $rootScope.alerts = [];
     $rootScope.messageBox = "";

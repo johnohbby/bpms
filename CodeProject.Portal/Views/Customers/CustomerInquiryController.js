@@ -1,5 +1,5 @@
 ﻿
-angular.module("codeProject").register.controller('customerInquiryController', ['$routeParams', '$location', 'ajaxService', 'dataGridService', 'alertService',
+angular.module('app').register.controller('customerInquiryController', ['$routeParams', '$location', 'ajaxService', 'dataGridService', 'alertService',
     function ($routeParams, $location, ajaxService, dataGridService, alertService) {
 
     "use strict";

@@ -1,7 +1,7 @@
 ﻿
 console.log("customer maintenance");
 
-angular.module("codeProject").register.controller('customerMaintenanceController',
+angular.module('app').register.controller('customerMaintenanceController',
     ['$routeParams', '$location', 'ajaxService', 'alertService',
     function ($routeParams, $location, ajaxService, alertService) {
 

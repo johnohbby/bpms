@@ -1,7 +1,7 @@
 ﻿
 console.log("master controller");
 
-angular.module('codeProject').controller('masterController',
+angular.module('app').controller('masterController',
     ['$routeParams', '$location', 'ajaxService', 'applicationConfiguration',
         function ($routeParams, $location, ajaxService, applicationConfiguration) {
 
