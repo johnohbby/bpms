@@ -20,7 +20,7 @@ namespace CodeProject.Data.EntityFramework
         public DbSet<CodeProject.Business.Entities.Action> Actions { get; set; }
         public DbSet<ActionType> ActionTypes { get; set; }
         public DbSet<ContentRight> ContentRights { get; set; }
-        public DbSet<ContentType> ContentRights { get; set; }
+        public DbSet<ContentType> ContentTypes { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupType> GroupTypes { get; set; }
         public DbSet<RightType> RightTypes { get; set; }

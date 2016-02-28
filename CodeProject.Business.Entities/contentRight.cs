@@ -14,8 +14,8 @@ namespace CodeProject.Business.Entities
         public long ContentId { get; set; }
         public long RightId { get; set; }
     
-        public virtual contentType contentType { get; set; }
-        public virtual Group group { get; set; }
-        public virtual RightType rightType { get; set; }
+        public  ContentType contentType { get; set; }
+        public  Group group { get; set; }
+        public  RightType rightType { get; set; }
     }
 }
