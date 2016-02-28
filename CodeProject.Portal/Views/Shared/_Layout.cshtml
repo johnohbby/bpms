@@ -17,7 +17,7 @@
     {
         customBundle = new CodeProject.Portal.Models.CustomBundle();
         customBundle.BundleName = controller;
-        customBundle.Path = BundleTable.Bundles.ResolveBundleUrl("~/bundles/" + controller);
+        customBundle.Path = System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/" + controller);
         customBundle.IsLoaded = false;
         bundles.Add(customBundle);
     }
@@ -42,15 +42,15 @@
 
     <script src="~/Scripts/require.js"></script>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+    @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")
 
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @System.Web.Optimization.Styles.Render("~/Content/css")
+    @System.Web.Optimization.Scripts.Render("~/bundles/modernizr")
 
     
    
-    @Scripts.Render("~/bundles/angular")
+    @System.Web.Optimization.Scripts.Render("~/bundles/angular")
 
  
 
@@ -72,8 +72,6 @@
                 <ul class="nav navbar-nav">
 
                     <li><a href="Home/Index">Home</a></li>
-                    <li><a href="Home/Contact">Contact Us</a></li>
-                    <li><a href="Home/About">About</a></li>
                     <li><a href="Customers/CustomerMaintenance">Customer Maintenance</a></li>
                     <li><a href="Customers/CustomerInquiry">Customer Inquiry</a></li>
                     <li><a href="Products/ProductMaintenance">Product Maintenance</a></li>
@@ -95,11 +93,11 @@
 
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
-        @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?ver=" + @version + "\"></script>", "~/bundles/shared")
+        @System.Web.Optimization.Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?ver=" + @version + "\"></script>", "~/bundles/shared")
     }
     else
     {
-        @Scripts.Render("~/bundles/shared")
+        @System.Web.Optimization.Scripts.Render("~/bundles/shared")
     }
     <script>
 
@@ -142,11 +140,11 @@
 
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
-        @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?ver=" + @version + "\"></script>", "~/bundles/routing-debug")
+        @System.Web.Optimization.Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?ver=" + @version + "\"></script>", "~/bundles/routing-debug")
     }
     else
     {
-        @Scripts.Render("~/bundles/routing-production")
+        @System.Web.Optimization.Scripts.Render("~/bundles/routing-production")
     }
 
     @RenderSection("scripts", required: false)

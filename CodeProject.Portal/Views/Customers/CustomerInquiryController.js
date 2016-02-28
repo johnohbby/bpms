@@ -1,6 +1,4 @@
 ﻿
-console.log("customer inquiry");
-
 angular.module("codeProject").register.controller('customerInquiryController', ['$routeParams', '$location', 'ajaxService', 'dataGridService', 'alertService',
     function ($routeParams, $location, ajaxService, dataGridService, alertService) {
 

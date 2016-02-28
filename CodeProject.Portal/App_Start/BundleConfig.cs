@@ -43,7 +43,7 @@ namespace CodeProject.Portal
 
 
             bundles.Add(new ScriptBundle("~/bundles/shared").Include(
-               "~/Views/Shared/CodeProjectBootstrap.js",
+               "~/Views/Shared/App.js",
                 "~/Views/Shared/AjaxService.js",
                 "~/Views/Shared/AlertService.js",
                 "~/Views/Shared/DataGridService.js",
@@ -60,23 +60,11 @@ namespace CodeProject.Portal
 
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
                 "~/Views/Home/IndexController.js",
-                "~/Views/Home/AboutController.js",
-                "~/Views/Home/ContactController.js",
                 "~/Views/Home/InitializeDataController.js"
          ));
 
 
             bundles.Add(new ScriptBundle("~/bundles/customers").Include(
-              "~/Views/Customers/CustomerDummyController01.js",
-              "~/Views/Customers/CustomerDummyController02.js",
-              "~/Views/Customers/CustomerDummyController03.js",
-              "~/Views/Customers/CustomerDummyController04.js",
-              "~/Views/Customers/CustomerDummyController05.js",
-              "~/Views/Customers/CustomerDummyController06.js",
-              "~/Views/Customers/CustomerDummyController07.js",
-              "~/Views/Customers/CustomerDummyController08.js",
-              "~/Views/Customers/CustomerDummyController09.js",
-              "~/Views/Customers/CustomerDummyController10.js",
               "~/Views/Customers/CustomerMaintenanceController.js",
               "~/Views/Customers/CustomerInquiryController.js"
             ));

@@ -170,8 +170,6 @@
     <Compile Include="WebApiControllers\ProductServiceController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Home\Index.html" />
-    <Content Include="App_Data\Home\IndexController.js" />
     <Content Include="Content\angular-block-ui.css" />
     <Content Include="Content\angular-block-ui.min.css" />
     <Content Include="Content\angular-ui.css" />
@@ -218,6 +216,8 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular-ui-ieshiv.js" />
     <Content Include="Scripts\angular-ui-ieshiv.min.js" />
+    <Content Include="Scripts\angular-ui-router.js" />
+    <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular-ui.js" />
     <Content Include="Scripts\angular-ui.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
@@ -245,7 +245,6 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Content\angular-block-ui.css.map" />
-    <Content Include="App_Data\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <Content Include="Scripts\angular-block-ui.min.js.map" />
     <Content Include="Scripts\angular-block-ui.js.map" />
@@ -1013,20 +1012,6 @@
     <Content Include="Views\Customers\CustomerInquiryController.js" />
     <Content Include="Views\Customers\CustomerMaintenance.html" />
     <Content Include="Views\Customers\CustomerMaintenanceController.js" />
-    <Content Include="Views\Customers\CustomerDummyController01.js" />
-    <Content Include="Views\Customers\CustomerDummyController02.js" />
-    <Content Include="Views\Customers\CustomerDummyController03.js" />
-    <Content Include="Views\Customers\CustomerDummyController04.js" />
-    <Content Include="Views\Customers\CustomerDummyController05.js" />
-    <Content Include="Views\Customers\CustomerDummyController06.js" />
-    <Content Include="Views\Customers\CustomerDummyController07.js" />
-    <Content Include="Views\Customers\CustomerDummyController08.js" />
-    <Content Include="Views\Customers\CustomerDummyController09.js" />
-    <Content Include="Views\Customers\CustomerDummyController10.js" />
-    <Content Include="Views\Home\About.html" />
-    <Content Include="Views\Home\AboutController.js" />
-    <Content Include="Views\Home\Contact.html" />
-    <Content Include="Views\Home\ContactController.js" />
     <Content Include="Views\Home\Index.html" />
     <Content Include="Views\Home\IndexController.js" />
     <Content Include="Views\Home\InitializeData.html" />
@@ -1037,7 +1022,7 @@
     <Content Include="Views\Products\ProductMaintenanceController.js" />
     <Content Include="Views\Shared\AjaxService.js" />
     <Content Include="Views\Shared\AlertService.js" />
-    <Content Include="Views\Shared\CodeProjectBootStrap.js" />
+    <Content Include="Views\Shared\App.js" />
     <Content Include="Views\Shared\CodeProjectRouting-debug.js" />
     <Content Include="Views\Shared\CodeProjectRouting-production.js" />
     <Content Include="Views\Shared\DataGridService.js" />
@@ -1057,7 +1042,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\version.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

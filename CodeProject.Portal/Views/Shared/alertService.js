@@ -1,9 +1,4 @@
-﻿
-//alert("alert service");
-
-console.log("alert service");
-
-angular.module('codeProject').service('alertService', ['$rootScope', function ($rootScope) {
+﻿angular.module('codeProject').service('alertService', ['$rootScope', function ($rootScope) {
 
     $rootScope.alerts = [];
     $rootScope.messageBox = "";

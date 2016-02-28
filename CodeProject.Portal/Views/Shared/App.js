@@ -1,11 +1,4 @@
-﻿//
-//  angular bootup and routing table
-//
-
-
-console.log("Code Project Bootstrap");
-
-(function () {
+﻿(function () {
 
     var app = angular.module('codeProject', ['ngRoute', 'ui.bootstrap', 'ngSanitize', 'blockUI']);
 
@@ -19,7 +12,6 @@ console.log("Code Project Bootstrap");
 
 })();
 
-console.log("Code Project Bootstrap FINISHED 2");
 
 
 
