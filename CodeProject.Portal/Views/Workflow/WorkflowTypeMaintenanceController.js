@@ -1,7 +1,7 @@
 ﻿
 console.log("workflow type maintenance");
 
-angular.module("codeProject").register.controller('workflowTypeMaintenanceController',
+angular.module("app").register.controller('workflowTypeMaintenanceController',
     ['$routeParams', '$location', 'ajaxService', 'alertService', 
     function ($routeParams, $location, ajaxService, alertService) {
 
@@ -58,11 +58,12 @@ angular.module("codeProject").register.controller('workflowTypeMaintenanceContro
             workflowType.Description = vm.Description;
       
 
-            if (workflowType.Id == "0") {
+            if (workflowType.Id == "1") {
                 ajaxService.ajaxPost(workflowType, "api/workflowTypeService/CreateWorkflowType", this.createProductOnSuccess, this.createProductOnError);
             }
             else {
-                ajaxService.ajaxPost(workflowType, "api/productService/UpdateProduct", this.updateProductOnSuccess, this.updateProductOnError);
+                ajaxService.ajaxPost(workflowType, "api/workflowTypeService/GetWorkflowTypes", this.createProductOnSuccess, this.createProductOnError);
+                //ajaxService.ajaxPost(workflowType, "api/productService/UpdateProduct", this.updateProductOnSuccess, this.updateProductOnError);
             }
 
         }

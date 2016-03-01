@@ -15,10 +15,9 @@ namespace CodeProject.Portal.WebApiControllers
     [RoutePrefix("api/WorkflowTypeService")]
     public class WorkflowTypeServiceController : ApiController
     {
-        public WorkflowTypeServiceController() : base()
-        {
-        }
-
+        public WorkflowTypeServiceController()
+   {
+   }
         [Inject]
         public IWorkflowTypeDataService _workflowTypeDataService { get; set; }
 
