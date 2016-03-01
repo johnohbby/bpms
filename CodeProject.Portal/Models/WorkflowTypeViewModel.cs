@@ -11,8 +11,6 @@ namespace CodeProject.Portal.Models
         public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
-        public List<ActionType> ActionTypes { get; set; }
-        public List<Workflow> Workflows { get; set; }
+        public List<WorkflowType> WorkflowTypes { get; set; }
     }
 }

@@ -75,6 +75,9 @@ namespace CodeProject.Portal
                 "~/Views/Products/ProductInquiryController.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/workflowTypes").Include(
+                "~/Views/Workflow/WorkflowTypesMaintenanceController.js"
+            ));
         }
     }
 }
