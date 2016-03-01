@@ -16,6 +16,7 @@ using System.Net.Mail;
 
 using System.Data;
 using System.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace CodeProject.Business
 {
@@ -147,40 +148,24 @@ namespace CodeProject.Business
         {
             transaction = new TransactionalInformation();
 
-            //Create a connection to the SQL Server; modify the connection string for your environment
-			//SqlConnection MyConnection = new SqlConnection("server=(local);database=pubs;Trusted_Connection=yes");
-			SqlConnection MyConnection = new SqlConnection(@"server=MELIKA-PC\SQLEXPRESS;database=Dms;UID=bpms;PWD=36633663;");
 
-			// Create a Command object, and then set the connection.
-			// The following SQL statements check whether a GetAuthorsByLastName  
-			// stored procedure already exists.
-			SqlCommand MyCommand = new SqlCommand("select * from Products", MyConnection);
+            DataSet ds = new DataSet("TimeRanges");
+            using (SqlConnection conn = new SqlConnection(@"server=ERSIN-PC\SQLEXPRESS;database=Dms;UID=bpms;PWD=36633663;"))
+            {
+                SqlCommand sqlComm = new SqlCommand("Ttest", conn);
+                //sqlComm.Parameters.AddWithValue("@Start", StartTime);
+                //sqlComm.Parameters.AddWithValue("@Finish", FinishTime);
+                //sqlComm.Parameters.AddWithValue("@TimeRange", TimeRange);
 
-			// Set the command type that you will run.
-			MyCommand.CommandType = CommandType.Text;
+                sqlComm.CommandType = CommandType.StoredProcedure;
 
-			// Open the connection.
-			MyCommand.Connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = sqlComm;
 
-			// Run the SQL statement, and then get the returned rows to the DataReader.
-			SqlDataReader MyDataReader = MyCommand.ExecuteReader();
+                da.Fill(ds);
+                string a = DataTableToJSONWithJSONNet(ds.Tables[0]);
+            }
 
-			// If any rows are returned, the stored procedure that you are trying 
-			// to create already exists. Therefore, try to create the stored procedure
-			// only if it does not exist.
-			if(!MyDataReader.Read())
-			{
-				MyCommand.CommandText = "select * from Products";
-				MyDataReader.Close();
-				MyCommand.ExecuteNonQuery();
-			}
-			else
-			{
-				MyDataReader.Close();
-			}
-
-			MyCommand.Dispose();  //Dispose of the Command object.
-			MyConnection.Close(); //Close the connection.
             List<Product> products = new List<Product>();
 
             try
@@ -212,7 +197,12 @@ namespace CodeProject.Business
 
         }
 
-        
+        public string DataTableToJSONWithJSONNet(DataTable table)
+        {
+            string JSONString = string.Empty;
+            JSONString = JsonConvert.SerializeObject(table);
+            return JSONString;
+        }
 
         /// <summary>
         /// Get Product
