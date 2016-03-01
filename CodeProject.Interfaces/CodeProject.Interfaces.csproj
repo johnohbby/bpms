@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CodeProject.Interfaces</RootNamespace>
     <AssemblyName>CodeProject.Interfaces</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ICustomerDataService.cs" />
     <Compile Include="IDataRepository.cs" />
+    <Compile Include="IWorkflowTypeDataService.cs" />
     <Compile Include="IProductDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
