@@ -64,7 +64,16 @@ namespace CodeProject.Portal.App_Start
         {
             kernel.Bind<CodeProject.Interfaces.ICustomerDataService>().To<CodeProject.Data.EntityFramework.CustomerDataService>();
             kernel.Bind<CodeProject.Interfaces.IProductDataService>().To<CodeProject.Data.EntityFramework.ProductDataService>();
-
+            kernel.Bind<CodeProject.Interfaces.IWorkflowTypeDataService>().To<CodeProject.Data.EntityFramework.WorkflowTypeDataService>();
+            kernel.Bind<CodeProject.Interfaces.IActionTypeDataService>().To<CodeProject.Data.EntityFramework.ActionTypeDataService>();
+            kernel.Bind<CodeProject.Interfaces.IActionDataService>().To<CodeProject.Data.EntityFramework.ActionDataService>();
+            kernel.Bind<CodeProject.Interfaces.IGroupTypeDataService>().To<CodeProject.Data.EntityFramework.GroupTypeDataService>();
+            kernel.Bind<CodeProject.Interfaces.IGroupDataService>().To<CodeProject.Data.EntityFramework.GroupDataService>();
+            kernel.Bind<CodeProject.Interfaces.IRightTypeDataService>().To<CodeProject.Data.EntityFramework.RightTypeDataService>();
+            kernel.Bind<CodeProject.Interfaces.IContentTypeDataService>().To<CodeProject.Data.EntityFramework.ContentTypeDataService>();
+            kernel.Bind<CodeProject.Interfaces.IUserDataService>().To<CodeProject.Data.EntityFramework.UserDataService>();
+            kernel.Bind<CodeProject.Interfaces.IUserGroupDataService>().To<CodeProject.Data.EntityFramework.UserGroupDataService>();
+            kernel.Bind<CodeProject.Interfaces.IContentRightDataService>().To<CodeProject.Data.EntityFramework.ContentRightDataService>();
         }        
     }
 }
