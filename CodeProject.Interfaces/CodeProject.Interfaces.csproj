@@ -40,8 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IContentRightDataService.cs" />
+    <Compile Include="IUserGroupDataService.cs" />
+    <Compile Include="IUserDataService.cs" />
+    <Compile Include="IContentTypeDataService.cs" />
+    <Compile Include="IStatusDataService.cs" />
+    <Compile Include="IGroupDataService.cs" />
+    <Compile Include="IRightTypeDataService.cs" />
+    <Compile Include="IGroupTypeDataService.cs" />
+    <Compile Include="IActionDataService.cs" />
     <Compile Include="ICustomerDataService.cs" />
     <Compile Include="IDataRepository.cs" />
+    <Compile Include="IActionTypeDataService.cs" />
+    <Compile Include="IWorkflowDataService.cs" />
     <Compile Include="IWorkflowTypeDataService.cs" />
     <Compile Include="IProductDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
