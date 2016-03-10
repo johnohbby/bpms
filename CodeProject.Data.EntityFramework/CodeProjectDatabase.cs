@@ -16,7 +16,7 @@ namespace CodeProject.Data.EntityFramework
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<CodeProject.Business.Entities.Action> Actions { get; set; }
         public DbSet<ActionType> ActionTypes { get; set; }
         public DbSet<ContentRight> ContentRights { get; set; }
