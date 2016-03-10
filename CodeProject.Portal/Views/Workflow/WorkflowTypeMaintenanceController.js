@@ -54,16 +54,15 @@ angular.module("app").register.controller('workflowTypeMaintenanceController',
             var workflowType = new Object();
 
             workflowType.Id = vm.Id
-            workflowType.ProductName = vm.Name;
+            workflowType.Name = vm.Name;
             workflowType.Description = vm.Description;
       
 
-            if (workflowType.Id == "1") {
+            if (workflowType.Id == "0") {
                 ajaxService.ajaxPost(workflowType, "api/workflowTypeService/CreateWorkflowType", this.createProductOnSuccess, this.createProductOnError);
             }
             else {
-                ajaxService.ajaxPost(workflowType, "api/workflowTypeService/GetWorkflowTypes", this.createProductOnSuccess, this.createProductOnError);
-                //ajaxService.ajaxPost(workflowType, "api/productService/UpdateProduct", this.updateProductOnSuccess, this.updateProductOnError);
+                ajaxService.ajaxPost(workflowType, "api/productService/UpdateProduct", this.updateProductOnSuccess, this.updateProductOnError);
             }
 
         }
