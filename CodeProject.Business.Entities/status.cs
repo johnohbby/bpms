@@ -17,8 +17,5 @@ namespace CodeProject.Business.Entities
        
         public long Id { get; set; }
         public string Name { get; set; }
-    
-        public virtual ICollection<StatusTranslation> statusTranslations { get; set; }
-        public virtual ICollection<StatusTranslation> statusTranslations1 { get; set; }
     }
 }

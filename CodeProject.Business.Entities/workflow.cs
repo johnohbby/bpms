@@ -20,7 +20,7 @@ namespace CodeProject.Business.Entities
         public string Name { get; set; }
         public string CaseNumber { get; set; }
         public long WorkflowTypeId { get; set; }
-        public Nullable<long> LastActionId { get; set; }
+        public long LastActionId { get; set; }
         public System.DateTime Created { get; set; }
         public long CreatedBy { get; set; }
         public bool IsDeleted { get; set; }
