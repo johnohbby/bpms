@@ -47,8 +47,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentRightBusinessRules.cs" />
+    <Compile Include="ContentRightBusinessService.cs" />
+    <Compile Include="ContentTypeBusinessService.cs" />
+    <Compile Include="ContentTypeBusinessRules.cs" />
+    <Compile Include="UserGroupBusinessService.cs" />
+    <Compile Include="UserGroupBusinessRules.cs" />
+    <Compile Include="UserBusinessService.cs" />
+    <Compile Include="UserBusinessRules.cs" />
+    <Compile Include="StatusBusinessService.cs" />
+    <Compile Include="StatusBusinessRules.cs" />
+    <Compile Include="GroupBusinessRules.cs" />
+    <Compile Include="ActionBusinessRules.cs" />
+    <Compile Include="GroupBusinessService.cs" />
+    <Compile Include="RightTypeBusinessRules.cs" />
+    <Compile Include="GroupTypeBusinessService.cs" />
+    <Compile Include="GroupTypeBusinessRules.cs" />
+    <Compile Include="ActionTypeBusinessRules.cs" />
+    <Compile Include="ActionBusinessService.cs" />
     <Compile Include="CustomerBusinessRules.cs" />
+    <Compile Include="ActionTypeBusinessService.cs" />
     <Compile Include="CustomerBusinessService.cs" />
+    <Compile Include="RightTypeBusinessService.cs" />
+    <Compile Include="WorkflowBusinessRules.cs" />
+    <Compile Include="WorkflowBusinessService.cs" />
     <Compile Include="WorkflowTypeBusinessService.cs" />
     <Compile Include="WorkflowTypeBusinessRules.cs" />
     <Compile Include="ProductBusinessRules.cs" />

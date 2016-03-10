@@ -150,7 +150,7 @@ namespace CodeProject.Business
 
 
             DataSet ds = new DataSet("TimeRanges");
-            using (SqlConnection conn = new SqlConnection(@"server=ERSIN-PC\SQLEXPRESS;database=Dms;UID=bpms;PWD=36633663;"))
+            using (SqlConnection conn = new SqlConnection(@"server=MELIKA-PC\SQLEXPRESS;database=Dms;UID=bpms;PWD=36633663;"))
             {
                 SqlCommand sqlComm = new SqlCommand("Ttest", conn);
                 //sqlComm.Parameters.AddWithValue("@Start", StartTime);
