@@ -48,7 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServices\ContentRightDataService.cs" />
+    <Compile Include="DataServices\UserGroupDataService.cs" />
+    <Compile Include="DataServices\UserDataService.cs" />
+    <Compile Include="DataServices\ContentTypeDataService.cs" />
+    <Compile Include="DataServices\StatusDataService.cs" />
+    <Compile Include="DataServices\ActionDataService.cs" />
+    <Compile Include="DataServices\GroupDataService.cs" />
+    <Compile Include="DataServices\RightTypeDataService.cs" />
+    <Compile Include="DataServices\GroupTypeDataService.cs" />
+    <Compile Include="DataServices\ActionTypeDataService.cs" />
     <Compile Include="DataServices\CustomerDataService.cs" />
+    <Compile Include="DataServices\WorkflowDataService.cs" />
     <Compile Include="DataServices\WorkflowTypeDataService.cs" />
     <Compile Include="DataServices\ProductDataService.cs" />
     <Compile Include="DynamicLibrary.cs" />
