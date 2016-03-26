@@ -61,26 +61,56 @@
 
 </head>
 <body ng-app="app" ng-controller="masterController as vm" ng-init="vm.initializeController()">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #2D5C88; color:white !important;">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" style="color:white !important">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <span class="navbar-brand"><a href="Home/Index">AngularJS MVC Code Project</a></span>
+                <a class="navbar-brand"  href="#">BPMS</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="color:white !important">
+                <ul class="nav navbar-nav" style="color:white !important">
+                    <li><a href="#">Link <span class="sr-only">(current)</span></a></li>
                     <li><a href="Home/Index">Home</a></li>
-                    <li><a href="Workflow/WorkflowTypeMaintenance">Workflow Type Maintenance</a></li>    
-                    <li><a href="Registries/RightType">Right Type</a></li>               
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Workflow <span class="caret"></span></a>
+                        <ul class="dropdown-menu">                            
+                            <li><a href="Workflow/WorkflowTypeMaintenance">Workflow Types</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="Workflow/WorkflowTypeMaintenance">Action Types</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dictionary <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="Workflow/WorkflowTypeMaintenance">Statuses</a></li>                            
+                            <li><a href="Workflow/WorkflowTypeMaintenance"></a>...</li>
+
+                        </ul>
+                    </li>
                 </ul>
-            </div>
-        </div>
-    </div>
+               
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">User profile</a></li>
+                            <li><a href="#">Help</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 
     <div class="container body-content">
 
