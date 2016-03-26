@@ -1,8 +1,8 @@
-﻿angular.module('app').service('ajaxService', ['$http', 'blockUI', function ($http, blockUI) {
+﻿angular.module('app').service('ajaxService', ['$http', 'blockUI', 'alertService', function ($http, blockUI, alertService) {
 
     "use strict";
 
-    this.ajaxPost = function (data, route, successFunction, errorFunction) {
+    this.ajaxPost2 = function (data, route, successFunction, errorFunction) {
 
         blockUI.start();
 
@@ -13,6 +13,26 @@
             blockUI.stop();
             errorFunction(response);
         });
+
+    }
+
+    this.ajaxPost = function (data, route) {
+
+        blockUI.start();
+        return $http.post(route, data)
+            .then(successFunction)
+            .catch(errorFunction);
+
+        function successFunction(response) {
+            blockUI.stop();
+            return response.data;
+        }
+
+        function errorFunction(error) {
+            blockUI.stop();
+            return alert(error);
+        }
+
 
     }
 

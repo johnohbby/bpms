@@ -15,8 +15,29 @@ angular.module("app").register.controller('workflowTypeMaintenanceController',
 
             vm.messageBox = "";
             vm.alerts = [];
+            vm.myItems = [];
+            vm.currentPageNumber = 1;
+            vm.sortExpression = "Name";
+            vm.sortDirection = "ASC";
+            vm.pageSize = 15;
+
+            this.prepareSearch = function () {
+
+                var inquiry = new Object();
+
+                inquiry.currentPageNumber = vm.currentPageNumber;
+                inquiry.sortExpression = vm.sortExpression;
+                inquiry.sortDirection = vm.sortDirection;
+                inquiry.pageSize = vm.pageSize;
+
+                return inquiry;
+
+            }
+        
 
             var workflowTypeID = ($routeParams.id || "");
+            var inquiry = vm.prepareSearch();
+            ajaxService.ajaxPost(inquiry, "api/workflowTypeService/GetWorkflowTypes", this.getProductsOnSuccess, this.getProductsOnError);
 
             if (workflowTypeID == "") {
                 vm.Id = "0";
@@ -27,7 +48,7 @@ angular.module("app").register.controller('workflowTypeMaintenanceController',
                 vm.Id = workflowTypeID;
                 var workflowType = new Object();
                 workflowTypeID.Id = workflowTypeID
-                ajaxService.ajaxPost(product, "api/workflowTypeService/GetworkflowType", this.getProductOnSuccess, this.getProductOnError);
+                ajaxService.ajaxPost(product, "api/workflowTypeService/GetworkflowType", this.getProductsOnSuccess, this.getProductsOnError);
             }
 
         }
@@ -41,6 +62,8 @@ angular.module("app").register.controller('workflowTypeMaintenanceController',
             vm.productName = response.productName;
             vm.quantityPerUnit = response.quantityPerUnit;
             vm.unitPrice = response.unitPrice;
+
+            vm.myItems = response.WorkflowTypes;
           
         }
 
@@ -96,6 +119,14 @@ angular.module("app").register.controller('workflowTypeMaintenanceController',
             vm.messageBox = alertService.returnFormattedMessage();
             vm.alerts = alertService.returnAlerts();
             alertService.setValidationErrors(vm, response.validationErrors);
+        }
+
+        this.getProductsOnSuccess = function (response) {
+            vm.myItems = response.workflowTypes;
+        }
+
+        this.getProductsOnError = function (response) {
+            
         }
 
         this.clearValidationErrors = function () {

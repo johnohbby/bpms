@@ -28,7 +28,8 @@ namespace CodeProject.Portal
                       "~/Content/site.css",
                       "~/Content/SortableGrid.css",
                       "~/Content/angular-block-ui.min.css",
-                      "~/Content/font-awesome.min.css"));
+                      "~/Content/font-awesome.min.css",
+                      "~/Content/trNgGrid.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                "~/Scripts/angular.min.js",
@@ -41,6 +42,9 @@ namespace CodeProject.Portal
                "~/Scripts/angular-block-ui.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/trNgGrid").Include(
+               "~/Scripts/trNgGrid.js"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/shared").Include(
                "~/Views/Shared/App.js",
@@ -78,6 +82,10 @@ namespace CodeProject.Portal
             bundles.Add(new ScriptBundle("~/bundles/workflowTypes").Include(
                 "~/Views/Workflow/WorkflowTypesMaintenanceController.js"
             ));
+
+            bundles.Add(new ScriptBundle("~/bundles/registries").Include(
+               "~/Views/Registries/RightTypeController.js"
+           ));
         }
     }
 }

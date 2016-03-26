@@ -4,7 +4,8 @@ angular
         ['ngRoute', 
          'ui.bootstrap', 
          'ngSanitize', 
-         'blockUI'
+         'blockUI',
+         'trNgGrid'
         ])
     .config(['$controllerProvider', '$provide', function ($controllerProvider, $provide) {
         angular

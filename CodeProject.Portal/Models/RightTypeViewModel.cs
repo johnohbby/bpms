@@ -14,5 +14,6 @@ namespace CodeProject.Portal.Models
         public string Description { get; set; }
 
         public List<ContentRight> ContentRights { get; set; }
+        public List<RightType> RightTypes { get; set; }
     }
 }

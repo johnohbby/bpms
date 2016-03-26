@@ -1,0 +1,16 @@
+﻿
+
+
+<div ng-controller="rightTypeController as vm" ng-init="vm.initializeController()">
+
+    <h4 class="page-header">{{vm.title}}</h4>
+
+    <div style="padding-top:20px">
+        <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)"><div ng-bind-html="vm.messageBox"></div></alert>
+    </div>
+
+    <table tr-ng-grid="" items="vm.rightTypes"></table>
+
+
+</div>
+
