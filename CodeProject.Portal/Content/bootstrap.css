@@ -1424,7 +1424,7 @@ th {
 .table thead > tr > td,
 .table tbody > tr > td,
 .table tfoot > tr > td {
-  padding: 8px;
+  padding: 2px;
   line-height: 1.428571429;
   vertical-align: top;
   border-top: 1px solid #dddddd;
@@ -6813,4 +6813,17 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+}
+
+thead {
+    
+    background-color: #2D5C88;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.glyphicon-chevron-down{
+    color:white;
 }

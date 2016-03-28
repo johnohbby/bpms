@@ -51,7 +51,8 @@ namespace CodeProject.Portal
                 "~/Views/Shared/AjaxService.js",
                 "~/Views/Shared/AlertService.js",
                 "~/Views/Shared/DataGridService.js",
-                "~/Views/Shared/MasterController.js"
+                "~/Views/Shared/MasterController.js",
+                "~/Views/Shared/ModalDirective.js"
            ));
 
             bundles.Add(new ScriptBundle("~/bundles/routing-debug").Include(

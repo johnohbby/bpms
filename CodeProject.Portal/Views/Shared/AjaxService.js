@@ -30,7 +30,7 @@
 
         function errorFunction(error) {
             blockUI.stop();
-            return alert(error);
+            return error;
         }
 
 

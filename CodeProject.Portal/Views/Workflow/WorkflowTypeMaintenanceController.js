@@ -82,10 +82,10 @@ angular.module("app").register.controller('workflowTypeMaintenanceController',
       
 
             if (workflowType.Id == "0") {
-                ajaxService.ajaxPost(workflowType, "api/workflowTypeService/CreateWorkflowType", this.createProductOnSuccess, this.createProductOnError);
+                ajaxService.ajaxPost(workflowType, "api/workflowTypeService/CreateWorkflowType");
             }
             else {
-                ajaxService.ajaxPost(workflowType, "api/productService/UpdateProduct", this.updateProductOnSuccess, this.updateProductOnError);
+                ajaxService.ajaxPost(workflowType, "api/productService/UpdateProduct");
             }
 
         }
