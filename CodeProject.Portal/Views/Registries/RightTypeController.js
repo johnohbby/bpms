@@ -21,7 +21,9 @@
             };
             vm.showModalCreate = false;
             vm.showModalUpdate = false;
+            vm.showModalDelete = false;
             vm.mySelectedItems = [];
+            vm.righttype = {};
 
             //functions
             vm.getAllRightTypes = getAllRightTypes;
@@ -29,8 +31,11 @@
             vm.clearValidationErrors = clearValidationErrors;
             vm.toggleModalCreate = toggleModalCreate;
             vm.toggleModalUpdate = toggleModalUpdate;
+            vm.toggleModalDelete = toggleModalDelete;
             vm.createRightType = createRightType;
             vm.updateRightType = updateRightType;
+            vm.deleteRightType = deleteRightType;
+            vm.toggleModal = toggleModal;
          
 
             function init() {
@@ -45,6 +50,7 @@
             {
                 vm.showModalCreate = false;
                 vm.showModalUpdate = false;
+                vm.showModalDelete = false;
             }
 
             function toggleModalCreate() {
@@ -56,8 +62,18 @@
             function toggleModalUpdate() {
                 if (vm.mySelectedItems) {
                     $scope.title = "Edit Right Type";
-                    vm.rightType = vm.mySelectedItems[0];
+                    vm.righttype = vm.mySelectedItems[0];
                     vm.showModalUpdate = !vm.showModalUpdate;
+                }
+                else {
+                    alert("Please select Right Type!");
+                }
+            };
+
+            function toggleModalDelete() {
+                if (vm.mySelectedItems) {
+                    $scope.title = "Delete Right Type";
+                    vm.showModalDelete = !vm.showModalDelete;
                 }
                 else {
                     alert("Please select Right Type!");
@@ -92,12 +108,31 @@
 
             function updateRightType() {
                 var rightType = new Object();
-                rightType.Id = vm.rightType.id;
-                rightType.Code = vm.rightType.code;
-                rightType.Name = vm.rightType.name;
-                rightType.Description = vm.rightType.description;
+                rightType.Id = vm.righttype.id;
+                rightType.Code = vm.righttype.code;
+                rightType.Name = vm.righttype.name;
+                rightType.Description = vm.righttype.description;
                 return ajaxService.ajaxPost(rightType, "api/rightTypeService/UpdateRightType").then(function (data) {
                     vm.showModalUpdate = !vm.showModalUpdate;
+                    /* if (data) {
+                         vm.rightType.id = data.id;
+                         vm.rightTypes.push(vm.rightType);
+                         return vm.rightTypes;
+                     }*/
+                })
+                .catch(function (fallback) {
+                    console.log(fallback);
+                });
+            }
+
+            function deleteRightType() {
+                var rightType = new Object();
+                rightType.Id = vm.mySelectedItems[0].id;
+                rightType.Code = vm.mySelectedItems[0].code;
+                rightType.Name = vm.mySelectedItems[0].name;
+                rightType.Description = vm.mySelectedItems[0].description;
+                return ajaxService.ajaxPost(rightType, "api/rightTypeService/DeleteRightType").then(function (data) {
+                    vm.showModalDelete = !vm.showModalDelete;
                     /* if (data) {
                          vm.rightType.id = data.id;
                          vm.rightTypes.push(vm.rightType);

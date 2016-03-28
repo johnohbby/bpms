@@ -137,5 +137,39 @@ namespace CodeProject.Portal.WebApiControllers
             return response;
 
         }
+
+        [Route("DeleteRightType")]
+        [HttpPost]
+        public HttpResponseMessage DeleteRightType(HttpRequestMessage request, [FromBody] RightTypeViewModel rightTypeViewModel)
+        {
+            TransactionalInformation transaction;
+
+            RightType rightType = new RightType();
+            rightType.Id = rightTypeViewModel.Id;
+            rightType.Name = rightTypeViewModel.Name;
+            rightType.Code = rightTypeViewModel.Code;
+            rightType.Description = rightTypeViewModel.Description;
+
+
+            RightTypeBusinessService rightTypeBusinessService = new RightTypeBusinessService(_rightTypeDataService);
+            rightTypeBusinessService.DeleteRightType(rightType, out transaction);
+            if (transaction.ReturnStatus == false)
+            {
+                rightTypeViewModel.ReturnStatus = false;
+                rightTypeViewModel.ReturnMessage = transaction.ReturnMessage;
+                rightTypeViewModel.ValidationErrors = transaction.ValidationErrors;
+
+                var responseError = Request.CreateResponse<RightTypeViewModel>(HttpStatusCode.BadRequest, rightTypeViewModel);
+                return responseError;
+
+            }
+
+            rightTypeViewModel.ReturnStatus = true;
+            rightTypeViewModel.ReturnMessage = transaction.ReturnMessage;
+
+            var response = Request.CreateResponse<RightTypeViewModel>(HttpStatusCode.OK, rightTypeViewModel);
+            return response;
+
+        }
     }
 }
