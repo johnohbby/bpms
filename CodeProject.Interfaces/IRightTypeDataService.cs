@@ -16,6 +16,7 @@ namespace CodeProject.Interfaces
         void UpdateRightType(RightType rightType);
         RightType GetRightType(long rightTypeID);
         List<RightType> GetRightTypes(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
+        void DeleteRightType(RightType rightType);
 
     }
 }
