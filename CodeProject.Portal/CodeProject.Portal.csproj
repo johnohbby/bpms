@@ -1030,6 +1030,8 @@
     <Content Include="Views\Products\ProductInquiryController.js" />
     <Content Include="Views\Registries\RightType.html" />
     <Content Include="Views\Registries\RightTypeController.js" />
+    <Content Include="Views\Shared\modal.html" />
+    <Content Include="Views\Shared\ModalDirective.js" />
     <Content Include="Views\Workflow\WorkflowTypeMaintenance.html" />
     <Content Include="Views\Products\ProductMaintenance.html" />
     <Content Include="Views\Workflow\WorkflowTypeMaintenanceController.js" />
