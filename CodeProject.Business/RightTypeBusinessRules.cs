@@ -15,7 +15,7 @@ namespace CodeProject.Business
 
         public RightTypeBusinessRules()
         {
-            RuleFor(a => a.Id).NotEmpty().WithMessage("Id is required.");   
+           // RuleFor(a => a.Id).NotEmpty().WithMessage("Id is required.");   
         }
 
     }
