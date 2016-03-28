@@ -7,6 +7,8 @@ using CodeProject.Interfaces;
 using CodeProject.Business.Entities;
 using CodeProject.Business.Common;
 using System.Linq.Dynamic;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace CodeProject.Data.EntityFramework
 {
@@ -22,7 +24,21 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="customer"></param>
         public void UpdateRightType(RightType rightType)
         {
+            using (SqlConnection con = new SqlConnection("Data Source=SQL5023.Smarterasp.net;Initial Catalog=DB_9F542C_bpms;User Id=DB_9F542C_bpms_admin;Password=36633663"))
+            {
+                using (SqlCommand cmd = new SqlCommand("rightType_update", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = rightType.Id;
+                    cmd.Parameters.Add("@code", SqlDbType.VarChar).Value = rightType.Code;
+                    cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = rightType.Name;
+                    cmd.Parameters.Add("@description", SqlDbType.VarChar).Value = rightType.Description;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         /// <summary>
@@ -65,6 +81,16 @@ namespace CodeProject.Data.EntityFramework
             List<RightType> rightTypes = dbConnection.RightTypes.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
 
             return rightTypes;
+        }
+
+        /// <summary>
+        /// Delete Right Type
+        /// </summary>
+        /// <param name="customer"></param>
+        public void DeleteRightType(RightType rightType)
+        {
+            dbConnection.RightTypes.Attach(rightType);
+            dbConnection.RightTypes.Remove(rightType);
         }
 
         /// <summary>
