@@ -60,7 +60,7 @@ namespace CodeProject.Data.EntityFramework
           
             sortExpression = sortExpression + " " + sortDirection;
 
-            totalRows = dbConnection.Products.Count();
+            totalRows = dbConnection.Workflows.Count();
 
             List<Workflow> workflows = dbConnection.Workflows.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
 
