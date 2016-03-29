@@ -17,9 +17,6 @@ namespace CodeProject.Portal.Models
         public long CreatedBy { get; set; }
         public bool IsDeleted { get; set; }
 
-        public List<CodeProject.Business.Entities.Action> Actions { get; set; }
-        public List<CodeProject.Business.Entities.Action> Actions1 { get; set; }
-        public User User { get; set; }
-        public WorkflowType WorkflowType { get; set; }
+        public List<Workflow> Workflows { get; set; }
     }
 }

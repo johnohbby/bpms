@@ -84,6 +84,9 @@ namespace CodeProject.Portal
                 "~/Views/Workflow/WorkflowTypesMaintenanceController.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/workflow").Include(
+                "~/Views/Workflow/WorkflowController.js"
+            ));
             bundles.Add(new ScriptBundle("~/bundles/registries").Include(
                "~/Views/Registries/RightTypeController.js"
            ));

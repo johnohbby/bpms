@@ -8,7 +8,7 @@ namespace CodeProject.Portal.Controllers
 {
     public class WorkflowTypeController : Controller
     {
-        public ActionResult WorkflowTypeMaintenance()
+        public ActionResult Index()
         {
             return View();
         }

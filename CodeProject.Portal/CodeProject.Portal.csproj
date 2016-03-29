@@ -170,6 +170,7 @@
     <Compile Include="Models\CustomBundle.cs" />
     <Compile Include="WebApiControllers\CustomerServiceController.cs" />
     <Compile Include="WebApiControllers\RightTypeServiceController.cs" />
+    <Compile Include="WebApiControllers\WorkflowServiceController.cs" />
     <Compile Include="WebApiControllers\WorkflowTypeServiceController.cs" />
     <Compile Include="WebApiControllers\ProductServiceController.cs" />
   </ItemGroup>

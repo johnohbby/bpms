@@ -6,7 +6,7 @@ using System.Web;
 
 namespace CodeProject.Portal.Models
 {
-    public class WorkflowTypeViewModel : TransactionalInformation
+    public class WorkflowTypeViewModel :  TransactionalInformation
     {
         public long Id { get; set; }
         public string Name { get; set; }

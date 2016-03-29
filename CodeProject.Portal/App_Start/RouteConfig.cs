@@ -14,10 +14,12 @@ namespace CodeProject.Portal
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "HomeCatchAllRoute",
-                url: "Home/{*.}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                name: "WorkflowCatchAllRoute",
+                url: "Workflow/{*.}",
+                defaults: new { controller = "Workflow", action = "Index", id = UrlParameter.Optional }
             );
+
+
 
             routes.MapRoute(
                 name: "CustomersCatchAllRoute",
@@ -33,7 +35,7 @@ namespace CodeProject.Portal
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
+                url: "{*url}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }

@@ -132,7 +132,7 @@ angular.module('app').config(['$routeProvider', '$locationProvider', 'applicatio
 
         });
 
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
 
     }]);
 

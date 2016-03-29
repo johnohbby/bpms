@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -15,9 +13,7 @@ namespace CodeProject.Portal.WebApiControllers
     [RoutePrefix("api/WorkflowTypeService")]
     public class WorkflowTypeServiceController : ApiController
     {
-        public WorkflowTypeServiceController()
-   {
-   }
+
         [Inject]
         public IWorkflowTypeDataService _workflowTypeDataService { get; set; }
 
@@ -36,6 +32,7 @@ namespace CodeProject.Portal.WebApiControllers
             WorkflowType workflowType = new WorkflowType();
             workflowType.Name = workflowTypeViewModel.Name;
             workflowType.Description = workflowTypeViewModel.Description;
+
 
 
             WorkflowTypeBusinessService workflowTypeBusinessService = new WorkflowTypeBusinessService(_workflowTypeDataService);

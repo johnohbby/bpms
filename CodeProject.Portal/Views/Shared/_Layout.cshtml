@@ -13,6 +13,7 @@
     codeProjectBundles.Add("customers");
     codeProjectBundles.Add("products");
     codeProjectBundles.Add("workflowTypes");
+    codeProjectBundles.Add("workflow");
     codeProjectBundles.Add("registries");
 
     foreach (string controller in codeProjectBundles)
@@ -39,7 +40,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-
+    <base href="@Url.Content("~/")" />
     <title>AngularJS MVC Code Project</title>
 
     <script src="~/Scripts/require.js"></script>
@@ -77,28 +78,28 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="color:white !important">
                 <ul class="nav navbar-nav" style="color:white !important">
-                    <li><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li><a href="Home/Index">Home</a></li>
+                    <li><a href="#/Workflow/Workflow">Workflows</a></li>
+                    <li><a href="#/Home/Index">Home</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Workflow <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="Workflow/WorkflowTypeMaintenance">Workflow Types</a></li>
+                            <li><a href="#/Workflow/WorkflowTypeMaintenance">Workflow Types</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="Workflow/WorkflowTypeMaintenance">Action Types</a></li>
+                            <li><a href="#/Workflow/WorkflowTypeMaintenance">Action Types</a></li>
 
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registries <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="Registries/RightType">Right Types</a></li>
+                            <li><a href="#/Registries/RightType">Right Types</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dictionary <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="Workflow/WorkflowTypeMaintenance">Statuses</a></li>                            
-                            <li><a href="Workflow/WorkflowTypeMaintenance"></a>...</li>
+                            <li><a href="#/Workflow/WorkflowTypeMaintenance">Statuses</a></li>                            
+                            <li><a href="#/Workflow/WorkflowTypeMaintenance"></a>...</li>
 
                         </ul>
                     </li>

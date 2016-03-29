@@ -74,6 +74,7 @@ namespace CodeProject.Portal.App_Start
             kernel.Bind<CodeProject.Interfaces.IUserDataService>().To<CodeProject.Data.EntityFramework.UserDataService>();
             kernel.Bind<CodeProject.Interfaces.IUserGroupDataService>().To<CodeProject.Data.EntityFramework.UserGroupDataService>();
             kernel.Bind<CodeProject.Interfaces.IContentRightDataService>().To<CodeProject.Data.EntityFramework.ContentRightDataService>();
+            kernel.Bind<CodeProject.Interfaces.IWorkflowDataService>().To<CodeProject.Data.EntityFramework.WorkflowDataService>();
         }        
     }
 }
