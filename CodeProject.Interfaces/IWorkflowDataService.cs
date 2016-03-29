@@ -8,7 +8,7 @@ using CodeProject.Business.Entities;
 namespace CodeProject.Interfaces
 {
     /// <summary>
-    /// Product Data Service
+    /// Workflow Data Service
     /// </summary>
     public interface IWorkflowDataService : IDataRepository, IDisposable
     {
