@@ -130,7 +130,15 @@ namespace CodeProject.Portal.WebApiControllers
             return response;
 
         }
+        [Route("LoginTest")]
+        [HttpPost]
+        public HttpResponseMessage LoginTest(HttpRequestMessage request, [FromBody] WorkflowTypeViewModel workflowTypeViewModel)
+        {
 
+            
+            var response = Request.CreateResponse<WorkflowTypeViewModel>(HttpStatusCode.OK, workflowTypeViewModel);
+            return response;
+        }
         /// <summary>
         /// Get WorkflowType
         /// </summary>

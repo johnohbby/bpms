@@ -165,6 +165,7 @@
     <Compile Include="Models\UserGroupViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WorkflowTypeViewModel.cs" />
+    <Compile Include="Models\WorkflowDataViewModel.cs" />
     <Compile Include="Models\WorkflowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\CustomBundle.cs" />
@@ -1027,12 +1028,15 @@
     <Content Include="Views\Home\IndexController.js" />
     <Content Include="Views\Home\InitializeData.html" />
     <Content Include="Views\Home\InitializeDataController.js" />
+    <Content Include="Views\Home\Part3Controller.js" />
     <Content Include="Views\Products\ProductInquiry.html" />
     <Content Include="Views\Products\ProductInquiryController.js" />
     <Content Include="Views\Registries\RightType.html" />
     <Content Include="Views\Registries\RightTypeController.js" />
     <Content Include="Views\Shared\modal.html" />
     <Content Include="Views\Shared\ModalDirective.js" />
+    <Content Include="Views\Workflow\Workflow.html" />
+    <Content Include="Views\Workflow\WorkflowController.js" />
     <Content Include="Views\Workflow\WorkflowTypeMaintenance.html" />
     <Content Include="Views\Products\ProductMaintenance.html" />
     <Content Include="Views\Workflow\WorkflowTypeMaintenanceController.js" />
@@ -1090,6 +1094,17 @@
       <Project>{00aa57fd-b326-4022-9ba6-0732b0b3762f}</Project>
       <Name>CodeProject.Interfaces</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MsRdpSessionManager">
+      <Guid>{9C757116-4367-4DA9-AC0E-6C6577AD5560}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

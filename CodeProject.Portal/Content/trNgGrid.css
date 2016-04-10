@@ -49,6 +49,7 @@
 .tr-ng-grid .tr-ng-column-header .tr-ng-title {
     padding-top: 0.8em;
     position: relative;
+    margin-top:-4px;
 }
 
 .tr-ng-grid .tr-ng-column-header .tr-ng-column-filter {

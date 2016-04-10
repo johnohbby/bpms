@@ -46,13 +46,14 @@ namespace CodeProject.Portal
                "~/Scripts/trNgGrid.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/shared").Include(
+            bundles.Add(new ScriptBundle("~/bundles/shared").Include(               
                "~/Views/Shared/App.js",
                 "~/Views/Shared/AjaxService.js",
                 "~/Views/Shared/AlertService.js",
                 "~/Views/Shared/DataGridService.js",
                 "~/Views/Shared/MasterController.js",
                 "~/Views/Shared/ModalDirective.js"
+               
            ));
 
             bundles.Add(new ScriptBundle("~/bundles/routing-debug").Include(
@@ -64,7 +65,9 @@ namespace CodeProject.Portal
          ));
 
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
+                
                 "~/Views/Home/IndexController.js",
+                "~/Views/Home/Part3Controller.js",
                 "~/Views/Home/InitializeDataController.js"
          ));
 

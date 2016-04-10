@@ -41,9 +41,12 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <base href="@Url.Content("~/")" />
-    <title>AngularJS MVC Code Project</title>
+    <title>BPMS</title>
+
 
     <script src="~/Scripts/require.js"></script>
+    
+
 
     @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
     @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")
@@ -119,12 +122,15 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    <div class="container body-content">
+    <div class="container body-content" style="">
 
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - AngularJS MVC @version</p>          
+        <footer style="position : absolute;
+    bottom : 0;
+    height : 40px;
+    margin-top : 40px; width:80%; text-align:center">
+            <p>&copy; @DateTime.Now.Year - Melika Kiselica</p>          
         </footer>
     </div>
 

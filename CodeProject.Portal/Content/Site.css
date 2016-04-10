@@ -46,3 +46,41 @@ textarea {
     border-left-color:red;   
     border-right-color:red;   
 }
+body {
+    cursor: default;
+    font-size: 14px;
+    line-height: 21px;
+    font-family: "Segoe UI","Helvetica",Garuda,Arial,sans-serif;
+    padding: 18px 18px 18px 18px;
+}
+.category ul {
+    margin-bottom: 14px;
+    list-style: none;
+}
+.category li {  height: 30px;  margin: 0 0 7px 0; }
+.category li a { 
+    display: block;
+    height: 30px;
+    margin: 0 0 7px 0;
+    background: #F7F5F2 ;
+    font-size: 18px;
+    color: #333;
+    padding: 5px 0 0 20px;
+    text-decoration: none;
+}
+
+li a:hover { background-color: #EFEFEF; }
+
+.orange { border-left: 5px solid #F5876E; }
+
+.blue{ border-left: 5px solid #2D5C88; }
+
+.green{ border-left: 5px solid #8EBD40; }
+
+.purple { border-left: 5px solid #988CC3; }
+
+.gold { border-left: 5px solid #D8C86E; }
+
+.category ul {
+    margin-left:-40px;
+}
