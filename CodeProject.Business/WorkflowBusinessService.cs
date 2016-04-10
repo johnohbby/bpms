@@ -124,7 +124,39 @@ namespace CodeProject.Business
 
 
         }
+        public Workflow DeleteWorkflow(Workflow workflow, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
 
+            try
+            {
+                WorkflowBusinessRules workflowBusinessRules = new WorkflowBusinessRules();
+                
+
+                _workflowDataService.CreateSession();
+                _workflowDataService.BeginTransaction();
+                _workflowDataService.DeleteWorkflow(workflow);
+                _workflowDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("Workflow successfully created.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _workflowDataService.CloseSession();
+            }
+
+            return workflow;
+
+
+        }
         /// <summary>
         /// Get Workflows
         /// </summary>
@@ -134,7 +166,7 @@ namespace CodeProject.Business
         /// <param name="sortDirection"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public List<Workflow> GetWorkflows(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
+        public List<Workflow> GetWorkflows(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
         {
             transaction = new TransactionalInformation();
             List<Workflow> workflow = new List<Workflow>();
@@ -144,7 +176,7 @@ namespace CodeProject.Business
                 int totalRows;
 
                 _workflowDataService.CreateSession();
-                workflow = _workflowDataService.GetWorkflows(currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
+                workflow = _workflowDataService.GetWorkflows(folderId, currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
                 _workflowDataService.CloseSession();
 
                 transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);
@@ -168,7 +200,40 @@ namespace CodeProject.Business
 
         }
 
+        
+    public List<WorkflowFolder> GetWorkflowFolders(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+            List<WorkflowFolder> workflow = new List<WorkflowFolder>();
 
+            try
+            {
+                int totalRows;
+
+                _workflowDataService.CreateSession();
+                workflow = _workflowDataService.GetWorkflowFolders(currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
+                _workflowDataService.CloseSession();
+
+                transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);
+                transaction.TotalRows = totalRows;
+
+                transaction.ReturnStatus = true;
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _workflowDataService.CloseSession();
+            }
+
+            return workflow;
+
+        }
         /// <summary>
         /// Get Workflow
         /// </summary>
