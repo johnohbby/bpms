@@ -14,9 +14,11 @@ namespace CodeProject.Interfaces
     {
         void CreateWorkflow(Workflow workflow);
         void UpdateWorkflow(Workflow workflow);
+        void DeleteWorkflow(Workflow workflow);
         Workflow GetWorkflow(long workflowID);
-        List<Workflow> GetWorkflows(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
-          
+        List<Workflow> GetWorkflows(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
+        List<WorkflowFolder> GetWorkflowFolders(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
+        
     }
 }
 
