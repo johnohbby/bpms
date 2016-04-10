@@ -29,7 +29,9 @@ namespace CodeProject.Data.EntityFramework
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<Workflow> Workflows { get; set; }
         public DbSet<WorkflowType> WorkflowTypes { get; set; }
-      
+        public DbSet<WorkflowFolder> WorkflowFolders { get; set; }
+        
+
         /// <summary>
         /// Model Creation
         /// </summary>

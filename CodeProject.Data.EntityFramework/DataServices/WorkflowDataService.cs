@@ -7,6 +7,9 @@ using CodeProject.Interfaces;
 using CodeProject.Business.Entities;
 using CodeProject.Business.Common;
 using System.Linq.Dynamic;
+using System.Data.SqlClient;
+using System.Data;
+using System.Configuration;
 
 namespace CodeProject.Data.EntityFramework
 {
@@ -15,14 +18,26 @@ namespace CodeProject.Data.EntityFramework
     /// </summary>
     public class WorkflowDataService : EntityFrameworkService, IWorkflowDataService
     {
-
+        #region WORKFLOWS
         /// <summary>
         /// Update Workflow
         /// </summary>
         /// <param name="product"></param>
         public void UpdateWorkflow(Workflow workflow)
         {
-            
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                sqlcon.Open();
+                using (SqlCommand cmd = new SqlCommand("dbo.Workflow_Update", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = workflow.Id;
+                    cmd.Parameters.Add("@name", SqlDbType.NVarChar, 255).Value = workflow.Name;
+                    
+                    cmd.ExecuteNonQuery();
+                    sqlcon.Close();
+                }
+            }
         }
 
         /// <summary>
@@ -31,9 +46,36 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="product"></param>
         public void CreateWorkflow(Workflow workflow)
         {
-            dbConnection.Workflows.Add(workflow);
+            //dbConnection.Workflows.Add(workflow);
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                sqlcon.Open();
+                using (SqlCommand cmd = new SqlCommand("dbo.Workflow_Create", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@name", SqlDbType.NVarChar, 255).Value = workflow.Name;
+                    cmd.Parameters.Add("@workflowTypeId", SqlDbType.BigInt).Value = workflow.WorkflowTypeId;
+                    cmd.Parameters.Add("@createdBy", SqlDbType.BigInt).Value = workflow.CreatedBy;
+                    cmd.ExecuteNonQuery();
+                    sqlcon.Close();
+                }
+            }
         }
-
+        public void DeleteWorkflow(Workflow workflow)
+        {
+            //dbConnection.Workflows.Add(workflow);
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                sqlcon.Open();
+                using (SqlCommand cmd = new SqlCommand("dbo.Workflow_Delete", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = workflow.Id;
+                    cmd.ExecuteNonQuery();
+                    sqlcon.Close();
+                }
+            }
+        }
         /// <summary>
         /// Get Workflow
         /// </summary>
@@ -54,19 +96,60 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="sortDirection"></param>
         /// <param name="totalRows"></param>
         /// <returns></returns>
-        public List<Workflow> GetWorkflows(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
+        public List<Workflow> GetWorkflows(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
         {
+            DataTable dt = new DataTable();
+            WorkflowFolder wf = GetWorkfloFolder(folderId);
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(wf.Procedure, sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        
+
+                        da.Fill(dt);
+                    }
+                }
+            }
+            List<Workflow> workflows = dt.ToList<Workflow>().ToList<Workflow>();
             totalRows = 0;
           
             sortExpression = sortExpression + " " + sortDirection;
 
             totalRows = dbConnection.Workflows.Count();
 
-            List<Workflow> workflows = dbConnection.Workflows.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
+            // = dbConnection.Workflows.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
 
             return workflows;
 
         }
+        #endregion
+
+        #region WORKFLOW FOLDERS
+        public List<WorkflowFolder> GetWorkflowFolders(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
+        {
+            totalRows = 0;
+
+            sortExpression = sortExpression + " " + sortDirection;
+
+            totalRows = dbConnection.Workflows.Count();
+
+            List<WorkflowFolder> workflows = dbConnection.WorkflowFolders.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            return workflows;
+
+        }
+
+        public WorkflowFolder GetWorkfloFolder(long workflowFolderID)
+        {
+            WorkflowFolder workflowFolder = dbConnection.WorkflowFolders.Where(c => c.Id == workflowFolderID).FirstOrDefault();
+            return workflowFolder;
+        }
+
+        #endregion
 
 
     }
