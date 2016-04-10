@@ -13,17 +13,11 @@ namespace CodeProject.Business.Entities
     using System.Collections.Generic;
 
 
-    public class Workflow
+    public class WorkflowFolder
     {
         
         public long Id { get; set; }
         public string Name { get; set; }
-        public string CaseNumber { get; set; }
-        public long WorkflowTypeId { get; set; }
-        public long LastActionId { get; set; }
-        public System.DateTime Created { get; set; }
-        public long CreatedBy { get; set; }
-        public bool IsDeleted { get; set; }
-
+        public string Procedure { get; set; }
     }
 }
