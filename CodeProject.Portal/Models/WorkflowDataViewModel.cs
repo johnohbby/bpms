@@ -13,5 +13,7 @@ namespace CodeProject.Portal.Models
 
         public List<WorkflowFolder> WorkflowFolders { get; set; }
         public List<WorkflowType> WorkflowTypes { get; set; }
+
+        public List<Business.Entities.Action> Actions { get; set; }
     }
 }
