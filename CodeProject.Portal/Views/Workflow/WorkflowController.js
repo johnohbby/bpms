@@ -3,7 +3,8 @@
     function ($routeParams, $location, ajaxService, alertService) {
         "use strict";
         var vm = this;
-
+        var id = $location.search().id;
+        //alert(a);
         this.initializeController = function () {
 
         //VARIABLES
@@ -20,46 +21,71 @@
             vm.mySelectedItems = [];
             
             //Workflows 
+            vm.showWorkflows = true;
             vm.workflow = { name: "", workflowTypeId: -1, createdBy: 3 }; //get user from session
             vm.selectedWorkflow = {name:""};
             
             //New Workflow
             vm.showModalCreate = false;
             vm.showModalUpdate = false;
-            vm.toggleModalCreate = toggleModalCreate;
-            vm.toggleModalUpdate = toggleModalUpdate;
+            vm.ToggleModalCreate = ToggleModalCreate;
+            vm.ToggleModalUpdate = ToggleModalUpdate;
             
             
 
 
         //FUNCTIONS
-            vm.getWorkflows = getWorkflows;
-            vm.getWorkflowsByFolderId = getWorkflowsByFolderId;
-            vm.closeAlert = closeAlert;
-            vm.clearValidationErrors = clearValidationErrors;      
-            vm.createWorkflow = createWorkflow;
-            vm.deleteWorkflow = deleteWorkflow;
-            vm.updateWorkflow = updateWorkflow;
+            vm.GetWorkflows = GetWorkflows;
+            vm.GetWorkflowsByFolderId = GetWorkflowsByFolderId;
+            vm.CloseAlert = CloseAlert;
+            vm.ClearValidationErrors = ClearValidationErrors;      
+            vm.CreateWorkflow = CreateWorkflow;
+            vm.DeleteWorkflow = DeleteWorkflow;
+            vm.UpdateWorkflow = UpdateWorkflow;
+            vm.ViewWorkflow = ViewWorkflow;
 
-
-            function init() {            
-                GetWorkflowData(); // returns workflowFolders, workflowTypes
+            function init() {
+                if (id == undefined) {
+                    $("#tableWorkflows").show();
+                    GetWorkflowsData(); // returns workflowFolders, workflowTypes
+                }
+                else {
+                    vm.showWorkflows = false;
+                    GetWorkflowDataById(id);
+                }
             }
 
             init();
-            
-            function getWorkflowsByFolderId(folderId) {
-                vm.folderId = folderId;
-                getWorkflows(folderId);
+            function ViewWorkflow(path) {
+                $location.url(path);
             }
-            function GetWorkflowData() {
+            function GetWorkflowsByFolderId(folderId) {
+                vm.folderId = folderId;
+                GetWorkflows(folderId);
+            }
+            function GetWorkflowDataById(id) {
+                vm.Id = id;
+                console.log(id);
+                return ajaxService.ajaxPost(vm.pagination, "api/workflowService/GetWorkflowDataById").then(function (data) {
+                    vm.workflowFolders = data.workflowFolders;
+                    vm.workflowTypes = data.workflowTypes;
+                    
+                    //get workflows for first folder in list
+                    if(vm.workflowFolders.length > 0)
+                    GetWorkflows(vm.workflowFolders[0]['id']);
+                });
+            }
+            function GetWorkflowsData() {
                 return ajaxService.ajaxPost(vm.pagination, "api/workflowService/GetWorkflowData").then(function (data) {
                     vm.workflowFolders = data.workflowFolders;
                     vm.workflowTypes = data.workflowTypes;
+
+                    //get workflows for first folder in list
+                    if (vm.workflowFolders.length > 0)
+                        GetWorkflows(vm.workflowFolders[0]['id']);
                 });
             }
-
-            function getWorkflows(folderId)
+            function GetWorkflows(folderId)
             {
                 vm.pagination.FolderId = folderId;
                 return ajaxService.ajaxPost(vm.pagination, "api/workflowService/GetWorkflows").then(function (data) {
@@ -67,35 +93,35 @@
                     return vm.workflows;
                 });
             }
-            function createWorkflow()
+            function CreateWorkflow()
             {                
                 return ajaxService.ajaxPost(vm.workflow, "api/workflowService/CreateWorkflow").then(function (data) {
                     vm.showModalCreate = false;                    
-                    getWorkflows(vm.folderId);
+                    GetWorkflows(vm.folderId);
                 });
             }
-            function updateWorkflow() {
+            function UpdateWorkflow() {
 
                 return ajaxService.ajaxPost(vm.selectedWorkflow, "api/workflowService/UpdateWorkflow").then(function (data) {
                     vm.showModalUpdate = false;
-                    getWorkflows(vm.folderId);
+                    GetWorkflows(vm.folderId);
                 });
             }
             
-            function deleteWorkflow(item) {
+            function DeleteWorkflow(item) {
                 vm.workflow.Id = item[0].id;
                 
                 return ajaxService.ajaxPost(vm.workflow, "api/workflowService/DeleteWorkflow").then(function (data) {
                     vm.showModalCreate = false;
-                    getWorkflows(vm.folderId);
+                    GetWorkflows(vm.folderId);
                 });
             }
             
-            function toggleModalCreate() {
+            function ToggleModalCreate() {
                 vm.showModalCreate = !vm.showModalCreate;
             };
 
-            function toggleModalUpdate(item) {
+            function ToggleModalUpdate(item) {
                 console.log(item);
                 vm.selectedWorkflow.name = item.name;
                 vm.selectedWorkflow.id = item.id;
@@ -105,11 +131,11 @@
                 vm.showModalUpdate = !vm.showModalUpdate;
             };
 
-            function closeAlert(index) {
+            function CloseAlert(index) {
                 vm.alerts.splice(index, 1);
             };
 
-            function clearValidationErrors() {
+            function ClearValidationErrors() {
                 vm.workflowNameInputError = false;
             }
         }
