@@ -24,6 +24,8 @@ namespace CodeProject.Portal.WebApiControllers
         [Inject]
         public IWorkflowTypeDataService _workflowTypeDataService { get; set; }
 
+        [Inject]
+        public IActionDataService _actionDataService { get; set; }
 
         [Route("CreateWorkflow")]
         [HttpPost]
@@ -197,6 +199,45 @@ namespace CodeProject.Portal.WebApiControllers
             workflowDataViewModel.TotalPages = transaction.TotalPages;
             workflowDataViewModel.TotalRows = transaction.TotalRows;
             workflowDataViewModel.WorkflowFolders = workflowFolders;
+            workflowDataViewModel.WorkflowTypes = workflowTypes;
+            workflowDataViewModel.ReturnStatus = true;
+            workflowDataViewModel.ReturnMessage = transaction.ReturnMessage;
+
+            var response = Request.CreateResponse<WorkflowDataViewModel>(HttpStatusCode.OK, workflowDataViewModel);
+            return response;
+
+        }
+
+        [Route("GetWorkflowDataById")]
+        [HttpPost]
+        public HttpResponseMessage GetWorkflowDataById(HttpRequestMessage request, [FromBody] WorkflowDataViewModel workflowDataViewModel)
+        {
+
+            TransactionalInformation transaction;
+
+            int currentPageNumber = workflowDataViewModel.CurrentPageNumber;
+            int pageSize = workflowDataViewModel.PageSize;
+            string sortExpression = workflowDataViewModel.SortExpression;
+            string sortDirection = workflowDataViewModel.SortDirection;
+            long id = workflowDataViewModel.Id;
+            ActionBusinessService workflowBusinessService = new ActionBusinessService(_actionDataService);
+            WorkflowTypeBusinessService workflowTypeBusinessService = new WorkflowTypeBusinessService(_workflowTypeDataService);
+       //     List<WorkflowFolder> workflowFolders = workflowBusinessService.GetWorkflowFolders(currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
+            List<WorkflowType> workflowTypes = workflowTypeBusinessService.GetWorkflowTypes(currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
+            if (transaction.ReturnStatus == false)
+            {
+                workflowDataViewModel.ReturnStatus = false;
+                workflowDataViewModel.ReturnMessage = transaction.ReturnMessage;
+                workflowDataViewModel.ValidationErrors = transaction.ValidationErrors;
+
+                var responseError = Request.CreateResponse<WorkflowDataViewModel>(HttpStatusCode.BadRequest, workflowDataViewModel);
+                return responseError;
+
+            }
+
+            workflowDataViewModel.TotalPages = transaction.TotalPages;
+            workflowDataViewModel.TotalRows = transaction.TotalRows;
+
             workflowDataViewModel.WorkflowTypes = workflowTypes;
             workflowDataViewModel.ReturnStatus = true;
             workflowDataViewModel.ReturnMessage = transaction.ReturnMessage;
