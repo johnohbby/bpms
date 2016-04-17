@@ -108,7 +108,6 @@ namespace CodeProject.Business
 
                 existingActionType.Id = actionType.Id;
                 existingActionType.Name = actionType.Name;
-                existingActionType.StatusTranslationId = actionType.StatusTranslationId;
                 existingActionType.WorkflowTypeId = actionType.WorkflowTypeId;
 
                 _actionTypeDataService.UpdateActionType(actionType);
