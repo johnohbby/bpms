@@ -10,6 +10,7 @@ namespace CodeProject.Business.Entities
         public long Id { get; set; }
         public long StatusIdFrom { get; set; }
         public long StatusIdTo { get; set; }
+        public long actionTypeId { get; set; }
  
     }
 }
