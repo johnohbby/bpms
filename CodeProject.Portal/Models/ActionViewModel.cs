@@ -19,5 +19,8 @@ namespace CodeProject.Portal.Models
         public User User { get; set; }
         public Workflow Workflow { get; set; }
         public Workflow Workflow1 { get; set; }
+
+        public List<User> Delegated { get; set; }
+        public long DelegatedId { get; set; }
     }
 }

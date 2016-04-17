@@ -1,6 +1,6 @@
 ﻿
 
-angular.module('app').register.controller('indexController', ['$routeParams', '$location', 'ajaxService', function ($routeParams, $location, ajaxService) {
+angular.module('app').register.controller('indexController', ['$routeParams', '$location', 'ajaxService','$cookieStore','loginService', function ($routeParams, $location, ajaxService,$cookieStore, loginService) {
 
     "use strict";
     var vm = this;
@@ -22,9 +22,8 @@ angular.module('app').register.controller('indexController', ['$routeParams', '$
        ajaxService.ajaxPost(vm.LoginData, "api/workflowTypeService/LoginTest").then(function (data) {
            vm.IsLogedIn = true;
 
-           alert(1);
-           $cookieStore.put('logged-in', "eca");
-           alert($cookieStore.get('logged-in'));
+           loginService.setLoggedUser('blabla');
+           alert(loginService.getLoggedUser());
            
        });
     };

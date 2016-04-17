@@ -60,7 +60,40 @@ namespace CodeProject.Portal.WebApiControllers
             return response;
 
         }
+        [Route("CreateAction")]
+        [HttpPost]
+        public HttpResponseMessage CreateAction(HttpRequestMessage request, [FromBody] ActionViewModel action)
+        {
+            TransactionalInformation transaction;
 
+            Business.Entities.Action a = new Business.Entities.Action();
+            a.WorkflowId = action.WorkflowId;
+            a.ActionTypeId = action.ActionTypeId;
+            a.CreatedBy = action.CreatedBy;
+            
+
+            WorkflowBusinessService wfBusinessService = new WorkflowBusinessService(_workflowDataService);
+            wfBusinessService.CreateAction(action.Delegated , a, out transaction);
+            ActionViewModel wd = new ActionViewModel();
+            if (transaction.ReturnStatus == false)
+            {
+                wd.ReturnStatus = false;
+                wd.ReturnMessage = transaction.ReturnMessage;
+                wd.ValidationErrors = transaction.ValidationErrors;
+
+                var responseError = Request.CreateResponse<ActionViewModel>(HttpStatusCode.BadRequest, wd);
+                return responseError;
+
+            }
+
+            wd.Id = a.Id;
+            wd.ReturnStatus = true;
+            wd.ReturnMessage = transaction.ReturnMessage;
+
+            var response = Request.CreateResponse<ActionViewModel>(HttpStatusCode.OK, action);
+            return response;
+
+        }
         [Route("DeleteWorkflow")]
         [HttpPost]
         public HttpResponseMessage DeleteWorkflow(HttpRequestMessage request, [FromBody] WorkflowViewModel wfViewModel)
@@ -220,10 +253,10 @@ namespace CodeProject.Portal.WebApiControllers
             string sortExpression = workflowDataViewModel.SortExpression;
             string sortDirection = workflowDataViewModel.SortDirection;
             long id = workflowDataViewModel.Id;
-            ActionBusinessService workflowBusinessService = new ActionBusinessService(_actionDataService);
-            WorkflowTypeBusinessService workflowTypeBusinessService = new WorkflowTypeBusinessService(_workflowTypeDataService);
-       //     List<WorkflowFolder> workflowFolders = workflowBusinessService.GetWorkflowFolders(currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
-            List<WorkflowType> workflowTypes = workflowTypeBusinessService.GetWorkflowTypes(currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
+            long userId = workflowDataViewModel.UserId;
+            ActionBusinessService actionBusinessService = new ActionBusinessService(_actionDataService);
+            List<Business.Entities.Action> actions = actionBusinessService.GetActionsForUser(userId, id, currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
+            List<Business.Entities.ActionType> actionTypes = actionBusinessService.GetNextActionTypesForUser(userId, id, currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
             if (transaction.ReturnStatus == false)
             {
                 workflowDataViewModel.ReturnStatus = false;
@@ -238,11 +271,49 @@ namespace CodeProject.Portal.WebApiControllers
             workflowDataViewModel.TotalPages = transaction.TotalPages;
             workflowDataViewModel.TotalRows = transaction.TotalRows;
 
-            workflowDataViewModel.WorkflowTypes = workflowTypes;
+            workflowDataViewModel.Actions = actions;
+            workflowDataViewModel.NextActionTypes = actionTypes;
             workflowDataViewModel.ReturnStatus = true;
             workflowDataViewModel.ReturnMessage = transaction.ReturnMessage;
 
             var response = Request.CreateResponse<WorkflowDataViewModel>(HttpStatusCode.OK, workflowDataViewModel);
+            return response;
+
+        }
+
+        [Route("GetDelegated")]
+        [HttpPost]
+        public HttpResponseMessage GetDelegated(HttpRequestMessage request, [FromBody] ActionViewModel actionViewModel)
+        {
+
+            TransactionalInformation transaction;
+            
+            long workflowId = actionViewModel.WorkflowId;
+            long userId = actionViewModel.CreatedBy;
+            long actionTypeId = actionViewModel.ActionTypeId;
+
+            ActionBusinessService actionBusinessService = new ActionBusinessService(_actionDataService);
+            List<Business.Entities.User> delegated = actionBusinessService.GetDelegated(userId, workflowId, actionTypeId, out transaction);
+            if (transaction.ReturnStatus == false)
+            {
+                actionViewModel.ReturnStatus = false;
+                actionViewModel.ReturnMessage = transaction.ReturnMessage;
+                actionViewModel.ValidationErrors = transaction.ValidationErrors;
+
+                var responseError = Request.CreateResponse<ActionViewModel>(HttpStatusCode.BadRequest, actionViewModel);
+                return responseError;
+
+            }
+
+            actionViewModel.TotalPages = transaction.TotalPages;
+            actionViewModel.TotalRows = transaction.TotalRows;
+
+            actionViewModel.Delegated = delegated;
+            
+            actionViewModel.ReturnStatus = true;
+            actionViewModel.ReturnMessage = transaction.ReturnMessage;
+
+            var response = Request.CreateResponse<ActionViewModel>(HttpStatusCode.OK, actionViewModel);
             return response;
 
         }

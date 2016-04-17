@@ -24,7 +24,7 @@ namespace CodeProject.Business.Entities
         public string Email { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime Created { get; set; }
-        public string Created_by { get; set; }
+        public string CreatedBy { get; set; }
     
     }
 }

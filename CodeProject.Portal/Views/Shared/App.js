@@ -5,7 +5,8 @@ angular
          'ui.bootstrap', 
          'ngSanitize', 
          'blockUI',
-         'trNgGrid'
+         'trNgGrid',
+         'ngCookies'
         ])
     .config(['$controllerProvider', '$provide', function ($controllerProvider, $provide) {
         angular

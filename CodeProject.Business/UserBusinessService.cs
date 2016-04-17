@@ -185,7 +185,7 @@ namespace CodeProject.Business
         /// <param name="customerID"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public User GetUser(int id, out TransactionalInformation transaction)
+        public User GetUser(long id, out TransactionalInformation transaction)
         {
             transaction = new TransactionalInformation();
 

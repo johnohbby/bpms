@@ -126,6 +126,31 @@ namespace CodeProject.Data.EntityFramework
             return workflows;
 
         }
+
+        public void CreateAction(List<User> delegatedTo, Business.Entities.Action action)
+        {
+            //dbConnection.Workflows.Add(workflow);
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                sqlcon.Open();
+
+                for (int i = 0; i < delegatedTo.Count; i++ )
+                {
+                    using (SqlCommand cmd = new SqlCommand("dbo.Action_Create", sqlcon))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@workflowId", SqlDbType.NVarChar, 255).Value = action.WorkflowId;
+                        cmd.Parameters.Add("@actionTypeId", SqlDbType.BigInt).Value = action.ActionTypeId;
+                        cmd.Parameters.Add("@createdBy", SqlDbType.BigInt).Value = action.CreatedBy;
+                        cmd.Parameters.Add("@delegatedId", SqlDbType.BigInt).Value = delegatedTo[i].Id;
+                        cmd.ExecuteNonQuery();
+
+                    }
+                }
+               
+                sqlcon.Close();
+            }
+        }
         #endregion
 
         #region WORKFLOW FOLDERS

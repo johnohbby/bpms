@@ -22,7 +22,9 @@
             
             //Workflows 
             vm.showWorkflows = true;
+            vm.showWorkflow = false;
             vm.workflow = { name: "", workflowTypeId: -1, createdBy: 3 }; //get user from session
+            vm.action = { WorkflowId: id, ActionTypeId: -1, createdBy: 3, DelegatedId: -1 }; //get user from session
             vm.selectedWorkflow = {name:""};
             
             //New Workflow
@@ -30,6 +32,13 @@
             vm.showModalUpdate = false;
             vm.ToggleModalCreate = ToggleModalCreate;
             vm.ToggleModalUpdate = ToggleModalUpdate;
+            vm.nextDelegated = null;
+
+            vm.selected = {};
+
+            //New Action
+            vm.showModalActionCreate = false;
+            vm.ToggleModalActionCreate = ToggleModalActionCreate;
             
             
 
@@ -43,6 +52,8 @@
             vm.DeleteWorkflow = DeleteWorkflow;
             vm.UpdateWorkflow = UpdateWorkflow;
             vm.ViewWorkflow = ViewWorkflow;
+            vm.CreateAction = CreateAction;
+            vm.ToggleSelection = ToggleSelection;
 
             function init() {
                 if (id == undefined) {
@@ -51,11 +62,13 @@
                 }
                 else {
                     vm.showWorkflows = false;
+                    $("#divWorkflow").show();
                     GetWorkflowDataById(id);
                 }
             }
 
             init();
+
             function ViewWorkflow(path) {
                 $location.url(path);
             }
@@ -64,15 +77,13 @@
                 GetWorkflows(folderId);
             }
             function GetWorkflowDataById(id) {
-                vm.Id = id;
-                console.log(id);
+                vm.pagination.Id = id;
+                vm.pagination.UserId = 3;
                 return ajaxService.ajaxPost(vm.pagination, "api/workflowService/GetWorkflowDataById").then(function (data) {
-                    vm.workflowFolders = data.workflowFolders;
-                    vm.workflowTypes = data.workflowTypes;
-                    
-                    //get workflows for first folder in list
-                    if(vm.workflowFolders.length > 0)
-                    GetWorkflows(vm.workflowFolders[0]['id']);
+                   
+                    vm.actions = data.actions;
+                    vm.nextActionTypes = data.nextActionTypes;
+                    $("#tableActions").show();
                 });
             }
             function GetWorkflowsData() {
@@ -100,6 +111,27 @@
                     GetWorkflows(vm.folderId);
                 });
             }
+            function ToggleSelection(item) {
+
+                console.log(item);
+
+            }
+            function CreateAction() {
+                var selectedUsers = []; 
+                for (var i = 0; i < vm.nextDelegated.length; i++)
+                {
+                    var id = vm.nextDelegated[i].id;
+                    if (vm.selected[id] == true)
+                    {
+                        selectedUsers.push(vm.nextDelegated[i]);
+                    }
+                }
+                vm.action.Delegated = selectedUsers;
+                return ajaxService.ajaxPost(vm.action, "api/workflowService/CreateAction").then(function (data) {
+                    vm.showModalActionCreate = false;
+                    GetWorkflowDataById(vm.action.WorkflowId);
+                });
+            }
             function UpdateWorkflow() {
 
                 return ajaxService.ajaxPost(vm.selectedWorkflow, "api/workflowService/UpdateWorkflow").then(function (data) {
@@ -120,6 +152,16 @@
             function ToggleModalCreate() {
                 vm.showModalCreate = !vm.showModalCreate;
             };
+            function ToggleModalActionCreate() {
+                GetDelegated();
+            }
+
+            function GetDelegated() {             
+                return ajaxService.ajaxPost(vm.action, "api/workflowService/GetDelegated").then(function (data) {
+                    vm.nextDelegated = data.delegated;
+                    vm.showModalActionCreate = !vm.showModalActionCreate;
+                });                
+            }
 
             function ToggleModalUpdate(item) {
                 console.log(item);

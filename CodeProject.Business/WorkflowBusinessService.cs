@@ -272,7 +272,38 @@ namespace CodeProject.Business
 
 
 
+        public Entities.Action CreateAction(List<User> delegatedTo, Entities.Action action, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
 
+            try
+            {
+                
+
+                _workflowDataService.CreateSession();
+                _workflowDataService.BeginTransaction();
+                _workflowDataService.CreateAction(delegatedTo, action);
+                _workflowDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("Workflow successfully created.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _workflowDataService.CloseSession();
+            }
+
+            return action;
+
+
+        }
 
 
     }

@@ -175,7 +175,109 @@ namespace CodeProject.Business
             return actions;
 
         }
+        public List<CodeProject.Business.Entities.Action> GetActionsForUser(long userId, long workflowId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
 
+            List<CodeProject.Business.Entities.Action> actions = new List<CodeProject.Business.Entities.Action>();
+
+            try
+            {
+                int totalRows;
+
+                _actionDataService.CreateSession();
+                actions = _actionDataService.GetActionsForUser(userId, workflowId, currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
+                _actionDataService.CloseSession();
+
+                transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);
+                transaction.TotalRows = totalRows;
+
+                transaction.ReturnStatus = true;
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _actionDataService.CloseSession();
+            }
+
+            return actions;
+
+        }
+        public List<CodeProject.Business.Entities.ActionType> GetNextActionTypesForUser(long userId, long workflowId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            List<CodeProject.Business.Entities.ActionType> actions = new List<CodeProject.Business.Entities.ActionType>();
+
+            try
+            {
+                int totalRows;
+
+                _actionDataService.CreateSession();
+                actions = _actionDataService.GetNextActionTypesForUser(userId, workflowId, currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
+                _actionDataService.CloseSession();
+
+                transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);
+                transaction.TotalRows = totalRows;
+
+                transaction.ReturnStatus = true;
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _actionDataService.CloseSession();
+            }
+
+            return actions;
+
+        }
+
+        public List<CodeProject.Business.Entities.User> GetDelegated(long userId, long workflowId, long actionTypeId, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            List<CodeProject.Business.Entities.User> actions = new List<CodeProject.Business.Entities.User>();
+
+            try
+            {
+                int totalRows;
+
+                _actionDataService.CreateSession();
+                actions = _actionDataService.GetDelegated(userId, workflowId, actionTypeId, out totalRows);
+                _actionDataService.CloseSession();
+
+                
+                transaction.TotalRows = totalRows;
+
+                transaction.ReturnStatus = true;
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _actionDataService.CloseSession();
+            }
+
+            return actions;
+
+        }
         /// <summary>
         /// Get Action
         /// </summary>

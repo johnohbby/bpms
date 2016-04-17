@@ -39,7 +39,8 @@ namespace CodeProject.Portal
                "~/Scripts/angular-ui/ui-bootstrap.min.js",
                "~/Scripts/angular-ui/ui-bootstrap-tpls.min.js",
                "~/Scripts/angular-ui.min.js",       
-               "~/Scripts/angular-block-ui.js"
+               "~/Scripts/angular-block-ui.js",
+               "~/Scripts/angular-cookies.min.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/trNgGrid").Include(
@@ -50,6 +51,7 @@ namespace CodeProject.Portal
                "~/Views/Shared/App.js",
                 "~/Views/Shared/AjaxService.js",
                 "~/Views/Shared/AlertService.js",
+                "~/Views/Shared/LoginService.js",
                 "~/Views/Shared/DataGridService.js",
                 "~/Views/Shared/MasterController.js",
                 "~/Views/Shared/ModalDirective.js"

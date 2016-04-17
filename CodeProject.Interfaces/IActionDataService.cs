@@ -16,7 +16,10 @@ namespace CodeProject.Interfaces
         void UpdateAction(CodeProject.Business.Entities.Action action);
         CodeProject.Business.Entities.Action GetAction(long actionID);
         List<CodeProject.Business.Entities.Action> GetActions(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
-          
+        List<CodeProject.Business.Entities.Action> GetActionsForUser(long userId, long workflowId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
+        List<CodeProject.Business.Entities.ActionType> GetNextActionTypesForUser(long userId, long workflowId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
+        List<CodeProject.Business.Entities.User> GetDelegated(long userId, long workflowId, long actionTypeId, out int totalRows);
+
     }
 }
 

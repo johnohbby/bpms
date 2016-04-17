@@ -22,6 +22,13 @@ namespace CodeProject.Business.Entities
         public System.DateTime Created { get; set; }
         public long CreatedBy { get; set; }
         public bool IsDeleted { get; set; }
-    
+        public long DelegatedTo { get; set; }
+        public string DelegatedName { get; set; }
+        public string ActionTypeName { get; set; }
+        public string CreatedByName { get; set; }
+        public string OrdinalNo { get; set; }
+
+        
+
     }
 }
