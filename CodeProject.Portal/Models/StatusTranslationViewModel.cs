@@ -11,6 +11,7 @@ namespace CodeProject.Portal.Models
         public long Id { get; set; }
         public long StatusIdFrom { get; set; }
         public long StatusIdTo { get; set; }
+        public long actionTypeId { get; set; }
 
         public virtual List<ActionType> ActionTypes { get; set; }
         public virtual Status Status { get; set; }
