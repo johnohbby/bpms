@@ -15,6 +15,7 @@ namespace CodeProject.Interfaces
         void CreateUser(User user);
         void UpdateUser(User user);
         User GetUser(long userID);
+        User GetUserByCredientials(string username, string password);
         List<User> GetUsers(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
           
     }

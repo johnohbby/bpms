@@ -10,6 +10,9 @@ using System.Linq.Dynamic;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace CodeProject.Data.EntityFramework
 {
@@ -72,18 +75,55 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="sortDirection"></param>
         /// <param name="totalRows"></param>
         /// <returns></returns>
-        public List<WorkflowType> GetWorkflowTypes(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
+        public List<WorkflowType> GetWorkflowTypes(long UserId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
         {
+            DataTable dt = new DataTable();
+            
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetWorkflowTypesForUser", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@userId", SqlDbType.BigInt).Value = UserId;
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            List<WorkflowType> workflows = dt.ToList<WorkflowType>().ToList<WorkflowType>();
             totalRows = 0;
-          
+
             sortExpression = sortExpression + " " + sortDirection;
 
-            totalRows = dbConnection.Products.Count();
+            totalRows = dbConnection.Workflows.Count();
+            
+            return workflows;
+        }
 
-            List<WorkflowType> workflowTypes = dbConnection.WorkflowTypes.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
+        public List<WorkflowType> GetAllWorkflowTypes( int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
+        {
+            DataTable dt = new DataTable();
 
-            return workflowTypes;
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetWorkflowTypes", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            List<WorkflowType> workflows = dt.ToList<WorkflowType>().ToList<WorkflowType>();
+            totalRows = 0;
 
+            sortExpression = sortExpression + " " + sortDirection;
+
+            totalRows = dbConnection.Workflows.Count();
+
+            return workflows;
         }
 
         /// <summary>
@@ -95,8 +135,6 @@ namespace CodeProject.Data.EntityFramework
             dbConnection.WorkflowTypes.Attach(workflowType);
             dbConnection.WorkflowTypes.Remove(workflowType);
         }
-
-
 
     }
 

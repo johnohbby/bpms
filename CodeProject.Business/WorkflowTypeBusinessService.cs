@@ -131,7 +131,7 @@ namespace CodeProject.Business
         /// <param name="sortDirection"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public List<WorkflowType> GetWorkflowTypes(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
+        public List<WorkflowType> GetWorkflowTypes(long UserId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
         {
             transaction = new TransactionalInformation();
             List<WorkflowType> workflowType = new List<WorkflowType>();
@@ -141,7 +141,7 @@ namespace CodeProject.Business
                 int totalRows;
 
                 _workflowTypeDataService.CreateSession();
-                workflowType = _workflowTypeDataService.GetWorkflowTypes(currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
+                workflowType = _workflowTypeDataService.GetWorkflowTypes(UserId, currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
                 _workflowTypeDataService.CloseSession();
 
                 transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);
@@ -165,7 +165,39 @@ namespace CodeProject.Business
 
         }
 
+        public List<WorkflowType> GetAllWorkflowTypes( int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+            List<WorkflowType> workflowType = new List<WorkflowType>();
 
+            try
+            {
+                int totalRows;
+
+                _workflowTypeDataService.CreateSession();
+                workflowType = _workflowTypeDataService.GetAllWorkflowTypes( currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
+                _workflowTypeDataService.CloseSession();
+
+                transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);
+                transaction.TotalRows = totalRows;
+
+                transaction.ReturnStatus = true;
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _workflowTypeDataService.CloseSession();
+            }
+
+            return workflowType;
+
+        }
         /// <summary>
         /// Get Workflow Type
         /// </summary>

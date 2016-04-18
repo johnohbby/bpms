@@ -7,6 +7,9 @@ using CodeProject.Interfaces;
 using CodeProject.Business.Entities;
 using CodeProject.Business.Common;
 using System.Linq.Dynamic;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
 
 namespace CodeProject.Data.EntityFramework
 {
@@ -82,6 +85,27 @@ namespace CodeProject.Data.EntityFramework
         {
         }
 
+        public User GetUserByCredientials(string username, string password)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("UserGetUserByCredientials", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@username", SqlDbType.NVarChar, 255).Value = username;
+                    cmd.Parameters.Add("@password", SqlDbType.NVarChar, 255).Value = password;
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            List<Business.Entities.User> user = dt.ToList<Business.Entities.User>().ToList<Business.Entities.User>();
+            if (user.Count > 0) return user[0];
+            return null;
+            
+        }
 
     }
 

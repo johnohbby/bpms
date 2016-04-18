@@ -214,7 +214,35 @@ namespace CodeProject.Business
             return user;
 
         }
+        public User GetUserByCredientials(string username, string password, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
 
+            User user = new User();
+
+            try
+            {
+
+                _userDataService.CreateSession();
+                user = _userDataService.GetUserByCredientials(username, password);
+                _userDataService.CloseSession();
+                transaction.ReturnStatus = true;
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _userDataService.CloseSession();
+            }
+
+            return user;
+
+        }
         /// <summary>
         /// Initialize Data
         /// </summary>
