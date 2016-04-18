@@ -9,132 +9,140 @@
         <span class="glyphicon glyphicon-plus"></span>
     </button>
     </h4>
-    <div class="row" >
-        <div class="col-sm-3 category" visible="vm.showWorkflows">
-            <ul>
-                <li ng-repeat="model in vm.workflowFolders" ng-click="vm.GetWorkflowsByFolderId(model.id)" class="blue"><a href="">{{model.name}}</a></li>
-            </ul>
+    <div class="" ng-show="vm.showModalActionCreate">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Create new action
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label>Workflow type</label>
+                        <select class="form-control" ng-model="vm.action.ActionTypeId"
+                                ng-options="model.id as model.name for model in vm.nextActionTypes" ng-change="vm.GetDelegatedUsers()"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Delegated to</label>
+                        <label ng-repeat="model in vm.nextDelegated">
+                            <input type="checkbox" ng-model="vm.selected[model.id]" checklist-value="model.id"> {{model.name}}
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="vm.CreateAction()">Save</button>
+                        <button type="button" class="btn btn-default" ng-click="vm.CancelAction()">Cancel</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="col-sm-9" visible="vm.showWorkflows">
+            </div>
+            <div class="row">
+                <div class="col-sm-3 category" visible="vm.showWorkflows">
+                    <ul>
+                        <li ng-repeat="model in vm.workflowFolders" ng-click="vm.GetWorkflowsByFolderId(model.id)" class="blue"><a href="">{{model.name}}</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-9" visible="vm.showWorkflows">
 
-            <div>
+                    <div>
 
-                <div>
-                    <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)"><div ng-bind-html="vm.messageBox"></div></alert>
+                        <div>
+                            <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)"><div ng-bind-html="vm.messageBox"></div></alert>
+                        </div>
+
+                        <table id="tableWorkflows" style="display:none" style="height:100% !important;" tr-ng-grid="" items="vm.workflows" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                            <thead>
+                            <th field-name="name" display-name="Name"></th>
+                            <th field-name="caseNumber" display-name="Case number"></th>
+                            <th field-name="created" display-name="Created"></th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.ToggleModalUpdate(gridItem)" style="border: 0px solid transparent; background-color: transparent">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+
+                                        <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.DeleteWorkflow(vm.workflows.splice(vm.workflows.indexOf(gridItem),1))" style="border:0px solid transparent; background-color:transparent">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+
+                                        <button class="btn btn-default btn-sm col-xs-4 " ng-click="vm.ViewWorkflow('/Workflow/Workflow?id='+gridItem.id)" style="border:0px solid transparent; background-color:transparent">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
 
-                <table id="tableWorkflows" style="display:none" style="height:100% !important;" tr-ng-grid="" items="vm.workflows" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
-                    <thead>
-                        <th field-name="name" display-name="Name"></th>
-                        <th field-name="caseNumber" display-name="Case number"></th>
-                        <th field-name="created" display-name="Created"></th>                        
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.ToggleModalUpdate(gridItem)" style="border: 0px solid transparent; background-color: transparent">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
+                <div class="col-sm-12" id="divWorkflow" style="display:none">
 
-                                <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.DeleteWorkflow(vm.workflows.splice(vm.workflows.indexOf(gridItem),1))" style="border:0px solid transparent; background-color:transparent">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
+                    <div>
+                        <table id="tableActions" style="display:none" style="height:100% !important;" tr-ng-grid="" items="vm.actions" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                            <thead>
+                            <th field-name="ordinalNo" display-name="No"></th>
+                            <th field-name="actionTypeName" display-name="Action type"></th>
+                            <th field-name="createdByName" display-name="Created by"></th>
+                            <th field-name="created" display-name="Created"></th>
+                            <th field-name="delegatedName" display-name="Delegated"></th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.ToggleModalUpdate(gridItem)" style="border: 0px solid transparent; background-color: transparent">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
 
-                                <button class="btn btn-default btn-sm col-xs-4 " ng-click="vm.ViewWorkflow('/Workflow/Workflow?id='+gridItem.id)" style="border:0px solid transparent; background-color:transparent">
-                                    <span class="glyphicon glyphicon-eye-open"></span>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                        <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.DeleteWorkflow(vm.workflows.splice(vm.workflows.indexOf(gridItem),1))" style="border:0px solid transparent; background-color:transparent">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+
+                                        <button class="btn btn-default btn-sm col-xs-4 " ng-click="vm.ViewWorkflow('/Workflow/Workflow?id=1')" style="border:0px solid transparent; background-color:transparent">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
+            <!-- CREATE WORKFLOW MODAL -->
+            <modal id="10" title="Create new workflow" visible="vm.showModalCreate">
+                <form role="form">
+                    <div class="form-group">
+                        <label>Workflow type</label>
+                        <select class="form-control" ng-model="vm.workflow.workflowTypeId">
+                            <option ng-repeat="model in vm.workflowTypes" value="{{model.id}}"> {{model.name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="vm.workflow.name" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="vm.CreateWorkflow()">Save</button>
+                    </div>
+                </form>
+            </modal>
+            <!-- Update WORKFLOW MODAL -->
+            <modal id="0" title="Create new workflow" visible="vm.showModalUpdate">
+                <form role="form">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="vm.selectedWorkflow.name" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="vm.updateWorkflow()">Save</button>
+                    </div>
+                </form>
+            </modal>
+
 
         </div>
-
-        <div class="col-sm-12" id="divWorkflow" style="display:none">
-
-            <div>
-                <table id="tableActions" style="display:none" style="height:100% !important;" tr-ng-grid="" items="vm.actions" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
-                    <thead>
-                    <th field-name="ordinalNo" display-name="No"></th>
-                    <th field-name="actionTypeName" display-name="Action type"></th>
-                    <th field-name="createdByName" display-name="Created by"></th>
-                    <th field-name="created" display-name="Created"></th>
-                    <th field-name="delegatedName" display-name="Delegated"></th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.ToggleModalUpdate(gridItem)" style="border: 0px solid transparent; background-color: transparent">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-
-                                <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.DeleteWorkflow(vm.workflows.splice(vm.workflows.indexOf(gridItem),1))" style="border:0px solid transparent; background-color:transparent">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-
-                                <button class="btn btn-default btn-sm col-xs-4 " ng-click="vm.ViewWorkflow('/Workflow/Workflow?id=1')" style="border:0px solid transparent; background-color:transparent">
-                                    <span class="glyphicon glyphicon-eye-open"></span>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- CREATE WORKFLOW MODAL -->
-
-    <modal id="10" title="Create new workflow" visible="vm.showModalCreate">
-        <form role="form">
-            <div class="form-group">
-                <label>Workflow type</label>
-                <select class="form-control" ng-model="vm.workflow.workflowTypeId">
-                    <option  ng-repeat="model in vm.workflowTypes" value="{{model.id}}"> {{model.name}}</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" ng-model="vm.workflow.name" />
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-click="vm.createWorkflow()">Save</button>
-            </div>
-        </form>
-    </modal>
-
-    <!-- Update WORKFLOW MODAL -->
-    <modal id="0" title="Create new workflow" visible="vm.showModalUpdate">
-        <form role="form">            
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" ng-model="vm.selectedWorkflow.name" />
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-click="vm.updateWorkflow()">Save</button>
-            </div>
-        </form>
-    </modal>
-
-    <!-- CREATE WORKFLOW ACTION -->
-    <modal id="120" title="Create new action" visible="vm.showModalActionCreate">
-        <form role="form">
-            <div class="form-group">
-                <label>Workflow type</label>
-                <select class="form-control" ng-model="vm.action.ActionTypeId">
-                    <option ng-repeat="model in vm.nextActionTypes" value="{{model.id}}"> {{model.name}}</option>
-                </select>
-            </div>
-            <div class="form-group"><label>Delegated to</label>
-                <label ng-repeat="model in vm.nextDelegated"> 
-                    <input type="checkbox" ng-model="vm.selected[model.id]"  checklist-value="model.id"> {{model.name}}
-                </label>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-click="vm.CreateAction()">Save</button>
-            </div>
-        </form>
-    </modal>
-</div>

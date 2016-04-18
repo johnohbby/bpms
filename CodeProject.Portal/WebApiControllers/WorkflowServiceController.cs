@@ -217,7 +217,7 @@ namespace CodeProject.Portal.WebApiControllers
             WorkflowBusinessService workflowBusinessService = new WorkflowBusinessService(_workflowDataService);
             WorkflowTypeBusinessService workflowTypeBusinessService = new WorkflowTypeBusinessService(_workflowTypeDataService);
             List<WorkflowFolder> workflowFolders = workflowBusinessService.GetWorkflowFolders(currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
-            List<WorkflowType> workflowTypes = workflowTypeBusinessService.GetWorkflowTypes(currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
+            List<WorkflowType> workflowTypes = workflowTypeBusinessService.GetWorkflowTypes(workflowDataViewModel.UserId, currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
             if (transaction.ReturnStatus == false)
             {
                 workflowDataViewModel.ReturnStatus = false;

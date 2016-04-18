@@ -11,19 +11,24 @@ angular.module('app').register.controller('indexController', ['$routeParams', '$
 
 
     vm.LoginData = {
-        Username: '1',
-        Password: '1'
+        Username: 'mkiselica',
+        Password: '2121'
     };
 
    vm.Login = function () {
        
        vm.Submitted = true;
        
-       ajaxService.ajaxPost(vm.LoginData, "api/workflowTypeService/LoginTest").then(function (data) {
-           vm.IsLogedIn = true;
+       ajaxService.ajaxPost(vm.LoginData, "api/UserService/GetUser").then(function (data) {
+           
+           if (data.id > 0)
+           {
+               
+               loginService.setLoggedUser(data);
+               vm.IsLogedIn = true;
+           }
+           
 
-           loginService.setLoggedUser('blabla');
-           alert(loginService.getLoggedUser());
            
        });
     };

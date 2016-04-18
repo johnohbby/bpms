@@ -21,5 +21,7 @@ namespace CodeProject.Portal.Models
         public List<CodeProject.Business.Entities.Action> Actions { get; set; }
         public List<UserGroup> UserGroups { get; set; }
         public List<Workflow> Workflows { get; set; }
+
+        
     }
 }

@@ -175,6 +175,7 @@
     <Compile Include="WebApiControllers\StatusTranslationServiceController.cs" />
     <Compile Include="WebApiControllers\WorkflowServiceController.cs" />
     <Compile Include="WebApiControllers\StatusServiceController.cs" />
+    <Compile Include="WebApiControllers\UserServiceController.cs" />
     <Compile Include="WebApiControllers\WorkflowTypeServiceController.cs" />
     <Compile Include="WebApiControllers\ProductServiceController.cs" />
   </ItemGroup>
@@ -1032,6 +1033,7 @@
     <Content Include="Views\Home\InitializeData.html" />
     <Content Include="Views\Home\InitializeDataController.js" />
     <Content Include="Views\Home\Part3Controller.js" />
+    <Content Include="Views\ModalTemplates\ActionCreate.html" />
     <Content Include="Views\Products\ProductInquiry.html" />
     <Content Include="Views\Products\ProductInquiryController.js" />
     <Content Include="Views\Registries\RightType.html" />

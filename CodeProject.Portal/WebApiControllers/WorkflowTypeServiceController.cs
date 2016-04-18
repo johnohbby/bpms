@@ -106,7 +106,7 @@ namespace CodeProject.Portal.WebApiControllers
             string sortDirection = workflowTypeViewModel.SortDirection;
 
             WorkflowTypeBusinessService workflowTypeBusinessService = new WorkflowTypeBusinessService(_workflowTypeDataService);
-            List<WorkflowType> workflowTypes = workflowTypeBusinessService.GetWorkflowTypes(currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
+            List<WorkflowType> workflowTypes = workflowTypeBusinessService.GetAllWorkflowTypes(currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
             if (transaction.ReturnStatus == false)
             {
                 workflowTypeViewModel.ReturnStatus = false;

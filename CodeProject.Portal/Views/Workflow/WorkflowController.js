@@ -1,12 +1,13 @@
 ﻿angular.module("app").register.controller('workflowController',
-    ['$routeParams', '$location', 'ajaxService', 'alertService', 
-    function ($routeParams, $location, ajaxService, alertService) {
+    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService',
+    function ($routeParams, $location, ajaxService, alertService, loginService) {
         "use strict";
         var vm = this;
         var id = $location.search().id;
+        
         //alert(a);
         this.initializeController = function () {
-
+            
         //VARIABLES
             //glogal
             vm.title = "Workflows";
@@ -16,15 +17,17 @@
                 currentPageNumber: 1,
                 sortExpression: "Name",
                 sortDirection: "ASC",
-                pageSize: 10
+                pageSize: 10,
+                UserId: loginService.getLoggedUser().id
             };
+            
             vm.mySelectedItems = [];
             
             //Workflows 
             vm.showWorkflows = true;
             vm.showWorkflow = false;
-            vm.workflow = { name: "", workflowTypeId: -1, createdBy: 3 }; //get user from session
-            vm.action = { WorkflowId: id, ActionTypeId: -1, createdBy: 3, DelegatedId: -1 }; //get user from session
+            vm.workflow = { name: "", workflowTypeId: -1, createdBy: loginService.getLoggedUser().id }; //get user from session
+            vm.action = { WorkflowId: id, ActionTypeId: -1, createdBy: loginService.getLoggedUser().id, DelegatedId: -1 }; //get user from session
             vm.selectedWorkflow = {name:""};
             
             //New Workflow
@@ -54,6 +57,8 @@
             vm.ViewWorkflow = ViewWorkflow;
             vm.CreateAction = CreateAction;
             vm.ToggleSelection = ToggleSelection;
+            vm.GetDelegatedUsers = GetDelegatedUsers;
+            vm.CancelAction = CancelAction;
 
             function init() {
                 if (id == undefined) {
@@ -78,15 +83,18 @@
             }
             function GetWorkflowDataById(id) {
                 vm.pagination.Id = id;
-                vm.pagination.UserId = 3;
+              
                 return ajaxService.ajaxPost(vm.pagination, "api/workflowService/GetWorkflowDataById").then(function (data) {
                    
                     vm.actions = data.actions;
                     vm.nextActionTypes = data.nextActionTypes;
+                    if (vm.nextActionTypes.length > 0)
+                    vm.action.ActionTypeId = vm.nextActionTypes[0].id;
                     $("#tableActions").show();
                 });
             }
             function GetWorkflowsData() {
+                console.log(vm.pagination);
                 return ajaxService.ajaxPost(vm.pagination, "api/workflowService/GetWorkflowData").then(function (data) {
                     vm.workflowFolders = data.workflowFolders;
                     vm.workflowTypes = data.workflowTypes;
@@ -105,7 +113,8 @@
                 });
             }
             function CreateWorkflow()
-            {                
+            {
+                console.log(vm.workflow);
                 return ajaxService.ajaxPost(vm.workflow, "api/workflowService/CreateWorkflow").then(function (data) {
                     vm.showModalCreate = false;                    
                     GetWorkflows(vm.folderId);
@@ -153,13 +162,21 @@
                 vm.showModalCreate = !vm.showModalCreate;
             };
             function ToggleModalActionCreate() {
+                
                 GetDelegated();
             }
-
-            function GetDelegated() {             
+            function CancelAction() {
+                vm.showModalActionCreate = false;
+                
+            }
+            function GetDelegatedUsers() {GetDelegated(); }
+            function GetDelegated() {
+                
                 return ajaxService.ajaxPost(vm.action, "api/workflowService/GetDelegated").then(function (data) {
+                    
+                    vm.showModalActionCreate = true;
                     vm.nextDelegated = data.delegated;
-                    vm.showModalActionCreate = !vm.showModalActionCreate;
+                    vm.nextActionTypes = vm.nextActionTypes;
                 });                
             }
 
