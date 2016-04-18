@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IContentRightDataService.cs" />
+    <Compile Include="IStatusTranslationDataService.cs" />
     <Compile Include="IUserGroupDataService.cs" />
     <Compile Include="IUserDataService.cs" />
     <Compile Include="IContentTypeDataService.cs" />

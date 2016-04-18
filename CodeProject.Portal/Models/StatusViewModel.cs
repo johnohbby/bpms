@@ -13,5 +13,6 @@ namespace CodeProject.Portal.Models
 
         public List<StatusTranslation> StatusTranslations { get; set; }
         public List<StatusTranslation> StatusTranslations1 { get; set; }
+        public List<Status> Statuses { get; set; }
     }
 }

@@ -203,7 +203,53 @@ namespace CodeProject.Business
         }
 
 
+        /// <summary>
+        /// Delete Workflow type
+        /// </summary>
+        /// <param name="workflowType"></param>
+        /// <param name="transaction"></param>
+        public void DeleteWorkflowType(WorkflowType workflowType, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
 
+            try
+            {
+
+                WorkflowTypeBusinessRules workflowTypeBusinessRules = new WorkflowTypeBusinessRules();
+                ValidationResult results = workflowTypeBusinessRules.Validate(workflowType);
+
+                bool validationSucceeded = results.IsValid;
+                IList<ValidationFailure> failures = results.Errors;
+
+                if (validationSucceeded == false)
+                {
+                    transaction = ValidationErrors.PopulateValidationErrors(failures);
+                    return;
+                }
+
+                _workflowTypeDataService.CreateSession();
+                _workflowTypeDataService.BeginTransaction();
+
+                _workflowTypeDataService.DeleteWorkflowType(workflowType);
+                _workflowTypeDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("Right type was successfully deleted.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _workflowTypeDataService.CloseSession();
+            }
+
+
+        }
 
 
 

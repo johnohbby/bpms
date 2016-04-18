@@ -51,6 +51,8 @@
     <Compile Include="ContentRightBusinessService.cs" />
     <Compile Include="ContentTypeBusinessService.cs" />
     <Compile Include="ContentTypeBusinessRules.cs" />
+    <Compile Include="StatusTranslationBusinessService.cs" />
+    <Compile Include="StatusTranslationBusinessRules.cs" />
     <Compile Include="UserGroupBusinessService.cs" />
     <Compile Include="UserGroupBusinessRules.cs" />
     <Compile Include="UserBusinessService.cs" />

@@ -19,9 +19,7 @@ namespace CodeProject.Portal.WebApiControllers
    {
    }
         [Inject]
-        public IActionTypeDataService _actionTypeDataService { get; set; }
-
-        
+        public IActionTypeDataService _actionTypeDataService { get; set; }        
 
         /// <summary>
         /// Get Action Types
@@ -43,6 +41,7 @@ namespace CodeProject.Portal.WebApiControllers
 
             ActionTypeBusinessService actionTypeBusinessService = new ActionTypeBusinessService(_actionTypeDataService);
             List<ActionType> actionTypes = actionTypeBusinessService.GetActionTypes(currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
+
             if (transaction.ReturnStatus == false)
             {
                 actionTypeViewModel.ReturnStatus = false;

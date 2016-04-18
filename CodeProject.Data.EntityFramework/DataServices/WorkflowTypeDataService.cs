@@ -7,6 +7,9 @@ using CodeProject.Interfaces;
 using CodeProject.Business.Entities;
 using CodeProject.Business.Common;
 using System.Linq.Dynamic;
+using System.Data.SqlClient;
+using System.Data;
+using System.Configuration;
 
 namespace CodeProject.Data.EntityFramework
 {
@@ -22,6 +25,21 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="product"></param>
         public void UpdateWorkflowType(WorkflowType workflowType)
         {
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("WorkflowTypeUpdate", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = workflowType.Id;
+                    cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = workflowType.Name;
+                    cmd.Parameters.Add("@description", SqlDbType.VarChar).Value = workflowType.Description;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
             
         }
 
@@ -67,6 +85,17 @@ namespace CodeProject.Data.EntityFramework
             return workflowTypes;
 
         }
+
+        /// <summary>
+        /// Delete Workflow Type
+        /// </summary>
+        /// <param name="customer"></param>
+        public void DeleteWorkflowType(WorkflowType workflowType)
+        {
+            dbConnection.WorkflowTypes.Attach(workflowType);
+            dbConnection.WorkflowTypes.Remove(workflowType);
+        }
+
 
 
     }

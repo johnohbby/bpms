@@ -85,12 +85,11 @@ namespace CodeProject.Portal
                 "~/Views/Products/ProductInquiryController.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/workflowTypes").Include(
-                "~/Views/Workflow/WorkflowTypesMaintenanceController.js"
-            ));
-
             bundles.Add(new ScriptBundle("~/bundles/workflow").Include(
-                "~/Views/Workflow/WorkflowController.js"
+                "~/Views/Workflow/WorkflowController.js",
+                "~/Views/Workflow/WorkflowTypesController.js",
+                "~/Views/Workflow/ActionTypeController.js",
+                "~/Views/Workflow/StatusController.js"
             ));
             bundles.Add(new ScriptBundle("~/bundles/registries").Include(
                "~/Views/Registries/RightTypeController.js"

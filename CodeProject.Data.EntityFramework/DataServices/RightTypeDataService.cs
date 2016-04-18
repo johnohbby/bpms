@@ -9,6 +9,7 @@ using CodeProject.Business.Common;
 using System.Linq.Dynamic;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
 
 namespace CodeProject.Data.EntityFramework
 {
@@ -24,7 +25,7 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="customer"></param>
         public void UpdateRightType(RightType rightType)
         {
-            using (SqlConnection con = new SqlConnection("Data Source=SQL5023.Smarterasp.net;Initial Catalog=DB_9F542C_bpms;User Id=DB_9F542C_bpms_admin;Password=36633663"))
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("rightType_update", con))
                 {

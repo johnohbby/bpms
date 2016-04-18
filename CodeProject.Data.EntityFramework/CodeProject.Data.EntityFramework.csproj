@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServices\StatusTranslationDataService.cs" />
     <Compile Include="DataTableExtensions.cs" />
     <Compile Include="DataServices\ContentRightDataService.cs" />
     <Compile Include="DataServices\UserGroupDataService.cs" />

@@ -33,8 +33,6 @@ namespace CodeProject.Portal.WebApiControllers
             workflowType.Name = workflowTypeViewModel.Name;
             workflowType.Description = workflowTypeViewModel.Description;
 
-
-
             WorkflowTypeBusinessService workflowTypeBusinessService = new WorkflowTypeBusinessService(_workflowTypeDataService);
             workflowTypeBusinessService.CreateWorkflowType(workflowType, out transaction);
             if (transaction.ReturnStatus == false)
@@ -66,7 +64,7 @@ namespace CodeProject.Portal.WebApiControllers
             WorkflowType workflowType = new WorkflowType();
             workflowType.Id = workflowTypeViewModel.Id;
             workflowType.Name = workflowTypeViewModel.Name;
-                      
+            workflowType.Description = workflowTypeViewModel.Description;
 
             WorkflowTypeBusinessService workflowTypeBusinessService = new WorkflowTypeBusinessService(_workflowTypeDataService);
             workflowTypeBusinessService.UpdateWorkflowType(workflowType, out transaction);
@@ -130,15 +128,7 @@ namespace CodeProject.Portal.WebApiControllers
             return response;
 
         }
-        [Route("LoginTest")]
-        [HttpPost]
-        public HttpResponseMessage LoginTest(HttpRequestMessage request, [FromBody] WorkflowTypeViewModel workflowTypeViewModel)
-        {
-
-            
-            var response = Request.CreateResponse<WorkflowTypeViewModel>(HttpStatusCode.OK, workflowTypeViewModel);
-            return response;
-        }
+       
         /// <summary>
         /// Get WorkflowType
         /// </summary>
@@ -171,6 +161,39 @@ namespace CodeProject.Portal.WebApiControllers
             workflowTypeViewModel.Name = workflowType.Name;
             workflowTypeViewModel.Description = workflowType.Description;
                      
+            workflowTypeViewModel.ReturnStatus = true;
+            workflowTypeViewModel.ReturnMessage = transaction.ReturnMessage;
+
+            var response = Request.CreateResponse<WorkflowTypeViewModel>(HttpStatusCode.OK, workflowTypeViewModel);
+            return response;
+
+        }
+
+        [Route("DeleteWorkflowType")]
+        [HttpPost]
+        public HttpResponseMessage DeleteWorkflowType(HttpRequestMessage request, [FromBody] WorkflowTypeViewModel workflowTypeViewModel)
+        {
+            TransactionalInformation transaction;
+
+            WorkflowType workflowType = new WorkflowType();
+            workflowType.Id = workflowTypeViewModel.Id;
+            workflowType.Name = workflowTypeViewModel.Name;
+            workflowType.Description = workflowTypeViewModel.Description;
+
+
+            WorkflowTypeBusinessService workflowTypeBusinessService = new WorkflowTypeBusinessService(_workflowTypeDataService);
+            workflowTypeBusinessService.DeleteWorkflowType(workflowType, out transaction);
+            if (transaction.ReturnStatus == false)
+            {
+                workflowTypeViewModel.ReturnStatus = false;
+                workflowTypeViewModel.ReturnMessage = transaction.ReturnMessage;
+                workflowTypeViewModel.ValidationErrors = transaction.ValidationErrors;
+
+                var responseError = Request.CreateResponse<WorkflowTypeViewModel>(HttpStatusCode.BadRequest, workflowTypeViewModel);
+                return responseError;
+
+            }
+
             workflowTypeViewModel.ReturnStatus = true;
             workflowTypeViewModel.ReturnMessage = transaction.ReturnMessage;
 

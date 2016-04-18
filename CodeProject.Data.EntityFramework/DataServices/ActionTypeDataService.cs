@@ -9,6 +9,7 @@ using CodeProject.Business.Common;
 using System.Linq.Dynamic;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
 
 namespace CodeProject.Data.EntityFramework
 {
@@ -24,7 +25,7 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="customer"></param>
         public void UpdateActionType(ActionType actionType)
         {
-            using (SqlConnection con = new SqlConnection("Data Source=SQL5023.Smarterasp.net;Initial Catalog=DB_9F542C_bpms;User Id=DB_9F542C_bpms_admin;Password=36633663"))
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("ActionTypeUpdate", con))
                 {
@@ -32,7 +33,7 @@ namespace CodeProject.Data.EntityFramework
 
                     cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = actionType.Id;
                     cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = actionType.Name;
-                    cmd.Parameters.Add("@workflowTypeId", SqlDbType.VarChar).Value = actionType.WorkflowTypeId;
+                    cmd.Parameters.Add("@workflowTypeId", SqlDbType.BigInt).Value = actionType.WorkflowTypeId;
 
                     con.Open();
                     cmd.ExecuteNonQuery();
@@ -72,6 +73,7 @@ namespace CodeProject.Data.EntityFramework
         /// <returns></returns>
         public List<ActionType> GetActionTypes(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
         {
+
             totalRows = 0;
 
             sortExpression = sortExpression + " " + sortDirection;

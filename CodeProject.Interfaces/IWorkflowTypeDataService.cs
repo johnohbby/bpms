@@ -14,6 +14,7 @@ namespace CodeProject.Interfaces
     {
         void CreateWorkflowType(WorkflowType workflowType);
         void UpdateWorkflowType(WorkflowType workflowType);
+        void DeleteWorkflowType(WorkflowType workflowType);
         WorkflowType GetWorkflowType(long workflowTypeID);
         List<WorkflowType> GetWorkflowTypes(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
           

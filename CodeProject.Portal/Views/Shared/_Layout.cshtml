@@ -12,7 +12,6 @@
     codeProjectBundles.Add("home");
     codeProjectBundles.Add("customers");
     codeProjectBundles.Add("products");
-    codeProjectBundles.Add("workflowTypes");
     codeProjectBundles.Add("workflow");
     codeProjectBundles.Add("registries");
 
@@ -86,9 +85,11 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Workflow <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/Workflow/WorkflowTypeMaintenance">Workflow Types</a></li>
+                            <li><a href="#/Workflow/WorkflowType">Workflow Types</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#/Workflow/WorkflowTypeMaintenance">Action Types</a></li>
+                            <li><a href="#/Workflow/ActionType">Action Types</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#/Workflow/Status">Status</a></li>
 
                         </ul>
                     </li>
@@ -125,13 +126,13 @@
     <div class="container body-content" style="">
 
         @RenderBody()
-        <hr />
-        <footer style="position : absolute;
+        
+        @*<footer style="position : absolute;
     bottom : 0;
     height : 40px;
     margin-top : 40px; width:80%; text-align:center">
             <p>&copy; @DateTime.Now.Year - Melika Kiselica</p>          
-        </footer>
+        </footer>*@
     </div>
 
 

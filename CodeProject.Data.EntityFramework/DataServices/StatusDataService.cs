@@ -7,6 +7,9 @@ using CodeProject.Interfaces;
 using CodeProject.Business.Entities;
 using CodeProject.Business.Common;
 using System.Linq.Dynamic;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
 
 namespace CodeProject.Data.EntityFramework
 {
@@ -22,7 +25,19 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="customer"></param>
         public void UpdateStatus(CodeProject.Business.Entities.Status status)
         {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("statusUpdate", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = status.Id;
+                    cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = status.Name;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         /// <summary>
@@ -65,6 +80,17 @@ namespace CodeProject.Data.EntityFramework
             List<CodeProject.Business.Entities.Status> statuses = dbConnection.Statuses.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
 
             return statuses;
+        }
+
+
+        /// <summary>
+        /// Delete Status
+        /// </summary>
+        /// <param name="customer"></param>
+        public void DeleteStatus(Status status)
+        {
+            dbConnection.Statuses.Attach(status);
+            dbConnection.Statuses.Remove(status);
         }
 
         /// <summary>

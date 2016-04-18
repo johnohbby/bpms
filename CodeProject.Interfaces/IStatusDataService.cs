@@ -14,6 +14,7 @@ namespace CodeProject.Interfaces
     {
         void CreateStatus(Status status);
         void UpdateStatus(Status status);
+        void DeleteStatus(Status status);
         Status GetStatus(long statusID);
         List<Status> GetStatuses(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
           

@@ -180,7 +180,7 @@ namespace CodeProject.Business
         /// <param name="customerID"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public CodeProject.Business.Entities.Status GetStatus(int id, out TransactionalInformation transaction)
+        public CodeProject.Business.Entities.Status GetStatus(long id, out TransactionalInformation transaction)
         {
             transaction = new TransactionalInformation();
 
@@ -210,6 +210,52 @@ namespace CodeProject.Business
 
         }
 
+        /// Delete Status
+        /// </summary>
+        /// <param name="workflowType"></param>
+        /// <param name="transaction"></param>
+        public void DeleteStatus(Status status, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            try
+            {
+
+                StatusBusinessRules statusBusinessRules = new StatusBusinessRules();
+                ValidationResult results = statusBusinessRules.Validate(status);
+
+                bool validationSucceeded = results.IsValid;
+                IList<ValidationFailure> failures = results.Errors;
+
+                if (validationSucceeded == false)
+                {
+                    transaction = ValidationErrors.PopulateValidationErrors(failures);
+                    return;
+                }
+
+                _statusDataService.CreateSession();
+                _statusDataService.BeginTransaction();
+
+                _statusDataService.DeleteStatus(status);
+                _statusDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("Status was successfully deleted.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _statusDataService.CloseSession();
+            }
+
+
+        }
         /// <summary>
         /// Initialize Data
         /// </summary>

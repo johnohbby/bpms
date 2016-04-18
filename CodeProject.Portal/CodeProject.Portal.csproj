@@ -170,8 +170,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\CustomBundle.cs" />
     <Compile Include="WebApiControllers\CustomerServiceController.cs" />
+    <Compile Include="WebApiControllers\ActionTypeServiceController.cs" />
     <Compile Include="WebApiControllers\RightTypeServiceController.cs" />
+    <Compile Include="WebApiControllers\StatusTranslationServiceController.cs" />
     <Compile Include="WebApiControllers\WorkflowServiceController.cs" />
+    <Compile Include="WebApiControllers\StatusServiceController.cs" />
     <Compile Include="WebApiControllers\WorkflowTypeServiceController.cs" />
     <Compile Include="WebApiControllers\ProductServiceController.cs" />
   </ItemGroup>
@@ -1036,11 +1039,15 @@
     <Content Include="Views\Shared\LoginService.js" />
     <Content Include="Views\Shared\modal.html" />
     <Content Include="Views\Shared\ModalDirective.js" />
+    <Content Include="Views\Workflow\ActionType.html" />
+    <Content Include="Views\Workflow\StatusController.js" />
+    <Content Include="Views\Workflow\ActionTypeController.js" />
+    <Content Include="Views\Workflow\Status.html" />
     <Content Include="Views\Workflow\Workflow.html" />
     <Content Include="Views\Workflow\WorkflowController.js" />
-    <Content Include="Views\Workflow\WorkflowTypeMaintenance.html" />
+    <Content Include="Views\Workflow\WorkflowType.html" />
     <Content Include="Views\Products\ProductMaintenance.html" />
-    <Content Include="Views\Workflow\WorkflowTypeMaintenanceController.js" />
+    <Content Include="Views\Workflow\WorkflowTypeController.js" />
     <Content Include="Views\Products\ProductMaintenanceController.js" />
     <Content Include="Views\Shared\AjaxService.js" />
     <Content Include="Views\Shared\AlertService.js" />
@@ -1049,7 +1056,9 @@
     <Content Include="Views\Shared\CodeProjectRouting-production.js" />
     <Content Include="Views\Shared\DataGridService.js" />
     <Content Include="Views\Shared\MasterController.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
