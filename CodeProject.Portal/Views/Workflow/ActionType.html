@@ -1,0 +1,163 @@
+﻿<div ng-controller="actionTypeController as vm" ng-init="vm.initializeController()">
+    <<div class="form-group"></div>
+    <!--Action Type-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Action Type
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+        <div class="panel-body">
+            <table tr-ng-grid="" items="vm.actionTypes" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                <thead>
+                    <tr>
+                        <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                        <th field-name="name" display-name="Name"></th>
+                        <th field-name="workflowTypeName" display-name="Workflow Type"></th>
+                        <th display-name="Actions" cell-width="10em"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+
+                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete()" style="border:0px solid transparent; background-color:transparent">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--Status Translation-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Status Translation
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateSt()" style="border: 0px solid transparent; background-color: transparent">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+        <div class="panel-body">
+            <table tr-ng-grid="" items="vm.statusTranslations" selected-items="vm.mySelectedItemsSt" selection-mode="SingleRow" enable-filtering="false">
+                <thead>
+                    <tr>
+                        <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                        <th field-name="statusFromName" display-name="Status From"></th>
+                        <th field-name="statusToName" display-name="Status To"></th>
+                        <th display-name="Actions" cell-width="10em"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdateSt()" style="border: 0px solid transparent; background-color: transparent">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+
+                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDeleteSt()" style="border:0px solid transparent; background-color:transparent">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <modal id="0" title="Create Action Type" visible="vm.showModalCreate">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.actionType.name" />
+            </div>
+            <div class="form-group">
+                <label>Workflow type</label>
+                <select class="form-control" ng-model="vm.actionType.workflowTypeId" ng-options="workflowType.id as workflowType.name for workflowType in vm.workflowTypes"></select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.createActionType()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Edit Action Type" visible="vm.showModalUpdate">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.actiontype.name" />
+            </div>
+            <div class="form-group">
+                <label>Workflow type</label>
+                <select class="form-control" ng-model="vm.actiontype.workflowTypeId" ng-options="workflowType.id as workflowType.name for workflowType in vm.workflowTypes"></select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.updateActionType()">Save</button>
+            </div>
+        </form>
+    </modal>
+    <modal id="0" title="Delete Action Type" visible="vm.showModalDelete">
+        <form role="form">
+            <label>Are you sure you want to delete item?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.deleteActionType()">Delete</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Create Status Translation" visible="vm.showModalCreateSt">
+        <form role="form">
+            <div class="form-group">
+                <label>Status From</label>
+                <select class="form-control" ng-model="vm.statusTranslation.statusIdFrom" ng-options="status.id as status.name for status in vm.statuses"></select>
+            </div>
+            <div class="form-group">
+                <label>Status To</label>
+                <select class="form-control" ng-model="vm.statusTranslation.statusIdTo" ng-options="status.id as status.name for status in vm.statuses"></select>
+            </div>
+            <div class="form-group">
+                <label>Action Type</label>
+                <input type="text" class="form-control" ng-model="vm.actionTypeName" readonly />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.createStatusTranslation()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Edit Status Translation" visible="vm.showModalUpdateSt">
+        <form role="form">
+            <div class="form-group">
+                <label>Status From</label>
+                <select class="form-control" ng-model="vm.statustranslation.statusIdFrom" ng-options="status.id as status.name for status in vm.statuses"></select>
+            </div>
+            <div class="form-group">
+                <label>Status To</label>
+                <select class="form-control" ng-model="vm.statustranslation.statusIdTo" ng-options="status.id as status.name for status in vm.statuses"></select>
+            </div>
+            <div class="form-group">
+                <label>Action Type</label>
+                <input type="text" class="form-control" ng-model="vm.actionTypeName" readonly />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.updateStatusTranslation()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Delete Status Translation" visible="vm.showModalDeleteSt">
+        <form role="form">
+            <label>Are you sure you want to delete item?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.deleteStatusTranslation()">Delete</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>

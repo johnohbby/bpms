@@ -1,0 +1,72 @@
+﻿<div ng-controller="workflowTypeController as vm" ng-init="vm.initializeController()">
+    <h4 class="page-header">Workflow Type</h4>
+    <div>
+        <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)"><div ng-bind-html="vm.messageBox"></div></alert>
+    </div>
+    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+        <span class="glyphicon glyphicon-plus"></span>
+    </button>
+    <table tr-ng-grid="" items="vm.workflowTypes" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+        <thead>
+            <tr>
+                <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                <th field-name="name" display-name="Name"></th>
+                <th field-name="description" display-name="Description"></th>
+                <th display-name="Actions" cell-width="10em"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+
+                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete()" style="border:0px solid transparent; background-color:transparent">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <modal id="0" title="Create Workflow Type" visible="vm.showModalCreate">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.workflowType.name" />
+            </div>
+            <div class="form-group">
+                <label for="comment">Description</label>
+                <textarea class="form-control" rows="5" ng-model="vm.workflowType.description"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.createWorkflowType()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Edit Workflow Type" visible="vm.showModalUpdate">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.workflowtype.name" />
+            </div>
+            <div class="form-group">
+                <label for="comment">Description</label>
+                <textarea class="form-control" rows="5" ng-model="vm.workflowtype.description"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.updateWorkflowType()">Save</button>
+            </div>
+        </form>
+    </modal>
+    <modal id="0" title="Delete Workflow Type" visible="vm.showModalDelete">
+        <form role="form">
+            <label>Are you sure you want to delete item?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.deleteWorkflowType()">Delete</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>
