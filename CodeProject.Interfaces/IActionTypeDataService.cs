@@ -15,6 +15,7 @@ namespace CodeProject.Interfaces
         void CreateActionType(ActionType actionType);
         void UpdateActionType(ActionType actionType);
         ActionType GetActionType(long actionTypeID);
+        void DeleteActionType(ActionType actionType);
         List<ActionType> GetActionTypes(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
           
     }

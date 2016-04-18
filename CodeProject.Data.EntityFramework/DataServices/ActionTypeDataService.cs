@@ -7,6 +7,8 @@ using CodeProject.Interfaces;
 using CodeProject.Business.Entities;
 using CodeProject.Business.Common;
 using System.Linq.Dynamic;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace CodeProject.Data.EntityFramework
 {
@@ -22,6 +24,20 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="customer"></param>
         public void UpdateActionType(ActionType actionType)
         {
+            using (SqlConnection con = new SqlConnection("Data Source=SQL5023.Smarterasp.net;Initial Catalog=DB_9F542C_bpms;User Id=DB_9F542C_bpms_admin;Password=36633663"))
+            {
+                using (SqlCommand cmd = new SqlCommand("ActionTypeUpdate", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = actionType.Id;
+                    cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = actionType.Name;
+                    cmd.Parameters.Add("@workflowTypeId", SqlDbType.VarChar).Value = actionType.WorkflowTypeId;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
 
         }
 
@@ -65,6 +81,16 @@ namespace CodeProject.Data.EntityFramework
             List<ActionType> actionTypes = dbConnection.ActionTypes.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
 
             return actionTypes;
+        }
+
+        /// <summary>
+        /// Delete Action Type
+        /// </summary>
+        /// <param name="customer"></param>
+        public void DeleteActionType(ActionType actionType)
+        {
+            dbConnection.ActionTypes.Attach(actionType);
+            dbConnection.ActionTypes.Remove(actionType);
         }
 
         /// <summary>

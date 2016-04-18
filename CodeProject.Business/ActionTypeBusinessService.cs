@@ -212,6 +212,55 @@ namespace CodeProject.Business
         }
 
         /// <summary>
+        /// Delete Right type
+        /// </summary>
+        /// <param name="workflowType"></param>
+        /// <param name="transaction"></param>
+        public void DeleteActionType(ActionType actionType, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            try
+            {
+
+                ActionTypeBusinessRules actionTypeBusinessRules = new ActionTypeBusinessRules();
+                ValidationResult results = actionTypeBusinessRules.Validate(actionType);
+
+                bool validationSucceeded = results.IsValid;
+                IList<ValidationFailure> failures = results.Errors;
+
+                if (validationSucceeded == false)
+                {
+                    transaction = ValidationErrors.PopulateValidationErrors(failures);
+                    return;
+                }
+
+                _actionTypeDataService.CreateSession();
+                _actionTypeDataService.BeginTransaction();
+
+                _actionTypeDataService.DeleteActionType(actionType);
+                _actionTypeDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("Action type was successfully deleted.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _actionTypeDataService.CloseSession();
+            }
+
+
+        }
+
+
+        /// <summary>
         /// Initialize Data
         /// </summary>
         /// <param name="transaction"></param>
