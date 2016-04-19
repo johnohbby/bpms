@@ -51,6 +51,7 @@
     <Compile Include="ContentRightBusinessService.cs" />
     <Compile Include="ContentTypeBusinessService.cs" />
     <Compile Include="ContentTypeBusinessRules.cs" />
+    <Compile Include="FormBusinessRules.cs" />
     <Compile Include="StatusTranslationBusinessService.cs" />
     <Compile Include="StatusTranslationBusinessRules.cs" />
     <Compile Include="UserGroupBusinessService.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="CustomerBusinessService.cs" />
     <Compile Include="RightTypeBusinessService.cs" />
     <Compile Include="WorkflowBusinessRules.cs" />
+    <Compile Include="FormBusinessService.cs" />
     <Compile Include="WorkflowBusinessService.cs" />
     <Compile Include="WorkflowTypeBusinessService.cs" />
     <Compile Include="WorkflowTypeBusinessRules.cs" />
