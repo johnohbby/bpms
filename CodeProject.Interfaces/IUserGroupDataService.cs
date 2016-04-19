@@ -14,6 +14,7 @@ namespace CodeProject.Interfaces
     {
         void CreateUserGroup(UserGroup userGroup);
         void UpdateUserGroup(UserGroup userGroup);
+        void DeleteUserGroup(UserGroup userGroup);
         UserGroup GetUserGroup(long userGroupID);
         List<UserGroup> GetUserGroups(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
 

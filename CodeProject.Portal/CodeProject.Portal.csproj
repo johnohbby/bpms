@@ -169,6 +169,7 @@
     <Compile Include="Models\WorkflowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\CustomBundle.cs" />
+    <Compile Include="WebApiControllers\UserGroupServiceController.cs" />
     <Compile Include="WebApiControllers\CustomerServiceController.cs" />
     <Compile Include="WebApiControllers\ActionTypeServiceController.cs" />
     <Compile Include="WebApiControllers\GroupServiceController.cs" />
@@ -1037,6 +1038,12 @@
     <Content Include="Views\Home\Part3Controller.js" />
     <Content Include="Views\Products\ProductInquiry.html" />
     <Content Include="Views\Products\ProductInquiryController.js" />
+    <Content Include="Views\Registries\UserGroupController.js" />
+    <Content Include="Views\Registries\UserGroup.html" />
+    <Content Include="Views\Registries\Group.html" />
+    <Content Include="Views\Registries\GroupController.js" />
+    <Content Include="Views\Registries\UserController.js" />
+    <Content Include="Views\Registries\User.html" />
     <Content Include="Views\Registries\RightType.html" />
     <Content Include="Views\Registries\RightTypeController.js" />
     <Content Include="Views\Shared\LoginService.js" />

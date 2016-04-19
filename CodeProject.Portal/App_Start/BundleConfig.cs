@@ -93,7 +93,10 @@ namespace CodeProject.Portal
             ));
             bundles.Add(new ScriptBundle("~/bundles/registries").Include(
                "~/Views/Registries/RightTypeController.js",
-               "~/Views/Registries/ContentRightController.js"
+               "~/Views/Registries/ContentRightController.js",
+               "~/Views/Registries/UserController.js",
+               "~/Views/Registries/GroupController.js",
+               "~/Views/Registries/UserGroupController.js"
            ));
         }
     }

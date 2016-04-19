@@ -14,6 +14,7 @@ namespace CodeProject.Interfaces
     {
         void CreateGroup(Group group);
         void UpdateGroup(Group group);
+        void DeleteGroup(Group group);
         Group GetGroup(long groupID);
         List<Group> GetGroups(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
 

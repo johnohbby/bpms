@@ -60,10 +60,6 @@
                 <tbody>
                     <tr>
                         <td>
-                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </button>
-
                             <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete()" style="border:0px solid transparent; background-color:transparent">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
@@ -71,53 +67,7 @@
                     </tr>
                 </tbody>
             </table>
-            <!---modal id="0" title="Create Content Right" visible="vm.showModalCreate">
-                <form role="form">
-                    <div class="form-group">
-                        <label>Group</label>
-                        <select class="form-control" ng-model="vm.contentRight.groupId" ng-options="group.id as group.name for group in vm.groups"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Content Type</label>
-                        <select id="contentType1" class="form-control" ng-model="vm.contentRight.contentTypeId" ng-options="contentType.id as contentType.name for contentType in vm.contentTypes"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Content</label>
-                        <select class="form-control" ng-model="vm.contentRight.contentId" ng-options="content.id as content.name for content in vm.contents"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Right Type</label>
-                        <select class="form-control" ng-model="vm.contentRight.rightTypeId" ng-options="rightType.id as rightType.name for rightType in vm.rightTypes"></select>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" ng-click="vm.createContentRight()">Save</button>
-                    </div>
-                </form>
-            </modal-->
 
-            <modal id="0" title="Edit Content Right" visible="vm.showModalUpdate">
-                <form role="form">
-                    <div class="form-group">
-                        <label>Group</label>
-                        <select class="form-control" ng-model="vm.contentright.groupId" ng-options="group.id as group.name for group in vm.groups"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Content Type</label>
-                        <select id="contentType2" class="form-control" ng-model="vm.contentright.contentTypeId" ng-options="contentType.id as contentType.name for contentType in vm.contentTypes"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Content</label>
-                        <select class="form-control" ng-model="vm.contentright.contentId" ng-options="content.id as content.name for content in vm.contents"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Right Type</label>
-                        <select class="form-control" ng-model="vm.contentright.rightTypeId" ng-options="rightType.id as rightType.name for rightType in vm.rightTypes"></select>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" ng-click="vm.updateContentRight()">Save</button>
-                    </div>
-                </form>
-            </modal>
             <modal id="0" title="Delete Content Right" visible="vm.showModalDelete">
                 <form role="form">
                     <label>Are you sure you want to delete item?</label>

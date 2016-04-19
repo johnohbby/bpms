@@ -223,8 +223,8 @@ namespace CodeProject.Business
             try
             {
 
-                StatusTranslationBusinessRules StatusTranslationBusinessRules = new StatusTranslationBusinessRules();
-                ValidationResult results = StatusTranslationBusinessRules.Validate(statusTranslation);
+                StatusTranslationBusinessRules statusTranslationBusinessRules = new StatusTranslationBusinessRules();
+                ValidationResult results = statusTranslationBusinessRules.Validate(statusTranslation);
 
                 bool validationSucceeded = results.IsValid;
                 IList<ValidationFailure> failures = results.Errors;

@@ -9,7 +9,7 @@
 
    this.setLoggedUser = function (user)
    {
-
+       console.log(user);
        loggedUser = user;
     }
    

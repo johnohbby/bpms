@@ -14,5 +14,6 @@ namespace CodeProject.Portal.Models
 
         public Group Group { get; set; }
         public User User { get; set; }
+        public List<UserGroup> UserGroups { get; set; }
     }
 }

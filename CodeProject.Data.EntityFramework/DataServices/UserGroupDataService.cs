@@ -7,6 +7,9 @@ using CodeProject.Interfaces;
 using CodeProject.Business.Entities;
 using CodeProject.Business.Common;
 using System.Linq.Dynamic;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
 
 namespace CodeProject.Data.EntityFramework
 {
@@ -22,7 +25,20 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="customer"></param>
         public void UpdateUserGroup(UserGroup userGroup)
         {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("UserGroupUpdate", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = userGroup.Id;
+                    cmd.Parameters.Add("@userId", SqlDbType.BigInt).Value = userGroup.UserId;
+                    cmd.Parameters.Add("@groupId", SqlDbType.BigInt).Value = userGroup.GroupId;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         /// <summary>
@@ -65,6 +81,16 @@ namespace CodeProject.Data.EntityFramework
             List<UserGroup> userGroups = dbConnection.UserGroups.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
 
             return userGroups;
+        }
+
+        /// <summary>
+        /// Delete User Group
+        /// </summary>
+        /// <param name="customer"></param>
+        public void DeleteUserGroup(UserGroup userGroup)
+        {
+            dbConnection.UserGroups.Attach(userGroup);
+            dbConnection.UserGroups.Remove(userGroup);
         }
 
         /// <summary>

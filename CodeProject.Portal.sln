@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeProject.Business.Common
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeProject.Business", "CodeProject.Business\CodeProject.Business.csproj", "{97B799DB-0FC9-4522-96F6-F3348364DC92}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testing", "testing", "{260458CD-A284-4F4D-9CB4-B39E53AA7C1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{08D6C3B3-066A-431C-973D-F24FBF09F54F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,8 +49,15 @@ Global
 		{97B799DB-0FC9-4522-96F6-F3348364DC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97B799DB-0FC9-4522-96F6-F3348364DC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97B799DB-0FC9-4522-96F6-F3348364DC92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08D6C3B3-066A-431C-973D-F24FBF09F54F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08D6C3B3-066A-431C-973D-F24FBF09F54F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08D6C3B3-066A-431C-973D-F24FBF09F54F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08D6C3B3-066A-431C-973D-F24FBF09F54F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{08D6C3B3-066A-431C-973D-F24FBF09F54F} = {260458CD-A284-4F4D-9CB4-B39E53AA7C1A}
 	EndGlobalSection
 EndGlobal

@@ -23,7 +23,6 @@ angular.module('app').register.controller('indexController', ['$routeParams', '$
            
            if (data.id > 0)
            {
-               
                loginService.setLoggedUser(data);
                vm.IsLogedIn = true;
            }

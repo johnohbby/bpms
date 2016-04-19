@@ -211,6 +211,53 @@ namespace CodeProject.Business
 
         }
 
+        /// Delete User Group
+        /// </summary>
+        /// <param name="workflowType"></param>
+        /// <param name="transaction"></param>
+        public void DeleteUserGroup(UserGroup userGroup, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            try
+            {
+
+                UserGroupBusinessRules userGroupBusinessRules = new UserGroupBusinessRules();
+                ValidationResult results = userGroupBusinessRules.Validate(userGroup);
+
+                bool validationSucceeded = results.IsValid;
+                IList<ValidationFailure> failures = results.Errors;
+
+                if (validationSucceeded == false)
+                {
+                    transaction = ValidationErrors.PopulateValidationErrors(failures);
+                    return;
+                }
+
+                _userGroupDataService.CreateSession();
+                _userGroupDataService.BeginTransaction();
+
+                _userGroupDataService.DeleteUserGroup(userGroup);
+                _userGroupDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("User Group was successfully deleted.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _userGroupDataService.CloseSession();
+            }
+
+
+        }
+
         /// <summary>
         /// Initialize Data
         /// </summary>

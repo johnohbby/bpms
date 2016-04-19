@@ -12,5 +12,6 @@ namespace CodeProject.Portal.Models
         public String Name { get; set; }
 
         public List<Group> Groups { get; set; }
+        public List<GroupType> GroupTypes { get; set; }
     }
 }

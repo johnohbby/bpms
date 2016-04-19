@@ -25,7 +25,26 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="customer"></param>
         public void UpdateUser(User user)
         {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("UserUpdate", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = user.Id;
+                    cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = user.Name;
+                    cmd.Parameters.Add("@surname", SqlDbType.VarChar).Value = user.Surname;
+                    cmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user.Username;
+                    cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = user.Password;
+                    cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = user.Email;
+                    cmd.Parameters.Add("@isActive", SqlDbType.Bit).Value = user.IsActive;
+                    cmd.Parameters.Add("@created", SqlDbType.Date).Value = user.Created;
+                    cmd.Parameters.Add("@createdBy", SqlDbType.VarChar).Value = user.CreatedBy;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         /// <summary>
@@ -69,6 +88,18 @@ namespace CodeProject.Data.EntityFramework
 
             return users;
         }
+
+        /// <summary>
+        /// Delete User
+        /// </summary>
+        /// <param name="customer"></param>
+        public void DeleteUser(User user)
+        {
+            dbConnection.Users.Attach(user);
+            dbConnection.Users.Remove(user);
+        }
+
+        
 
         /// <summary>
         /// Initialize Data

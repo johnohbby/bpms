@@ -13,6 +13,7 @@ namespace CodeProject.Portal.Models
         public String Email { get; set; }
         public long GroupTypeId { get; set; }
 
+        public String GroupTypeName { get; set; }
         public List<ContentRight> ContentRights { get; set; }
         public  GroupType GroupType { get; set; }
         public List<UserGroup> UserGroups { get; set; }

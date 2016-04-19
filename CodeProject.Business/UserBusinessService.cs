@@ -243,6 +243,54 @@ namespace CodeProject.Business
             return user;
 
         }
+
+        /// Delete User
+        /// </summary>
+        /// <param name="workflowType"></param>
+        /// <param name="transaction"></param>
+        public void DeleteUser(User user, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            try
+            {
+
+                UserBusinessRules userBusinessRules = new UserBusinessRules();
+                ValidationResult results = userBusinessRules.Validate(user);
+
+                bool validationSucceeded = results.IsValid;
+                IList<ValidationFailure> failures = results.Errors;
+
+                if (validationSucceeded == false)
+                {
+                    transaction = ValidationErrors.PopulateValidationErrors(failures);
+                    return;
+                }
+
+                _userDataService.CreateSession();
+                _userDataService.BeginTransaction();
+
+                _userDataService.DeleteUser(user);
+                _userDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("User was successfully deleted.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _userDataService.CloseSession();
+            }
+
+
+        }
+
         /// <summary>
         /// Initialize Data
         /// </summary>

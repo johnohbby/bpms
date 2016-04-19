@@ -210,6 +210,55 @@ namespace CodeProject.Business
 
         }
 
+
+        /// <summary>
+        /// Delete Group
+        /// </summary>
+        /// <param name="workflowType"></param>
+        /// <param name="transaction"></param>
+        public void DeleteGroup(Group group, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            try
+            {
+
+                GroupBusinessRules groupBusinessRules = new GroupBusinessRules();
+                ValidationResult results = groupBusinessRules.Validate(group);
+
+                bool validationSucceeded = results.IsValid;
+                IList<ValidationFailure> failures = results.Errors;
+
+                if (validationSucceeded == false)
+                {
+                    transaction = ValidationErrors.PopulateValidationErrors(failures);
+                    return;
+                }
+
+                _groupDataService.CreateSession();
+                _groupDataService.BeginTransaction();
+
+                _groupDataService.DeleteGroup(group);
+                _groupDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("Group was successfully deleted.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _groupDataService.CloseSession();
+            }
+
+
+        }
+
         /// <summary>
         /// Initialize Data
         /// </summary>

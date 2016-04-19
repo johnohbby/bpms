@@ -31,9 +31,13 @@ namespace CodeProject.Portal.WebApiControllers
 
             User user = new User();
             user.Name = userViewModel.Name;
-            //to do
-
-
+            user.Surname = userViewModel.Surname;
+            user.Username = userViewModel.Username;
+            user.Password = userViewModel.Password;
+            user.Email = userViewModel.Email;
+            user.IsActive = userViewModel.IsActive;
+            user.Created = userViewModel.Created;
+            user.CreatedBy = userViewModel.CreatedBy;
 
             UserBusinessService userBusinessService = new UserBusinessService(_userDataService);
             userBusinessService.CreateUser(user, out transaction);
@@ -66,8 +70,14 @@ namespace CodeProject.Portal.WebApiControllers
             User user = new User();
             user.Id = userViewModel.Id;
             user.Name = userViewModel.Name;
+            user.Surname = userViewModel.Surname;
+            user.Username = userViewModel.Username;
+            user.Password = userViewModel.Password;
+            user.Email = userViewModel.Email;
+            user.IsActive = userViewModel.IsActive;
+            user.Created = userViewModel.Created;
+            user.CreatedBy = userViewModel.CreatedBy;
                       
-
             UserBusinessService userBusinessService = new UserBusinessService(_userDataService);
             userBusinessService.UpdateUser(user, out transaction);
             if (transaction.ReturnStatus == false)
@@ -122,7 +132,7 @@ namespace CodeProject.Portal.WebApiControllers
 
             userViewModel.TotalPages = transaction.TotalPages;
             userViewModel.TotalRows = transaction.TotalRows;
-            
+            userViewModel.Users = users;
             userViewModel.ReturnStatus = true;
             userViewModel.ReturnMessage = transaction.ReturnMessage;
 
@@ -130,15 +140,7 @@ namespace CodeProject.Portal.WebApiControllers
             return response;
 
         }
-        [Route("LoginTest")]
-        [HttpPost]
-        public HttpResponseMessage LoginTest(HttpRequestMessage request, [FromBody] UserViewModel userViewModel)
-        {
 
-            
-            var response = Request.CreateResponse<UserViewModel>(HttpStatusCode.OK, userViewModel);
-            return response;
-        }
         /// <summary>
         /// Get User
         /// </summary>
@@ -181,6 +183,43 @@ namespace CodeProject.Portal.WebApiControllers
 
         }
 
+        [Route("DeleteUser")]
+        [HttpPost]
+        public HttpResponseMessage DeleteUser(HttpRequestMessage request, [FromBody] UserViewModel userViewModel)
+        {
+            TransactionalInformation transaction;
+
+            User user = new User();
+            user.Id = userViewModel.Id;
+            user.Name = userViewModel.Name;
+            user.Surname = userViewModel.Surname;
+            user.Username = userViewModel.Username;
+            user.Password = userViewModel.Password;
+            user.Email = userViewModel.Email;
+            user.IsActive = userViewModel.IsActive;
+            user.Created = userViewModel.Created;
+            user.CreatedBy = userViewModel.CreatedBy;
+
+            UserBusinessService userBusinesService = new UserBusinessService(_userDataService);
+            userBusinesService.DeleteUser(user, out transaction);
+            if (transaction.ReturnStatus == false)
+            {
+                userViewModel.ReturnStatus = false;
+                userViewModel.ReturnMessage = transaction.ReturnMessage;
+                userViewModel.ValidationErrors = transaction.ValidationErrors;
+
+                var responseError = Request.CreateResponse<UserViewModel>(HttpStatusCode.BadRequest, userViewModel);
+                return responseError;
+
+            }
+
+            userViewModel.ReturnStatus = true;
+            userViewModel.ReturnMessage = transaction.ReturnMessage;
+
+            var response = Request.CreateResponse<UserViewModel>(HttpStatusCode.OK, userViewModel);
+            return response;
+
+        }
 
 
     }
