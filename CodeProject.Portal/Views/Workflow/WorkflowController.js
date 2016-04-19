@@ -1,6 +1,6 @@
 ﻿angular.module("app").register.controller('workflowController',
-    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService',
-    function ($routeParams, $location, ajaxService, alertService, loginService) {
+    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService','$scope', '$compile',
+    function ($routeParams, $location, ajaxService, alertService, loginService, $scope, $compile) {
         "use strict";
         var vm = this;
         var id = $location.search().id;
@@ -18,9 +18,12 @@
                 sortExpression: "Name",
                 sortDirection: "ASC",
                 pageSize: 10,
-                UserId: loginService.getLoggedUser().id
+                UserId: loginService.getLoggedUser().id,
+                Forms:[]
             };
-            
+            vm.forms = [];
+            vm.formId = -1;
+            vm.formsData = { Forms: [] , FormId: -1, ActionTypeId: -1};
             vm.mySelectedItems = [];
             
             //Workflows 
@@ -59,6 +62,9 @@
             vm.ToggleSelection = ToggleSelection;
             vm.GetDelegatedUsers = GetDelegatedUsers;
             vm.CancelAction = CancelAction;
+            vm.GetForms = GetForms;
+            vm.SaveForms = SaveForms;
+            
 
             function init() {
                 if (id == undefined) {
@@ -114,7 +120,6 @@
             }
             function CreateWorkflow()
             {
-                console.log(vm.workflow);
                 return ajaxService.ajaxPost(vm.workflow, "api/workflowService/CreateWorkflow").then(function (data) {
                     vm.showModalCreate = false;                    
                     GetWorkflows(vm.folderId);
@@ -136,6 +141,7 @@
                     }
                 }
                 vm.action.Delegated = selectedUsers;
+                vm.SaveForms();
                 return ajaxService.ajaxPost(vm.action, "api/workflowService/CreateAction").then(function (data) {
                     vm.showModalActionCreate = false;
                     GetWorkflowDataById(vm.action.WorkflowId);
@@ -166,12 +172,48 @@
                 GetDelegated();
             }
             function CancelAction() {
+                console.log(vm.forms);
                 vm.showModalActionCreate = false;
                 
             }
+
+            function GetForms() {
+                vm.pagination.ActionTypeId = vm.action.ActionTypeId;
+                return ajaxService.ajaxPost(vm.pagination, "api/formService/GetFormData").then(function (data) {
+                  
+
+                    for (var i = 0; i < data.formFields.length; i++) {
+                        
+                        var formField = data.formFields[i];
+                        vm.formId = formField.formId;
+                        var elType = formField.fieldType;
+                        var ngModel = "vm.forms.f" + formField.formId + "."+formField.name;
+                        var element = "<div class='form-group'><label>" + formField.name + "</label><input type='" + elType + "' ng-model='" + ngModel + "' /></div>";
+                        
+                        $("#forms").append($compile(element)($scope));
+                    }
+                    
+                });
+            }
+
+            function SaveForms() {
+                console.log('llll');
+                
+
+
+                vm.formsData.ActionTypeId = vm.action.ActionTypeId;
+                vm.formsData.Forms = eval("vm.forms.f" + vm.formId);
+                vm.formsData.Id = vm.formId;
+                console.log(vm.formsData);
+                
+                return ajaxService.ajaxPost(vm.formsData, "api/formService/SaveForms").then(function (data) {
+
+
+                });
+            }
             function GetDelegatedUsers() {GetDelegated(); }
             function GetDelegated() {
-                
+                vm.GetForms();
                 return ajaxService.ajaxPost(vm.action, "api/workflowService/GetDelegated").then(function (data) {
                     
                     vm.showModalActionCreate = true;

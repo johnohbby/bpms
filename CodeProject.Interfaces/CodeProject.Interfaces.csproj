@@ -53,6 +53,7 @@
     <Compile Include="ICustomerDataService.cs" />
     <Compile Include="IDataRepository.cs" />
     <Compile Include="IActionTypeDataService.cs" />
+    <Compile Include="IFormDataService.cs" />
     <Compile Include="IWorkflowDataService.cs" />
     <Compile Include="IWorkflowTypeDataService.cs" />
     <Compile Include="IProductDataService.cs" />

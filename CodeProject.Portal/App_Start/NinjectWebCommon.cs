@@ -77,6 +77,7 @@ namespace CodeProject.Portal.App_Start
             kernel.Bind<CodeProject.Interfaces.IWorkflowDataService>().To<CodeProject.Data.EntityFramework.WorkflowDataService>();
             kernel.Bind<CodeProject.Interfaces.IStatusDataService>().To<CodeProject.Data.EntityFramework.StatusDataService>();
             kernel.Bind<CodeProject.Interfaces.IStatusTranslationDataService>().To<CodeProject.Data.EntityFramework.StatusTranslationDataService>();
+            kernel.Bind<CodeProject.Interfaces.IFormDataService>().To<CodeProject.Data.EntityFramework.FormDataService>();
         }        
     }
 }

@@ -30,7 +30,7 @@ namespace CodeProject.Data.EntityFramework
         public DbSet<Workflow> Workflows { get; set; }
         public DbSet<WorkflowType> WorkflowTypes { get; set; }
         public DbSet<WorkflowFolder> WorkflowFolders { get; set; }
-        
+        public DbSet<Form> Forms { get; set; }
 
         /// <summary>
         /// Model Creation
