@@ -92,7 +92,8 @@ namespace CodeProject.Portal
                 "~/Views/Workflow/StatusController.js"
             ));
             bundles.Add(new ScriptBundle("~/bundles/registries").Include(
-               "~/Views/Registries/RightTypeController.js"
+               "~/Views/Registries/RightTypeController.js",
+               "~/Views/Registries/ContentRightController.js"
            ));
         }
     }

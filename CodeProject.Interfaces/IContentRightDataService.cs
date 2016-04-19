@@ -14,6 +14,7 @@ namespace CodeProject.Interfaces
     {
         void CreateContentRight(ContentRight contentRight);
         void UpdateContentRight(ContentRight contentRight);
+        void DeleteContentRight(ContentRight contentRight);
         ContentRight GetContentRight(long contentRightID);
         List<ContentRight> GetContentRights(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
 

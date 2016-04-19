@@ -68,6 +68,16 @@ namespace CodeProject.Data.EntityFramework
         }
 
         /// <summary>
+        /// Delete Content Right
+        /// </summary>
+        /// <param name="customer"></param>
+        public void DeleteContentRight(ContentRight contentRight)
+        {
+            dbConnection.ContentRights.Attach(contentRight);
+            dbConnection.ContentRights.Remove(contentRight);
+        }
+
+        /// <summary>
         /// Initialize Data
         /// </summary>
         public void InitializeData()

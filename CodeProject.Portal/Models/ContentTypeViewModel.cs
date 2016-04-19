@@ -9,9 +9,11 @@ namespace CodeProject.Portal.Models
     public class ContentTypeViewModel : TransactionalInformation
     {
         public long Id { get; set; }
+        public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
         public List<ContentRight> ContentRights { get; set; }
+        public List<ContentType> ContentTypes { get; set; }
     }
 }

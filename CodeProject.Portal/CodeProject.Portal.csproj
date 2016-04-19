@@ -171,6 +171,8 @@
     <Compile Include="Models\CustomBundle.cs" />
     <Compile Include="WebApiControllers\CustomerServiceController.cs" />
     <Compile Include="WebApiControllers\ActionTypeServiceController.cs" />
+    <Compile Include="WebApiControllers\GroupServiceController.cs" />
+    <Compile Include="WebApiControllers\ContentRightServiceController.cs" />
     <Compile Include="WebApiControllers\RightTypeServiceController.cs" />
     <Compile Include="WebApiControllers\StatusTranslationServiceController.cs" />
     <Compile Include="WebApiControllers\WorkflowServiceController.cs" />
@@ -1041,6 +1043,8 @@
     <Content Include="Views\Shared\modal.html" />
     <Content Include="Views\Shared\ModalDirective.js" />
     <Content Include="Views\Workflow\ActionType.html" />
+    <Content Include="Views\Registries\ContentRight.html" />
+    <Content Include="Views\Registries\ContentRightController.js" />
     <Content Include="Views\Workflow\StatusController.js" />
     <Content Include="Views\Workflow\ActionTypeController.js" />
     <Content Include="Views\Workflow\Status.html" />

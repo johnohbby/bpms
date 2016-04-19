@@ -110,7 +110,7 @@ namespace CodeProject.Business
                 existingContentRight.GroupId = contentRight.GroupId;
                 existingContentRight.ContentTypeId = contentRight.ContentTypeId;
                 existingContentRight.ContentId = contentRight.ContentId;
-                existingContentRight.RightId = contentRight.RightId;
+                existingContentRight.RightTypeId = contentRight.RightTypeId;
 
                 _contentRightDataService.UpdateContentRight(contentRight);
                 _contentRightDataService.CommitTransaction(true);
@@ -244,6 +244,54 @@ namespace CodeProject.Business
             {
                 _contentRightDataService.CloseSession();
             }           
+
+        }
+
+        /// <summary>
+        /// Delete Content Right
+        /// </summary>
+        /// <param name="workflowType"></param>
+        /// <param name="transaction"></param>
+        public void DeleteContentRight(ContentRight contentRight, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            try
+            {
+
+                ContentRightBusinessRules contentRightBusinessRules = new ContentRightBusinessRules();
+                ValidationResult results = contentRightBusinessRules.Validate(contentRight);
+
+                bool validationSucceeded = results.IsValid;
+                IList<ValidationFailure> failures = results.Errors;
+
+                if (validationSucceeded == false)
+                {
+                    transaction = ValidationErrors.PopulateValidationErrors(failures);
+                    return;
+                }
+
+                _contentRightDataService.CreateSession();
+                _contentRightDataService.BeginTransaction();
+
+                _contentRightDataService.DeleteContentRight(contentRight);
+                _contentRightDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("Content Right was successfully deleted.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _contentRightDataService.CloseSession();
+            }
+
 
         }
 

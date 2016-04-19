@@ -69,6 +69,10 @@ body {
     text-decoration: none;
 }
 
+.form-control {
+    height: 32px;
+}
+
 li a:hover { background-color: #EFEFEF; }
 
 .orange { border-left: 5px solid #F5876E; }

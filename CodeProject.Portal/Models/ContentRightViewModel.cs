@@ -12,10 +12,15 @@ namespace CodeProject.Portal.Models
         public long GroupId { get; set; }
         public long ContentTypeId { get; set; }
         public long ContentId { get; set; }
-        public long RightId { get; set; }
+        public long RightTypeId { get; set; }
 
         public ContentType ContentType { get; set; }
         public Group Group { get; set; }
         public RightType RightType { get; set; }
+        public string GroupName { get; set; }
+        public string ContentTypeName { get; set; }
+        public string ContentName { get; set; }
+        public string RightName { get; set; }
+        public List<ContentRight> ContentRights { get; set; }
     }
 }

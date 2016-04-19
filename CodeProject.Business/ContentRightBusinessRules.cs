@@ -16,7 +16,7 @@ namespace CodeProject.Business
         public ContentRightBusinessRules()
         {
             RuleFor(a => a.ContentId).NotEmpty().WithMessage("Content is required.");
-            RuleFor(a => a.RightId).NotEmpty().WithMessage("Right is required.");
+            RuleFor(a => a.RightTypeId).NotEmpty().WithMessage("Right Type is required.");
             RuleFor(a => a.GroupId).NotEmpty().WithMessage("Group is required.");
             RuleFor(a => a.ContentTypeId).NotEmpty().WithMessage("Content Type is required."); 
         }

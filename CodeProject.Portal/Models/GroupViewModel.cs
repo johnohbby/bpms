@@ -16,5 +16,6 @@ namespace CodeProject.Portal.Models
         public List<ContentRight> ContentRights { get; set; }
         public  GroupType GroupType { get; set; }
         public List<UserGroup> UserGroups { get; set; }
+        public List<Group> Groups { get; set; }
     }
 }
