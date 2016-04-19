@@ -1033,7 +1033,6 @@
     <Content Include="Views\Home\InitializeData.html" />
     <Content Include="Views\Home\InitializeDataController.js" />
     <Content Include="Views\Home\Part3Controller.js" />
-    <Content Include="Views\ModalTemplates\ActionCreate.html" />
     <Content Include="Views\Products\ProductInquiry.html" />
     <Content Include="Views\Products\ProductInquiryController.js" />
     <Content Include="Views\Registries\RightType.html" />
