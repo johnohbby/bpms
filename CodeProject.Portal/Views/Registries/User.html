@@ -1,0 +1,106 @@
+﻿<div ng-controller="userController as vm" ng-init="vm.initializeController()">
+    <h4 class="page-header">Status</h4>
+
+    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+        <span class="glyphicon glyphicon-plus"></span>
+    </button>
+    <table tr-ng-grid="" items="vm.users" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+        <thead>
+            <tr>
+                <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                <th field-name="name" display-name="Name"></th>
+                <th field-name="surname" display-name="Surname"></th>
+                <th field-name="email" display-name="Email"></th>
+                <th field-name="isActive" display-name="Active User"></th>
+                <th field-name="created" display-name="Created"></th>
+                <th field-name="createdBy" display-name="Created By"></th>
+                <th display-name="Actions" cell-width="10em"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+
+                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete()" style="border:0px solid transparent; background-color:transparent">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <modal id="0" title="Create User" visible="vm.showModalCreate">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.user.name" />
+            </div>
+            <div class="form-group">
+                <label>Surname</label>
+                <input type="text" class="form-control" ng-model="vm.user.surname" />
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" ng-model="vm.user.username" />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="text" class="form-control" ng-model="vm.user.password" />
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" ng-model="vm.user.email" />
+            </div>
+            <div class="form-group">
+                <label>Active User</label>
+                <input type="checkbox" class="form-control" ng-model="vm.user.isActive"/>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.createUser()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Edit User" visible="vm.showModalUpdate">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.user_.name" />
+            </div>
+            <div class="form-group">
+                <label>Surname</label>
+                <input type="text" class="form-control" ng-model="vm.user_.surname" />
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" ng-model="vm.user_.username" />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="text" class="form-control" ng-model="vm.user.password" />
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" ng-model="vm.user_.email" />
+            </div>
+            <div class="form-group">
+                <label>Active User</label>
+                <input type="checkbox" class="form-control" ng-model="vm.user_.isActive" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.updateUser()">Save</button>
+            </div>
+        </form>
+    </modal>
+    <modal id="0" title="Delete User" visible="vm.showModalDelete">
+        <form role="form">
+            <label>Are you sure you want to delete item?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.deleteUser()">Delete</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>

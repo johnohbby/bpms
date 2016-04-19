@@ -1,0 +1,70 @@
+﻿<div ng-controller="userGroupController as vm" ng-init="vm.initializeController()">
+    <h4 class="page-header">Group</h4>
+
+    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+        <span class="glyphicon glyphicon-plus"></span>
+    </button>
+    <table tr-ng-grid="" items="vm.userGroups" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+        <thead>
+            <tr>
+                <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                <th field-name="userName" display-name="User"></th>
+                <th field-name="groupName" display-name="Group"></th>
+                <th display-name="Actions" cell-width="10em"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+
+                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete()" style="border:0px solid transparent; background-color:transparent">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <modal id="0" title="Create User Group" visible="vm.showModalCreate">
+        <form role="form">
+            <div class="form-group">
+                <label>User</label>
+                <select class="form-control" ng-model="vm.userGroup.userId" ng-options="user.id as (user.name + ' ' + user.surname) for user in vm.users"></select>
+            </div>
+            <div class="form-group">
+                <label>Group</label>
+                <select class="form-control" ng-model="vm.userGroup.groupId" ng-options="group.id as group.name for group in vm.groups"></select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.createUserGroup()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Edit User Group" visible="vm.showModalUpdate">
+        <form role="form">
+            <div class="form-group">
+                <label>User</label>
+                <select class="form-control" ng-model="vm.usergroup.userId" ng-options="user.id as (user.name + ' ' + user.surname) for user in vm.users"></select>
+            </div>
+            <div class="form-group">
+                <label>Group</label>
+                <select class="form-control" ng-model="vm.usergroup.groupId" ng-options="group.id as group.name for group in vm.groups"></select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.updateUserGroup()">Save</button>
+            </div>
+        </form>
+    </modal>
+    <modal id="0" title="Delete User Group" visible="vm.showModalDelete">
+        <form role="form">
+            <label>Are you sure you want to delete item?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.deleteUserGroup()">Delete</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>
