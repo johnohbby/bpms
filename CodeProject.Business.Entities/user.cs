@@ -17,14 +17,14 @@ namespace CodeProject.Business.Entities
     {
      
         public long Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
+        public String Name { get; set; }
+        public String Surname { get; set; }
+        public String Username { get; set; }
+        public String Password { get; set; }
+        public String Email { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime Created { get; set; }
-        public string CreatedBy { get; set; }
+        public String CreatedBy { get; set; }
     
     }
 }

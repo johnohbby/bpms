@@ -17,8 +17,8 @@ namespace CodeProject.Business.Entities
     {
         
         public long Id { get; set; }
-        public string Name { get; set; }
-        public string CaseNumber { get; set; }
+        public String Name { get; set; }
+        public String CaseNumber { get; set; }
         public long WorkflowTypeId { get; set; }
         public long LastActionId { get; set; }
         public System.DateTime Created { get; set; }

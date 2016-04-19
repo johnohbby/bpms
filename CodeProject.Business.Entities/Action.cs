@@ -23,10 +23,10 @@ namespace CodeProject.Business.Entities
         public long CreatedBy { get; set; }
         public bool IsDeleted { get; set; }
         public long DelegatedTo { get; set; }
-        public string DelegatedName { get; set; }
-        public string ActionTypeName { get; set; }
-        public string CreatedByName { get; set; }
-        public string OrdinalNo { get; set; }
+        public String DelegatedName { get; set; }
+        public String ActionTypeName { get; set; }
+        public String CreatedByName { get; set; }
+        public String OrdinalNo { get; set; }
 
         
 
