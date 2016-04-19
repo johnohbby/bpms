@@ -12,8 +12,8 @@ namespace CodeProject.Portal.Models
         public long StatusIdFrom { get; set; }
         public long StatusIdTo { get; set; }
         public long ActionTypeId { get; set; }
-        public string StatusFromName { get; set; }
-        public string StatusToName { get; set; }
+        public String StatusFromName { get; set; }
+        public String StatusToName { get; set; }
 
         public virtual List<ActionType> ActionTypes { get; set; }
         public virtual Status Status { get; set; }

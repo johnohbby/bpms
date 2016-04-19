@@ -9,9 +9,9 @@ namespace CodeProject.Portal.Models
     public class RightTypeViewModel : TransactionalInformation
     {
         public long Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public String Code { get; set; }
+        public String Name { get; set; }
+        public String Description { get; set; }
 
         public List<ContentRight> ContentRights { get; set; }
         public List<RightType> RightTypes { get; set; }

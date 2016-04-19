@@ -9,8 +9,8 @@ namespace CodeProject.Portal.Models
     public class GroupViewModel : TransactionalInformation
     {
         public long Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
+        public String Name { get; set; }
+        public String Email { get; set; }
         public long GroupTypeId { get; set; }
 
         public List<ContentRight> ContentRights { get; set; }

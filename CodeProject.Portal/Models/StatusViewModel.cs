@@ -9,7 +9,7 @@ namespace CodeProject.Portal.Models
     public class StatusViewModel : TransactionalInformation
     {
         public long Id { get; set; }
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         public List<StatusTranslation> StatusTranslations { get; set; }
         public List<StatusTranslation> StatusTranslations1 { get; set; }

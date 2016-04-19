@@ -9,9 +9,9 @@ namespace CodeProject.Portal.Models
     public class ActionTypeViewModel : TransactionalInformation
     {
         public long Id { get; set; }
-        public string Name { get; set; }
+        public String Name { get; set; }
         public long WorkflowTypeId { get; set; }
-        public string WorkflowTypeName { get; set; }
+        public String WorkflowTypeName { get; set; }
 
         public List<CodeProject.Business.Entities.Action> Actions { get; set; }
         public WorkflowType WorkflowType { get; set; }
