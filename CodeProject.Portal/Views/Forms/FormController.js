@@ -276,7 +276,11 @@
 
             function insertTable()
             {
-
+                var formField = new Object();
+                formField.Id = vm.mySelectedItems[0].id;
+                return ajaxService.ajaxPost(formField, "api/formService/CreateTable").then(function (data) {
+                    vm.showModalInsertTable = !vm.showModalInsertTable;
+                });
             }
 
         }
