@@ -21,7 +21,7 @@
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
 
-                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete()" style="border:0px solid transparent; background-color:transparent">
+                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
                 </td>

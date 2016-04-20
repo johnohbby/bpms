@@ -51,6 +51,7 @@
             vm.titles = [];
 
             function toggleModal() {
+                vm.showModal != vm.showModal;
                 vm.showModalCreate = false;
                 vm.showModalUpdate = false;
                 vm.showModalDelete = false;
@@ -74,7 +75,7 @@
             };
 
             function toggleModalDelete() {
-                if (vm.mySelectedItems[0]) {
+                if (vm.mySelectedItems) {
                     $scope.title = "Delete User Group";
                     vm.showModalDelete = !vm.showModalDelete;
                 }
@@ -138,19 +139,20 @@
             }
 
             function deleteUserGroup() {
+                if (vm.mySelectedItems[0]) {
+                    var userGroup = new Object();
+                    userGroup.Id = vm.mySelectedItems[0].id;
+                    userGroup.UserId = vm.mySelectedItems[0].userId;
+                    userGroup.GroupId = vm.mySelectedItems[0].groupId;
 
-                var userGroup = new Object();
-                userGroup.Id = vm.mySelectedItems[0].id;
-                userGroup.UserId = vm.mySelectedItems[0].userId;
-                userGroup.GroupId = vm.mySelectedItems[0].groupId;
-
-                return ajaxService.ajaxPost(userGroup, "api/userGroupService/DeleteUserGroup").then(function (data) {
-                    vm.showModalDelete = !vm.showModalDelete;
-                    vm.getAllUserGroups();
-                })
-                .catch(function (fallback) {
-                    console.log(fallback);
-                });
+                    return ajaxService.ajaxPost(userGroup, "api/userGroupService/DeleteUserGroup").then(function (data) {
+                        vm.showModalDelete = !vm.showModalDelete;
+                        vm.getAllUserGroups();
+                    })
+                    .catch(function (fallback) {
+                        console.log(fallback);
+                    });
+                }
             }
 
             function getUserGroup() {
@@ -173,9 +175,6 @@
                 });
             }
 
-            function toggleModal() {
-                vm.showModal != vm.showModal;
-            }
         }
 
     }

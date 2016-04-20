@@ -100,7 +100,7 @@
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </button>
 
-                                        <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.DeleteWorkflow(vm.workflows.splice(vm.workflows.indexOf(gridItem),1))" style="border:0px solid transparent; background-color:transparent">
+                                        <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.DeleteWorkflow(vm.workflows.splice(vm.workflows.indexOf(gridItem),1)); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </button>
 
