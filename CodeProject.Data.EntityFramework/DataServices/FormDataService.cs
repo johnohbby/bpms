@@ -47,7 +47,7 @@ namespace CodeProject.Data.EntityFramework
         }
 
         /// <summary>
-        /// Create Workflow Type
+        /// Create From
         /// </summary>
         /// <param name="product"></param>
         public void CreateForm(Form form)
@@ -77,54 +77,19 @@ namespace CodeProject.Data.EntityFramework
         /// <returns></returns>
         public List<Form> GetForms(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
         {
-            DataTable dt = new DataTable();
-            
-            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("GetForms", sqlcon))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        da.Fill(dt);
-                    }
-                }
-            }
-            List<Form> workflows = dt.ToList<Form>().ToList<Form>();
+
             totalRows = 0;
 
             sortExpression = sortExpression + " " + sortDirection;
 
-            totalRows = dbConnection.Workflows.Count();
-            
-            return workflows;
+            totalRows = dbConnection.Customers.Count();
+
+            List<Form> forms = dbConnection.Forms.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            return forms;
         }
 
-        public List<Form> GetAllForms( int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
-        {
-            DataTable dt = new DataTable();
-
-            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("GetForms", sqlcon))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        da.Fill(dt);
-                    }
-                }
-            }
-            List<Form> workflows = dt.ToList<Form>().ToList<Form>();
-            totalRows = 0;
-
-            sortExpression = sortExpression + " " + sortDirection;
-
-            totalRows = dbConnection.Workflows.Count();
-
-            return workflows;
-        }
-
+       
         /// <summary>
         /// Delete Workflow Type
         /// </summary>
@@ -215,6 +180,26 @@ namespace CodeProject.Data.EntityFramework
             // = dbConnection.Workflows.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
 
           
+        }
+
+        public void CreateTable(long formId, out int totalRows)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("CreateTable", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@formId", SqlDbType.BigInt, 255).Value = formId;
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+           
+            totalRows = 0;
+
         }
     }
 

@@ -14,28 +14,27 @@ using System.Data;
 namespace CodeProject.Data.EntityFramework
 {
     /// <summary>
-    /// Content Right Data Service
+    /// Content Form Map Data Service
     /// </summary>
-    public class ContentRightDataService : EntityFrameworkService, IContentRightDataService
+    public class ContentFormMapDataService : EntityFrameworkService, IContentFormMapDataService
     {
 
         /// <summary>
-        /// Update Content Right
+        /// Update Content Form Map
         /// </summary>
         /// <param name="customer"></param>
-        public void UpdateContentRight(ContentRight contentRight)
+        public void UpdateContentFormMap(ContentFormMap contentFormMap)
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("ContentRightUpdate", con))
+                using (SqlCommand cmd = new SqlCommand("ContentFormMapUpdate", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = contentRight.Id;
-                    cmd.Parameters.Add("@groupId", SqlDbType.BigInt).Value = contentRight.GroupId;
-                    cmd.Parameters.Add("@contentTypeId", SqlDbType.BigInt).Value = contentRight.ContentTypeId;
-                    cmd.Parameters.Add("@contentId", SqlDbType.BigInt).Value = contentRight.ContentId;
-                    cmd.Parameters.Add("@rightTypeId", SqlDbType.BigInt).Value = contentRight.RightTypeId;
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = contentFormMap.Id;
+                    cmd.Parameters.Add("@formId", SqlDbType.BigInt).Value = contentFormMap.FormId;
+                    cmd.Parameters.Add("@contentTypeId", SqlDbType.BigInt).Value = contentFormMap.ContentTypeId;
+                    cmd.Parameters.Add("@contentId", SqlDbType.BigInt).Value = contentFormMap.ContentId;
 
                     con.Open();
                     cmd.ExecuteNonQuery();
@@ -44,27 +43,27 @@ namespace CodeProject.Data.EntityFramework
         }
 
         /// <summary>
-        /// Create Content Right
+        /// Create Content Form Map
         /// </summary>
         /// <param name="customer"></param>
-        public void CreateContentRight(ContentRight contentRight)
+        public void CreateContentFormMap(ContentFormMap contentFormMap)
         {
-            dbConnection.ContentRights.Add(contentRight);
+            dbConnection.ContentFormMaps.Add(contentFormMap);
         }
 
         /// <summary>
-        /// Get Content Right
+        /// Get Content Form Map
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
-        public ContentRight GetContentRight(long contentRightID)
+        public ContentFormMap GetContentFormMap(long contentFormMapID)
         {
-            ContentRight contentRight = dbConnection.ContentRights.Where(a => a.Id == contentRightID).FirstOrDefault();
-            return contentRight;
+            ContentFormMap contentFormMap = dbConnection.ContentFormMaps.Where(a => a.Id == contentFormMapID).FirstOrDefault();
+            return contentFormMap;
         }
 
         /// <summary>
-        /// Get Content Rights
+        /// Get Content Form Maps
         /// </summary>
         /// <param name="currentPageNumber"></param>
         /// <param name="pageSize"></param>
@@ -72,7 +71,7 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="sortDirection"></param>
         /// <param name="totalRows"></param>
         /// <returns></returns>
-        public List<ContentRight> GetContentRights(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
+        public List<ContentFormMap> GetContentFormMaps(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
         {
             totalRows = 0;
 
@@ -80,19 +79,18 @@ namespace CodeProject.Data.EntityFramework
 
             totalRows = dbConnection.Customers.Count();
 
-            List<ContentRight> contentRights = dbConnection.ContentRights.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
+            List<ContentFormMap> contentFormMaps = dbConnection.ContentFormMaps.OrderBy(sortExpression).Skip((currentPageNumber - 1) * pageSize).Take(pageSize).ToList();
 
-            return contentRights;
+            return contentFormMaps;
         }
 
-        /// <summary>
-        /// Delete Content Right
+        /// Delete Content Form Map
         /// </summary>
         /// <param name="customer"></param>
-        public void DeleteContentRight(ContentRight contentRight)
+        public void DeleteContentFormMap(ContentFormMap contentFormMap)
         {
-            dbConnection.ContentRights.Attach(contentRight);
-            dbConnection.ContentRights.Remove(contentRight);
+            dbConnection.ContentFormMaps.Attach(contentFormMap);
+            dbConnection.ContentFormMaps.Remove(contentFormMap);
         }
 
         /// <summary>

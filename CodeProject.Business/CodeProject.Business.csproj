@@ -49,8 +49,12 @@
   <ItemGroup>
     <Compile Include="ContentRightBusinessRules.cs" />
     <Compile Include="ContentRightBusinessService.cs" />
+    <Compile Include="ContentFormMapBusinessRules.cs" />
+    <Compile Include="ContentFormMapBusinessService.cs" />
     <Compile Include="ContentTypeBusinessService.cs" />
     <Compile Include="ContentTypeBusinessRules.cs" />
+    <Compile Include="FormFieldBusinessService.cs" />
+    <Compile Include="FormFieldBusinessRules.cs" />
     <Compile Include="FormBusinessRules.cs" />
     <Compile Include="StatusTranslationBusinessService.cs" />
     <Compile Include="StatusTranslationBusinessRules.cs" />

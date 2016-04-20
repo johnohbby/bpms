@@ -120,7 +120,7 @@ namespace CodeProject.Portal.WebApiControllers
 
             formsViewModel.TotalPages = transaction.TotalPages;
             formsViewModel.TotalRows = transaction.TotalRows;
-            //formsViewModel.FormFields = forms;
+            formsViewModel.Forms = forms;
             formsViewModel.ReturnStatus = true;
             formsViewModel.ReturnMessage = transaction.ReturnMessage;
 
@@ -245,7 +245,37 @@ namespace CodeProject.Portal.WebApiControllers
 
         }
 
+        [Route("CreateTable")]
+        [HttpPost]
+        public HttpResponseMessage CreateTable(HttpRequestMessage request, [FromBody] FormViewModel formViewModel)
+        {
 
+            TransactionalInformation transaction;
+
+            FormBusinessService formsBusinessService = new FormBusinessService(_formsDataService);
+
+            formsBusinessService.CreateTable(formViewModel.Id, out transaction);
+
+            if (transaction.ReturnStatus == false)
+            {
+                formViewModel.ReturnStatus = false;
+                formViewModel.ReturnMessage = transaction.ReturnMessage;
+                formViewModel.ValidationErrors = transaction.ValidationErrors;
+
+                var responseError = Request.CreateResponse<FormViewModel>(HttpStatusCode.BadRequest, formViewModel);
+                return responseError;
+
+            }
+
+            formViewModel.TotalPages = transaction.TotalPages;
+            formViewModel.TotalRows = transaction.TotalRows;
+            formViewModel.ReturnStatus = true;
+            formViewModel.ReturnMessage = transaction.ReturnMessage;
+
+            var response = Request.CreateResponse<FormViewModel>(HttpStatusCode.OK, formViewModel);
+            return response;
+
+        }
 
     }
 }

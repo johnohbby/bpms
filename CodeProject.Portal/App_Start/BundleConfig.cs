@@ -98,6 +98,10 @@ namespace CodeProject.Portal
                "~/Views/Registries/GroupController.js",
                "~/Views/Registries/UserGroupController.js"
            ));
+            bundles.Add(new ScriptBundle("~/bundles/forms").Include(
+               "~/Views/Forms/FormController.js",
+                "~/Views/Forms/ContentFormMapController.js"
+           ));
         }
     }
 }

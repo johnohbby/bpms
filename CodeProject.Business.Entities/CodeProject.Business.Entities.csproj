@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentFormMap.cs" />
     <Compile Include="Form.cs" />
     <Compile Include="Action.cs" />
     <Compile Include="ActionType.cs" />

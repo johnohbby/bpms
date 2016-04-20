@@ -335,8 +335,39 @@ namespace CodeProject.Business
             {
                 _formDataService.CloseSession();
             }
+        }
 
-       
+        public void CreateTable(long formId, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+
+            try
+            {
+                int totalRows;
+
+                _formDataService.CreateSession();
+                _formDataService.CreateTable(formId, out totalRows);
+                _formDataService.CloseSession();
+
+                //transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);
+                transaction.TotalRows = totalRows;
+
+                transaction.ReturnStatus = true;
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _formDataService.CloseSession();
+            }
+
+
 
         }
     }

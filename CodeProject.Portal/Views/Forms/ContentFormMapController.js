@@ -1,4 +1,4 @@
-﻿angular.module("app").register.controller('contentRightController',
+﻿angular.module("app").register.controller('contentFormMapController',
     ['$scope', '$routeParams', '$location', 'ajaxService', 'alertService',
     function ($scope, $routeParams, $location, ajaxService, alertService) {
 
@@ -11,8 +11,8 @@
             //variables
             vm.messageBox = "";
             vm.alerts = [];
-            vm.contentRights = [];
-            vm.contentRight = { id: "0" };
+            vm.contentFormMaps = [];
+            vm.contentFormMap = { id: "0" };
             vm.pagination = {
                 currentPageNumber: 1,
                 sortExpression: "Id",
@@ -23,42 +23,36 @@
             vm.showModalUpdate = false;
             vm.showModalDelete = false;
             vm.mySelectedItems = [];
-            vm.contentright = {};
-            vm.groups = [];
+            vm.contentformMap = {};
+            vm.forms = [];
             vm.contentTypes = [];
             vm.contents = [];
-            vm.rightTypes = [];
             vm.actionTypes = [];
             vm.workflowTypes = [];
 
-
             //functions
-            vm.getAllContentRights = getAllContentRights;
-            vm.closeAlert = closeAlert;
-            vm.clearValidationErrors = clearValidationErrors;
+            vm.getAllContentFormMaps = getAllContentFormMaps;
             vm.toggleModalCreate = toggleModalCreate;
             vm.toggleModalUpdate = toggleModalUpdate;
             vm.toggleModalDelete = toggleModalDelete;
-            vm.createContentRight = createContentRight;
-            vm.updateContentRight = updateContentRight;
-            vm.deleteContentRight = deleteContentRight;
+            vm.createContentFormMap = createContentFormMap;
+            vm.updateContentFormMap = updateContentFormMap;
+            vm.deleteContentFormMap = deleteContentFormMap;
             vm.toggleModal = toggleModal;
-            vm.getAllGroups = getAllGroups;
+            vm.getAllForms = getAllForms;
             vm.getAllContentTypes = getAllContentTypes;
             vm.getAllContents = getAllContents;
-            vm.getAllRightTypes = getAllRightTypes;
             vm.getAllWorkflowTypes = getAllWorkflowTypes;
             vm.getAllActionTypes = getAllActionTypes;
 
 
             function init() {
-                getAllGroups();
+                getAllForms();
                 getAllContentTypes();
-                getAllRightTypes();
+                getAllContentFormMaps();
                 getAllActionTypes();
                 getAllWorkflowTypes();
-
-              //  getAllContentRights();
+                
             }
 
             init();
@@ -72,36 +66,36 @@
             }
 
             function toggleModalCreate() {
-                $scope.title = "Create Content Right";
-                vm.contentRight = getContentRight();
+                $scope.title = "Create Content Form Map";
+                vm.contentFormMap = getContentFormMap();
                 vm.showModalCreate = !vm.showModalCreate;
             };
 
             function toggleModalUpdate() {
                 if (vm.mySelectedItems[0]) {
-                    $scope.title = "Edit Content Right";
-                    vm.contentright = vm.mySelectedItems[0];
-                    vm.showModalUpdate = !vm.showModalUpdate;
+                    $scope.title = "Edit Content Form Map";
+                    vm.contentFormMap = vm.mySelectedItems[0];
+                    vm.showModalCreate = !vm.showModalCreate;
                 }
                 else {
-                    alert("Please select Content Right!");
+                    alert("Please select Content Form Map!");
                 }
             };
 
             function toggleModalDelete() {
                 if (vm.mySelectedItems[0]) {
-                    $scope.title = "Delete Content Right";
+                    $scope.title = "Delete Content Form Map";
                     vm.showModalDelete = !vm.showModalDelete;
                 }
                 else {
-                    alert("Please select Content Right!");
+                    alert("Please select Content Form Map!");
                 }
             };
             
-            function getAllGroups() {
-                return ajaxService.ajaxPost(vm.pagination, "api/groupService/GetGroups").then(function (data) {
-                    vm.groups = data.groups;
-                    return vm.groups;
+            function getAllForms() {
+                return ajaxService.ajaxPost(vm.pagination, "api/formService/GetForms").then(function (data) {
+                    vm.forms = data.forms;
+                    return vm.forms;
                 });
             };
 
@@ -114,15 +108,17 @@
 
             function getAllActionTypes() {
                 return ajaxService.ajaxPost(vm.pagination, "api/actionTypeService/GetActionTypes").then(function (data) {
+                 
                     vm.actionTypes = data.actionTypes;
-                    return vm.actionTypes;
+                    return vm.contents;
                 });
             }
 
             function getAllWorkflowTypes() {
                 return ajaxService.ajaxPost(vm.pagination, "api/workflowTypeService/GetWorkflowTypes").then(function (data) {
+                   
                     vm.workflowTypes = data.workflowTypes;
-                    return vm.workflowTypes;
+                    return vm.contents;
                 });
             }
 
@@ -144,13 +140,11 @@
                 {
                     if(code==='ACTION')
                     {
-                        //vm.getAllActionTypes();
                         vm.contents = vm.actionTypes;
                     }
 
                     else if(code==='WORKFLOW')
                     {
-                        //vm.getAllWorkflowTypes();
                         vm.contents = vm.workflowTypes;
                     }
 
@@ -162,50 +156,41 @@
                 }
             }
 
-            function getAllRightTypes() {
-                return ajaxService.ajaxPost(vm.pagination, "api/rightTypeService/GetRightTypes").then(function (data) {
-                    getAllContentRights();
-                    vm.rightTypes = data.rightTypes;
-                    return vm.rightTypes;
-                });
-            };
+           
 
-            function getAllContentRights() {
-                return ajaxService.ajaxPost(vm.pagination, "api/contentRightService/GetContentRights").then(function (data) {
-                    if (data.contentRights.length > 0) {
-                        for (var i = 0; i < data.contentRights.length; i++) {
-                            for (var j = 0; j < vm.groups.length; j++) {
-                                if (data.contentRights[i].groupId === vm.groups[j].id) {
-                                    data.contentRights[i].groupName = vm.groups[j].name;
+            function getAllContentFormMaps() {
+                return ajaxService.ajaxPost(vm.pagination, "api/contentFormMapService/GetContentFormMaps").then(function (data) {
+                    if (data.contentFormMaps.length > 0) {
+                        for (var i = 0; i < data.contentFormMaps.length; i++) {
+                            for (var j = 0; j < vm.forms.length; j++) {
+                                if (data.contentFormMaps[i].formId === vm.forms[j].id) {
+                                    data.contentFormMaps[i].formName = vm.forms[j].name;
                                     break;
                                 }
                             }
 
                             for (var k = 0; k < vm.contentTypes.length; k++) {
-                                if (data.contentRights[i].contentTypeId === vm.contentTypes[k].id) {
-                                    data.contentRights[i].contentTypeName = vm.contentTypes[k].name;
-                                    data.contentRights[i].contentName = setContentName(vm.contentTypes[k].code, data.contentRights[i].contentId);
-                                    break;
-                                }
-                            }
-
-                            for (var m = 0; m < vm.rightTypes.length; m++) {
-                                if (data.contentRights[i].rightTypeId === vm.rightTypes[m].id) {
-                                    data.contentRights[i].rightTypeName = vm.rightTypes[m].name;
+                                if (data.contentFormMaps[i].contentTypeId === vm.contentTypes[k].id) {
+                                    data.contentFormMaps[i].contentTypeName = vm.contentTypes[k].name;
+                                    data.contentFormMaps[i].contentName = setContentName(vm.contentTypes[k].code, data.contentFormMaps[i].contentId);
                                     break;
                                 }
                             }
                         }
                     }
-                    vm.contentRights = data.contentRights;
-                    return vm.contentRights;
+                    vm.contentFormMaps = data.contentFormMaps;
+                    return vm.contentFormMaps;
                 });
             };
 
-            function setContentName(contentTypeCode, contentId) {
-                if (contentTypeCode === 'ACTION') {
-                    for (var i = 0; i < vm.actionTypes.length; i++) {
-                        if (vm.actionTypes[i].id === contentId) {
+            function setContentName(contentTypeCode, contentId)
+            {
+                if(contentTypeCode==='ACTION')
+                {
+                    for(var i=0; i<vm.actionTypes.length; i++)
+                    {
+                        if(vm.actionTypes[i].id===contentId)
+                        {
                             return vm.actionTypes[i].name;
                         }
                     }
@@ -224,17 +209,16 @@
                 }
             }
 
-            function createContentRight() {
-                var contentRight = new Object();
-                contentRight.Id = vm.contentRight.id;
-                contentRight.GroupId = vm.contentRight.groupId;
-                contentRight.ContentTypeId = vm.contentRight.contentTypeId;
-                contentRight.ContentId = vm.contentRight.contentId;
-                contentRight.RightTypeId = vm.contentRight.rightTypeId;
+            function createContentFormMap() {
+                var contentFormMap = new Object();
+                contentFormMap.Id = vm.contentFormMap.id;
+                contentFormMap.FormId = vm.contentFormMap.formId;
+                contentFormMap.ContentTypeId = vm.contentFormMap.contentTypeId;
+                contentFormMap.ContentId = vm.contentFormMap.contentId;
                
-                return ajaxService.ajaxPost(contentRight, "api/contentRightService/CreateContentRight").then(function (data) {
+                return ajaxService.ajaxPost(contentFormMap, "api/contentFormMapService/CreateContentFormMap").then(function (data) {
                     vm.showModalCreate = !vm.showModalCreate;
-                    vm.getAllContentRights();
+                    vm.getAllContentFormMaps();
 
                 })
                 .catch(function (fallback) {
@@ -242,33 +226,32 @@
                 });
             }
 
-            function updateContentRight() {
-                var contentRight = new Object();
-                contentRight.Id = vm.contentright.id;
-                contentRight.GroupId = vm.contentright.groupId;
-                contentRight.ContentTypeId = vm.contentright.contentTypeId;
-                contentRight.ContentId = vm.contentright.contentId;
-                contentRight.RightTypeId = vm.contentright.rightTypeId;
-                return ajaxService.ajaxPost(contentRight, "api/contentRightService/UpdateContentRight").then(function (data) {
+            function updateContentFormMap() {
+                var contentFormMap = new Object();
+                contentFormMap.Id = vm.contentFormMap.id;
+                contentFormMap.FormId = vm.contentFormMap.formId;
+                contentFormMap.ContentTypeId = vm.contentFormMap.contentTypeId;
+                contentFormMap.ContentId = vm.contentFormMap.contentId;
+
+                return ajaxService.ajaxPost(contentFormMap, "api/contentFormMapService/UpdateContentFormMap").then(function (data) {
                     vm.showModalUpdate = !vm.showModalUpdate;
-                    vm.getAllContentRights();
+                    vm.getAllContentFormMaps();
                 })
                 .catch(function (fallback) {
                     console.log(fallback);
                 });
             }
 
-            function deleteContentRight() {
-                var contentRight = new Object();
-                contentRight.Id = vm.mySelectedItems[0].id;
-                contentRight.GroupId = vm.mySelectedItems[0].groupId;
-                contentRight.ContentTypeId = vm.mySelectedItems[0].contentTypeId;
-                contentRight.ContentId = vm.mySelectedItems[0].contentId;
-                contentRight.RightTypeId = vm.mySelectedItems[0].rightTypeId;
+            function deleteContentFormMap() {
+                var contentFormMap = new Object();
+                contentFormMap.Id = vm.mySelectedItems[0].id;
+                contentFormMap.FormId = vm.mySelectedItems[0].formId;
+                contentFormMap.ContentTypeId = vm.mySelectedItems[0].contentTypeId;
+                contentFormMap.ContentId = vm.mySelectedItems[0].contentId;
 
-                return ajaxService.ajaxPost(contentRight, "api/contentRightService/DeleteContentRight").then(function (data) {
+                return ajaxService.ajaxPost(contentFormMap, "api/contentFormMapService/DeleteContentFormMap").then(function (data) {
                     vm.showModalDelete = !vm.showModalDelete;
-                    vm.getAllContentRights();
+                    vm.getAllContentFormMaps();
                 })
                 .catch(function (fallback) {
                     console.log(fallback);
@@ -283,14 +266,10 @@
                 vm.productNameInputError = false;
             }
 
-            function getContentRight() {
-                vm.contentRight = { id: "0" };
-                return vm.contentRight;
+            function getContentFormMap() {
+                vm.contentFormMap = { id: "0" };
+                return vm.contentFormMap;
             }
-
-          /*  function toggleModal() {
-                vm.showModal != vm.showModal;
-            }*/
         }
 
     }

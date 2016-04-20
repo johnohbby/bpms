@@ -1,0 +1,178 @@
+﻿<div ng-controller="formController as vm" ng-init="vm.initializeController()">
+    <<div class="form-group"></div>
+    <!--Action Type-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Form
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+        <div class="panel-body">
+            <table tr-ng-grid="" items="vm.forms" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                <thead>
+                    <tr>
+                        <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                        <th field-name="name" display-name="Name"></th>
+                        <th field-name="tableName" display-name="Table Name"></th>
+                        <th display-name="Actions" cell-width="10em"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-default btn-sm col-xs-3 col-sm-3 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+
+                            <button class="btn btn-default btn-sm col-xs-3 col-sm-3 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+
+                            <button class="btn btn-default btn-sm col-xs-3 col-sm-3 col-sm-offset-1 " ng-click="vm.toggleModalInsertTable(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                <span class="glyphicon glyphicon-dashboard"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--Form Field-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Form Field
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateField()" style="border: 0px solid transparent; background-color: transparent">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+        <div class="panel-body">
+            <table tr-ng-grid="" items="vm.formFields" selected-items="vm.mySelectedItemsField" selection-mode="SingleRow" enable-filtering="false">
+                <thead>
+                    <tr>
+                        <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                        <th field-name="name" display-name="Name"></th>
+                        <th field-name="fieldType" display-name="Field Type"></th>
+                        <th display-name="Actions" cell-width="10em"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdateField()" style="border: 0px solid transparent; background-color: transparent">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+
+                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDeleteField(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <modal id="0" title="Create Form" visible="vm.showModalCreate">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.form.name" />
+            </div>
+            <div class="form-group">
+                <label>Table Name</label>
+                <input type="text" class="form-control" ng-model="vm.form.tableName" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.createForm()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Edit Form" visible="vm.showModalUpdate">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.form_.name" />
+            </div>
+            <div class="form-group">
+                <label>Table Name</label>
+                <input type="text" class="form-control" ng-model="vm.form_.tableName" readonly/>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.updateForm()">Save</button>
+            </div>
+        </form>
+    </modal>
+    <modal id="0" title="Delete Form" visible="vm.showModalDelete">
+        <form role="form">
+            <label>Are you sure you want to delete item?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.deleteForm()">Delete</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Create Form Field" visible="vm.showModalCreateField">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.formField.name" />
+            </div>
+            <div class="form-group">
+                <label>Form</label>
+                <input type="text" class="form-control" ng-model="vm.formName" readonly />
+            </div>
+            <div class="form-group">
+                <label>Field Type</label>
+                <select class="form-control" ng-model="vm.formField.fieldType" ng-options="fieldType.code as fieldType.name for fieldType in vm.fieldTypes"></select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.createFormField()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Edit Form Field" visible="vm.showModalUpdateField">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.formfield.name" />
+            </div>
+            <div class="form-group">
+                <label>Form</label>
+                <input type="text" class="form-control" ng-model="vm.formName" readonly />
+            </div>
+            <div class="form-group">
+                <label>Field Type</label>
+                <select class="form-control" ng-model="vm.formfield.fieldType" ng-options="fieldType.code as fieldType.name for fieldType in vm.fieldTypes"></select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.updateFormField()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Delete Form Field" visible="vm.showModalDeleteField">
+        <form role="form">
+            <label>Are you sure you want to delete item?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.deleteFormField()">Delete</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Create New Table" visible="vm.showModalInsertTable">
+        <form role="form">
+            <label>You are about to create new table {{vm.mySelectedItems[0].tableName}} into database.</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.insertTable()">Continue</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>

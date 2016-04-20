@@ -1,0 +1,74 @@
+﻿<div ng-controller="contentFormMapController as vm" ng-init="vm.initializeController()">
+    <h4 class="page-header">Content Form Map</h4>
+    
+    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+        <span class="glyphicon glyphicon-plus"></span>
+    </button>
+    <div id="0" ng-show="vm.showModalCreate">
+        <div class="panel panel-default">
+            <div class="panel-heading">Create Content Form Map</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" >
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3">Form</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" ng-model="vm.contentFormMap.formId" ng-options="form.id as form.name for form in vm.forms"></select>
+                            </div>
+                         </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3">Content Type</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" ng-model="vm.contentFormMap.contentTypeId" ng-options="contentType.id as contentType.name for contentType in vm.contentTypes" ng-change="vm.getAllContents(vm.contentFormMap.contentTypeId)"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3">Content</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" ng-model="vm.contentFormMap.contentId" ng-options="content.id as content.name for content in vm.contents"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary pull-right" ng-click="vm.toggleModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary pull-right" ng-click="vm.createContentFormMap()">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+            </div>
+
+            <table tr-ng-grid="" items="vm.contentFormMaps" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                <thead>
+                    <tr>
+                        <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                        <th field-name="formName" display-name="Form"></th>
+                        <th field-name="contentTypeName" display-name="Content Type"></th>
+                        <th field-name="contentName" display-name="Content"></th>
+                        <th display-name="Actions" cell-width="10em"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <modal id="0" title="Delete Content Form Map" visible="vm.showModalDelete">
+                <form role="form">
+                    <label>Are you sure you want to delete item?</label>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="vm.deleteContentFormMap()">Delete</button>
+                        <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+                    </div>
+                </form>
+            </modal>

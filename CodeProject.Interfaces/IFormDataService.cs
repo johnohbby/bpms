@@ -20,6 +20,7 @@ namespace CodeProject.Interfaces
         List<Form> GetFormByActionTypeId(long actionTypeId, out int totalRows);
         List<FormField> GetFormFieldsByFormId(long formId, out int totalRows); 
         void InsertData(long formId, string allValues, out int totalRows);
+        void CreateTable(long formId, out int totalRows);
     }
 }
 

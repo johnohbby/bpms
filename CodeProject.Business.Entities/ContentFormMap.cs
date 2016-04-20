@@ -13,13 +13,13 @@ namespace CodeProject.Business.Entities
     using System.Collections.Generic;
 
 
-    public class FormField
+    public partial class ContentFormMap
     {
-        
-        public long Id { get; set; }
-        public String Name { get; set; }
-        public String FieldType { get; set; }
-        public long FormId { get; set; }
 
+        public long Id { get; set; }
+        public long FormId { get; set; }
+        public long ContentTypeId { get; set; }
+        public long ContentId { get; set; }
+    
     }
 }
