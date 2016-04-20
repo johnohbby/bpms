@@ -9,6 +9,8 @@
         <span class="glyphicon glyphicon-plus"></span>
     </button>
     </h4>
+
+    <!--     ACTION CREATE-->
     <div class="" ng-show="vm.showModalActionCreate">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -28,18 +30,71 @@
                             <input type="checkbox" ng-model="vm.selected[model.id]" checklist-value="model.id"> {{model.name}}
                         </label>
                     </div>
+                    <hr/>
+                    <div class="panel panel-default">                        
+                        <div class="panel-body" id="forms" ng-show="vm.showForms"></div>
+                    </div>
+
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary" ng-click="vm.CreateAction()">Save</button>
                         <button type="button" class="btn btn-default" ng-click="vm.CancelAction()">Cancel</button>
-                    </div>
-                    <div id="forms">
+                    </div>                 
+                </form>
 
-                    </div>
+            </div>
+        </div>
+      </div>
 
+    <!--    WORKFLOW CREATE-->
+    <div class="" ng-show="vm.showModalCreate">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Create new workflow
+
+            </div>
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label>Workflow type</label>
+                        <select class="form-control" ng-model="vm.workflow.workflowTypeId"
+                                ng-options="model.id as model.name for model in vm.workflowTypes" ></select>                        
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="vm.workflow.name" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="vm.CreateWorkflow()">Save</button>
+                        <button type="button" class="btn btn-default" ng-click="vm.CancelWorkflow()">Cancel</button>
+                    </div>
                 </form>
             </div>
         </div>
+    </div>
+
+    <!--    WORKFLOW UPDATE-->
+    <div class="" ng-show="vm.showModalUpdate">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Update workflow
+
             </div>
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="vm.selectedWorkflow.name" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="vm.UpdateWorkflow()">Save</button>
+                        <button type="button" class="btn btn-default" ng-click="vm.CancelWorkflow()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
             <div class="row">
                 <div class="col-sm-3 category" visible="vm.showWorkflows">
                     <ul>
@@ -58,7 +113,7 @@
                             <thead>
                             <th field-name="name" display-name="Name"></th>
                             <th field-name="caseNumber" display-name="Case number"></th>
-                            <th field-name="created" display-name="Created"></th>
+                            <th field-name="created" display-name="Created" display-format="date:'dd.MM.yyyy HH:mm'"></th>
                             </thead>
                             <tbody>
                                 <tr>
@@ -67,8 +122,8 @@
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </button>
 
-                                        <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.DeleteWorkflow(vm.workflows.splice(vm.workflows.indexOf(gridItem),1))" style="border:0px solid transparent; background-color:transparent">
-                                            <span class="glyphicon glyphicon-trash"></span>
+                                        <button class="btn btn-default btn-sm col-xs-4  "  style="border:0px solid transparent; background-color:transparent">
+                                            <span class="glyphicon glyphicon-trash" ng-show="gridItem.canDelete"  ng-click="vm.DeleteWorkflow(vm.workflows.splice(vm.workflows.indexOf(gridItem),1))"></span>
                                         </button>
 
                                         <button class="btn btn-default btn-sm col-xs-4 " ng-click="vm.ViewWorkflow('/Workflow/Workflow?id='+gridItem.id)" style="border:0px solid transparent; background-color:transparent">
@@ -92,21 +147,16 @@
                             <th field-name="createdByName" display-name="Created by"></th>
                             <th field-name="created" display-name="Created"></th>
                             <th field-name="delegatedName" display-name="Delegated"></th>
+                            <th field-name="forms"  display-name="Forms"></th>
                             </thead>
                             <tbody>
+
                                 <tr>
+                                   
                                     <td>
-                                        <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.ToggleModalUpdate(gridItem)" style="border: 0px solid transparent; background-color: transparent">
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                        </button>
 
-                                        <button class="btn btn-default btn-sm col-xs-4  " ng-click="vm.DeleteWorkflow(vm.workflows.splice(vm.workflows.indexOf(gridItem),1)); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-
-                                        <button class="btn btn-default btn-sm col-xs-4 " ng-click="vm.ViewWorkflow('/Workflow/Workflow?id=1')" style="border:0px solid transparent; background-color:transparent">
-                                            <span class="glyphicon glyphicon-eye-open"></span>
-                                        </button>
+                                        <div ng-bind-html="gridItem.forms"></div>
+                                        
                                     </td>
                                 </tr>
                             </tbody>
@@ -115,36 +165,5 @@
 
                 </div>
             </div>
-            <!-- CREATE WORKFLOW MODAL -->
-            <modal id="10" title="Create new workflow" visible="vm.showModalCreate">
-                <form role="form">
-                    <div class="form-group">
-                        <label>Workflow type</label>
-                        <select class="form-control" ng-model="vm.workflow.workflowTypeId">
-                            <option ng-repeat="model in vm.workflowTypes" value="{{model.id}}"> {{model.name}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" ng-model="vm.workflow.name" />
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" ng-click="vm.CreateWorkflow()">Save</button>
-                    </div>
-                </form>
-            </modal>
-            <!-- Update WORKFLOW MODAL -->
-            <modal id="0" title="Create new workflow" visible="vm.showModalUpdate">
-                <form role="form">
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" ng-model="vm.selectedWorkflow.name" />
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" ng-click="vm.updateWorkflow()">Save</button>
-                    </div>
-                </form>
-            </modal>
-
-
-        </div>
+            
+            </div>

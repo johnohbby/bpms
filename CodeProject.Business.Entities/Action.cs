@@ -27,8 +27,9 @@ namespace CodeProject.Business.Entities
         public String ActionTypeName { get; set; }
         public String CreatedByName { get; set; }
         public String OrdinalNo { get; set; }
+        public String Forms { get; set; }
 
-        
+
 
     }
 }

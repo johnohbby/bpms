@@ -16,5 +16,6 @@ namespace CodeProject.Portal.Models
         public List<WorkflowType> WorkflowTypes { get; set; }
         public List<ActionType> NextActionTypes { get; set; }
         public List<Business.Entities.Action> Actions { get; set; }
+        public String Forms { get; set; }
     }
 }

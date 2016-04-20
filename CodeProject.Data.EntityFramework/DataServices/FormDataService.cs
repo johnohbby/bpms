@@ -155,7 +155,7 @@ namespace CodeProject.Data.EntityFramework
         }
 
 
-        public void InsertData(long formId, string allValues, out int totalRows)
+        public void InsertData(long formId, string contentTypeName, long contentId, string allValues, out int totalRows)
         {
             DataTable dt = new DataTable();
             using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
@@ -164,6 +164,8 @@ namespace CodeProject.Data.EntityFramework
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@formId", SqlDbType.BigInt, 255).Value = formId;
+                    cmd.Parameters.Add("@contentTypeName", SqlDbType.NVarChar).Value = contentTypeName;
+                    cmd.Parameters.Add("@contentId", SqlDbType.BigInt, 255).Value = contentId;
                     cmd.Parameters.Add("@allValues", SqlDbType.NVarChar).Value = allValues;
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {

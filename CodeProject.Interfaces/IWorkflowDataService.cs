@@ -16,9 +16,9 @@ namespace CodeProject.Interfaces
         void UpdateWorkflow(Workflow workflow);
         void DeleteWorkflow(Workflow workflow);
         Workflow GetWorkflow(long workflowID);
-        List<Workflow> GetWorkflows(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
+        List<Workflow> GetWorkflows(long folderId, long UserId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
         List<WorkflowFolder> GetWorkflowFolders(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
-        void CreateAction(List<User> delegatedTo, Business.Entities.Action action);
+        long CreateAction(List<User> delegatedTo, Business.Entities.Action action);
     }
 }
 

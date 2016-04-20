@@ -83,8 +83,23 @@ namespace CodeProject.Data.EntityFramework
         /// <returns></returns>
         public Workflow GetWorkflow(long workflowID)
         {
-            Workflow workflow = dbConnection.Workflows.Where(c => c.Id == workflowID).FirstOrDefault();
-            return workflow;
+            DataTable dt = new DataTable();
+            
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetWorkflowById", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = workflowID;
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            List<Workflow> workflows = dt.ToList<Workflow>().ToList<Workflow>();
+         
+            return workflows[0];
         }
 
         /// <summary>
@@ -96,7 +111,7 @@ namespace CodeProject.Data.EntityFramework
         /// <param name="sortDirection"></param>
         /// <param name="totalRows"></param>
         /// <returns></returns>
-        public List<Workflow> GetWorkflows(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
+        public List<Workflow> GetWorkflows(long folderId, long userId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
         {
             DataTable dt = new DataTable();
             WorkflowFolder wf = GetWorkfloFolder(folderId);
@@ -105,7 +120,7 @@ namespace CodeProject.Data.EntityFramework
                 using (SqlCommand cmd = new SqlCommand(wf.Procedure, sqlcon))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
+                    cmd.Parameters.Add("@userId", SqlDbType.BigInt).Value = userId;
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
                         
@@ -127,13 +142,14 @@ namespace CodeProject.Data.EntityFramework
 
         }
 
-        public void CreateAction(List<User> delegatedTo, Business.Entities.Action action)
+        public long CreateAction(List<User> delegatedTo, Business.Entities.Action action)
         {
             //dbConnection.Workflows.Add(workflow);
+            long retunvalue = -1;
             using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
             {
                 sqlcon.Open();
-
+                
                 for (int i = 0; i < delegatedTo.Count; i++ )
                 {
                     using (SqlCommand cmd = new SqlCommand("dbo.Action_Create", sqlcon))
@@ -143,13 +159,22 @@ namespace CodeProject.Data.EntityFramework
                         cmd.Parameters.Add("@actionTypeId", SqlDbType.BigInt).Value = action.ActionTypeId;
                         cmd.Parameters.Add("@createdBy", SqlDbType.BigInt).Value = action.CreatedBy;
                         cmd.Parameters.Add("@delegatedId", SqlDbType.BigInt).Value = delegatedTo[i].Id;
+
+                        SqlParameter pvNewId = new SqlParameter();
+                        pvNewId.ParameterName = "@insertedId";
+                        pvNewId.DbType = DbType.Int64;
+                        pvNewId.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(pvNewId);
                         cmd.ExecuteNonQuery();
+                        retunvalue = (long)cmd.Parameters["@insertedId"].Value;
 
                     }
                 }
                
                 sqlcon.Close();
             }
+
+            return retunvalue;
         }
         #endregion
 

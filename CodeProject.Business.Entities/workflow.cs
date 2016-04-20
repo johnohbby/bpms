@@ -24,6 +24,7 @@ namespace CodeProject.Business.Entities
         public System.DateTime Created { get; set; }
         public long CreatedBy { get; set; }
         public bool IsDeleted { get; set; }
+        public bool CanDelete { get; set; }
 
     }
 }

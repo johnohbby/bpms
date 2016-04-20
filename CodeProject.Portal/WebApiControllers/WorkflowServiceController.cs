@@ -73,7 +73,7 @@ namespace CodeProject.Portal.WebApiControllers
             
 
             WorkflowBusinessService wfBusinessService = new WorkflowBusinessService(_workflowDataService);
-            wfBusinessService.CreateAction(action.Delegated , a, out transaction);
+            long returnValue = wfBusinessService.CreateAction(action.Delegated , a, out transaction);
             ActionViewModel wd = new ActionViewModel();
             if (transaction.ReturnStatus == false)
             {
@@ -86,7 +86,7 @@ namespace CodeProject.Portal.WebApiControllers
 
             }
 
-            wd.Id = a.Id;
+            action.Id = returnValue;
             wd.ReturnStatus = true;
             wd.ReturnMessage = transaction.ReturnMessage;
 
@@ -179,7 +179,7 @@ namespace CodeProject.Portal.WebApiControllers
             string sortDirection = workflowViewModel.SortDirection;
 
             WorkflowBusinessService workflowBusinessService = new WorkflowBusinessService(_workflowDataService);
-            List<Workflow> workflows = workflowBusinessService.GetWorkflows(workflowViewModel.FolderId, currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
+            List<Workflow> workflows = workflowBusinessService.GetWorkflows(workflowViewModel.FolderId, workflowViewModel.UserId, currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
             if (transaction.ReturnStatus == false)
             {
                 workflowViewModel.ReturnStatus = false;

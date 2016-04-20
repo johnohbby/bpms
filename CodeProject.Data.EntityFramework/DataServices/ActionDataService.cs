@@ -80,9 +80,7 @@ namespace CodeProject.Data.EntityFramework
                     cmd.Parameters.Add("@userId", SqlDbType.BigInt, 255).Value = userId;
                     cmd.Parameters.Add("@workflowId", SqlDbType.BigInt).Value = workflowId;
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-
-
+                    {                      
                         da.Fill(dt);
                     }
                 }

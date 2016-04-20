@@ -177,17 +177,18 @@ namespace CodeProject.Portal.WebApiControllers
             TransactionalInformation transaction;
 
             FormBusinessService formsBusinessService = new FormBusinessService(_formsDataService);
-            List<FormField> ff = formsBusinessService.GetFormFieldsByFormId(formsViewModel.Id, out transaction);
+            List<FormField> ff = formsBusinessService.GetFormFieldsByFormId(formsViewModel.Id,   out transaction);
             string allFields = "";
             foreach (var item in ff)
             {
                 string name = item.Name;
+                name = name.Replace(" ", "");
                 string value = (string)(((Newtonsoft.Json.Linq.JObject)formsViewModel.Forms)).GetValue(name);
                 allFields += name + "=" + value + ";";
             }
 
 
-           formsBusinessService.InsertData(formsViewModel.Id, allFields, out transaction);
+           formsBusinessService.InsertData(formsViewModel.Id, formsViewModel.ContentTypeName, formsViewModel.ContentId, allFields, out transaction);
             
             if (transaction.ReturnStatus == false)
             {

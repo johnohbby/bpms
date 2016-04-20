@@ -15,6 +15,9 @@ namespace CodeProject.Portal.Models
 
         public long  ActionTypeId { get; set; }
 
+        public long ContentId { get; set; }
+        public string ContentTypeName { get; set; }
+
         public List<FormField> FormFields { get; set; }
         public Object Forms { get; set; }
     }

@@ -18,6 +18,7 @@ namespace CodeProject.Portal.Models
         public bool IsDeleted { get; set; }
 
         public long FolderId { get; set; }
+        public long UserId { get; set; }
         public List<Workflow> Workflows { get; set; }
     }
 }

@@ -272,7 +272,7 @@ namespace CodeProject.Business
         }
 
 
-        public List<FormField> GetFormFieldsByFormId(long formId, out TransactionalInformation transaction)
+        public List<FormField> GetFormFieldsByFormId(long formId,  out TransactionalInformation transaction)
         {
             transaction = new TransactionalInformation();
             List<FormField> form = new List<FormField>();
@@ -306,7 +306,7 @@ namespace CodeProject.Business
 
         }
 
-        public void InsertData(long formId, string allValues, out TransactionalInformation transaction)
+        public void InsertData(long formId, string contentTypeName, long contentId, string allValues, out TransactionalInformation transaction)
         {
             transaction = new TransactionalInformation();
         
@@ -316,7 +316,7 @@ namespace CodeProject.Business
                 int totalRows;
 
                 _formDataService.CreateSession();
-                 _formDataService.InsertData(formId, allValues, out totalRows);
+                 _formDataService.InsertData(formId, contentTypeName, contentId, allValues, out totalRows);
                 _formDataService.CloseSession();
 
                 //transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);

@@ -1,6 +1,6 @@
 ﻿angular.module("app").register.controller('workflowController',
-    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService','$scope', '$compile',
-    function ($routeParams, $location, ajaxService, alertService, loginService, $scope, $compile) {
+    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService','$scope', '$compile', '$sce',
+    function ($routeParams, $location, ajaxService, alertService, loginService, $scope, $compile, $sce) {
         "use strict";
         var vm = this;
         var id = $location.search().id;
@@ -21,8 +21,10 @@
                 UserId: loginService.getLoggedUser().id,
                 Forms:[]
             };
+            vm.showForms = false;
             vm.forms = [];
             vm.formId = -1;
+            vm.folderId = -1;
             vm.formsData = { Forms: [] , FormId: -1, ActionTypeId: -1};
             vm.mySelectedItems = [];
             
@@ -30,7 +32,7 @@
             vm.showWorkflows = true;
             vm.showWorkflow = false;
             vm.workflow = { name: "", workflowTypeId: -1, createdBy: loginService.getLoggedUser().id }; //get user from session
-            vm.action = { WorkflowId: id, ActionTypeId: -1, createdBy: loginService.getLoggedUser().id, DelegatedId: -1 }; //get user from session
+            vm.action = { Id:-1, WorkflowId: id, ActionTypeId: -1, createdBy: loginService.getLoggedUser().id, DelegatedId: -1 }; //get user from session
             vm.selectedWorkflow = {name:""};
             
             //New Workflow
@@ -39,6 +41,7 @@
             vm.ToggleModalCreate = ToggleModalCreate;
             vm.ToggleModalUpdate = ToggleModalUpdate;
             vm.nextDelegated = null;
+            vm.toShortDateTime = toShortDateTime;
 
             vm.selected = {};
 
@@ -62,6 +65,7 @@
             vm.ToggleSelection = ToggleSelection;
             vm.GetDelegatedUsers = GetDelegatedUsers;
             vm.CancelAction = CancelAction;
+            vm.CancelWorkflow = CancelWorkflow;
             vm.GetForms = GetForms;
             vm.SaveForms = SaveForms;
             
@@ -85,6 +89,7 @@
             }
             function GetWorkflowsByFolderId(folderId) {
                 vm.folderId = folderId;
+
                 GetWorkflows(folderId);
             }
             function GetWorkflowDataById(id) {
@@ -93,21 +98,38 @@
                 return ajaxService.ajaxPost(vm.pagination, "api/workflowService/GetWorkflowDataById").then(function (data) {
                    
                     vm.actions = data.actions;
+
+                    for(var i = 0; i<vm.actions.length; i++){
+                       
+                        vm.actions[i].forms = $sce.trustAsHtml(vm.actions[i].forms);
+                        
+                    }
+
+
+
                     vm.nextActionTypes = data.nextActionTypes;
+                    console.log("next");
+                    console.log(vm.nextActionTypes);
                     if (vm.nextActionTypes.length > 0)
                     vm.action.ActionTypeId = vm.nextActionTypes[0].id;
                     $("#tableActions").show();
                 });
             }
             function GetWorkflowsData() {
-                console.log(vm.pagination);
+                
                 return ajaxService.ajaxPost(vm.pagination, "api/workflowService/GetWorkflowData").then(function (data) {
                     vm.workflowFolders = data.workflowFolders;
                     vm.workflowTypes = data.workflowTypes;
 
+                    if (vm.workflowTypes.length > 0)
+                        vm.workflow.workflowTypeId = vm.workflowTypes[0].id;
+                    
                     //get workflows for first folder in list
-                    if (vm.workflowFolders.length > 0)
+                    if (vm.workflowFolders.length > 0) {
                         GetWorkflows(vm.workflowFolders[0]['id']);
+                        vm.folderId = vm.workflowFolders[0]['id'];
+                    }
+
                 });
             }
             function GetWorkflows(folderId)
@@ -121,7 +143,8 @@
             function CreateWorkflow()
             {
                 return ajaxService.ajaxPost(vm.workflow, "api/workflowService/CreateWorkflow").then(function (data) {
-                    vm.showModalCreate = false;                    
+                    vm.showModalCreate = false;
+                    
                     GetWorkflows(vm.folderId);
                 });
             }
@@ -129,6 +152,9 @@
 
                 console.log(item);
 
+            }
+            function toShortDateTime(item) {
+                console.log(item);
             }
             function CreateAction() {
                 var selectedUsers = []; 
@@ -141,10 +167,10 @@
                     }
                 }
                 vm.action.Delegated = selectedUsers;
-                vm.SaveForms();
+                
                 return ajaxService.ajaxPost(vm.action, "api/workflowService/CreateAction").then(function (data) {
-                    vm.showModalActionCreate = false;
-                    GetWorkflowDataById(vm.action.WorkflowId);
+                    vm.action.Id = data.id;                
+                    vm.SaveForms();                    
                 });
             }
             function UpdateWorkflow() {
@@ -171,25 +197,32 @@
                 
                 GetDelegated();
             }
-            function CancelAction() {
-                console.log(vm.forms);
-                vm.showModalActionCreate = false;
-                
+            function CancelAction() {                
+                vm.showModalActionCreate = false;               
+            }
+            function CancelWorkflow() {                
+                vm.showModalCreate = false;
+                vm.showModalUpdate = false;
             }
 
             function GetForms() {
                 vm.pagination.ActionTypeId = vm.action.ActionTypeId;
                 return ajaxService.ajaxPost(vm.pagination, "api/formService/GetFormData").then(function (data) {
                   
-
+                    $("#forms").html("<h4>Metadata</h4>");
                     for (var i = 0; i < data.formFields.length; i++) {
+                        vm.showForms = true;
                         
                         var formField = data.formFields[i];
                         vm.formId = formField.formId;
                         var elType = formField.fieldType;
-                        var ngModel = "vm.forms.f" + formField.formId + "."+formField.name;
-                        var element = "<div class='form-group'><label>" + formField.name + "</label><input type='" + elType + "' ng-model='" + ngModel + "' /></div>";
-                        
+                        var ngModel = "vm.forms.f" + formField.formId + "." + formField.name.replace(" ","");
+                        console.log(elType);
+                        var element = "";
+                        if (elType == "text" || elType == "date")
+                            element = "<div class='row col-md-12'><div class='col-sm-3'> <label >" + formField.name + "</label><input class='form-control' type='" + elType + "' ng-model='" + ngModel + "' /></div></div>";
+                        else if (elType == "textarea")
+                            element = "<div class='row col-md-12'><div class='col-sm-6'> <label >" + formField.name + "</label><textarea class='form-control' rows='4' cols='50' ng-model='" + ngModel + "'></textarea></div></div>";
                         $("#forms").append($compile(element)($scope));
                     }
                     
@@ -197,18 +230,14 @@
             }
 
             function SaveForms() {
-                console.log('llll');
-                
-
-
                 vm.formsData.ActionTypeId = vm.action.ActionTypeId;
                 vm.formsData.Forms = eval("vm.forms.f" + vm.formId);
                 vm.formsData.Id = vm.formId;
-                console.log(vm.formsData);
-                
+                vm.formsData.ContentTypeName = "action";
+                vm.formsData.ContentId = vm.action.Id;
                 return ajaxService.ajaxPost(vm.formsData, "api/formService/SaveForms").then(function (data) {
-
-
+                    vm.showModalActionCreate = false;
+                    GetWorkflowDataById(vm.action.WorkflowId);
                 });
             }
             function GetDelegatedUsers() {GetDelegated(); }
@@ -223,7 +252,7 @@
             }
 
             function ToggleModalUpdate(item) {
-                console.log(item);
+                
                 vm.selectedWorkflow.name = item.name;
                 vm.selectedWorkflow.id = item.id;
                 vm.selectedWorkflow.caseNumber = item.caseNumber;

@@ -166,7 +166,7 @@ namespace CodeProject.Business
         /// <param name="sortDirection"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public List<Workflow> GetWorkflows(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
+        public List<Workflow> GetWorkflows(long folderId, long userId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
         {
             transaction = new TransactionalInformation();
             List<Workflow> workflow = new List<Workflow>();
@@ -176,7 +176,7 @@ namespace CodeProject.Business
                 int totalRows;
 
                 _workflowDataService.CreateSession();
-                workflow = _workflowDataService.GetWorkflows(folderId, currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
+                workflow = _workflowDataService.GetWorkflows(folderId, userId, currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
                 _workflowDataService.CloseSession();
 
                 transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);
@@ -272,17 +272,17 @@ namespace CodeProject.Business
 
 
 
-        public Entities.Action CreateAction(List<User> delegatedTo, Entities.Action action, out TransactionalInformation transaction)
+        public long CreateAction(List<User> delegatedTo, Entities.Action action, out TransactionalInformation transaction)
         {
             transaction = new TransactionalInformation();
-
+            long returnValue = -1;
             try
             {
                 
 
                 _workflowDataService.CreateSession();
                 _workflowDataService.BeginTransaction();
-                _workflowDataService.CreateAction(delegatedTo, action);
+                returnValue = _workflowDataService.CreateAction(delegatedTo, action);
                 _workflowDataService.CommitTransaction(true);
 
                 transaction.ReturnStatus = true;
@@ -300,7 +300,7 @@ namespace CodeProject.Business
                 _workflowDataService.CloseSession();
             }
 
-            return action;
+            return returnValue;
 
 
         }
