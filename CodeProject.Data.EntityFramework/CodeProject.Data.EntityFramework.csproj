@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServices\DocumentDataService.cs" />
+    <Compile Include="DataServices\FolderDataService.cs" />
     <Compile Include="DataServices\ContentFormMapDataService.cs" />
     <Compile Include="DataServices\FormFieldDataService.cs" />
     <Compile Include="DataServices\StatusTranslationDataService.cs" />

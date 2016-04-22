@@ -33,6 +33,8 @@ namespace CodeProject.Data.EntityFramework
         public DbSet<Form> Forms { get; set; }
         public DbSet<FormField> FormFields { get; set; }
         public DbSet<ContentFormMap> ContentFormMaps { get; set; }
+        public DbSet<Folder> Folders { get; set; }
+        public DbSet<Document> Documents { get; set; }
 
         /// <summary>
         /// Model Creation
@@ -59,6 +61,9 @@ namespace CodeProject.Data.EntityFramework
             modelBuilder.Entity<WorkflowType>().ToTable("dbo.WorkflowTypes");
             modelBuilder.Entity<Form>().ToTable("dbo.Forms");
             modelBuilder.Entity<FormField>().ToTable("dbo.FormFields");
+            modelBuilder.Entity<ContentFormMap>().ToTable("dbo.ContentFormMaps");
+            modelBuilder.Entity<Folder>().ToTable("dbo.Folders");
+            modelBuilder.Entity<Document>().ToTable("dbo.Documents");
 
 
         }

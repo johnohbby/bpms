@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentBusinessRules.cs" />
+    <Compile Include="DocumentBusinessService.cs" />
+    <Compile Include="FolderBusinessService.cs" />
+    <Compile Include="FolderBusinessRules.cs" />
     <Compile Include="ContentRightBusinessRules.cs" />
     <Compile Include="ContentRightBusinessService.cs" />
     <Compile Include="ContentFormMapBusinessRules.cs" />

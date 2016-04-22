@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDocumentDataService.cs" />
+    <Compile Include="IFolderDataService.cs" />
     <Compile Include="IContentRightDataService.cs" />
     <Compile Include="IContentFormMapService.cs" />
     <Compile Include="IFormFieldDataService.cs" />

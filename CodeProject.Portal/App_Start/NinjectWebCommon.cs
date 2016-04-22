@@ -80,6 +80,8 @@ namespace CodeProject.Portal.App_Start
             kernel.Bind<CodeProject.Interfaces.IFormDataService>().To<CodeProject.Data.EntityFramework.FormDataService>();
             kernel.Bind<CodeProject.Interfaces.IFormFieldDataService>().To<CodeProject.Data.EntityFramework.FormFieldFieldDataService>();
             kernel.Bind<CodeProject.Interfaces.IContentFormMapDataService>().To<CodeProject.Data.EntityFramework.ContentFormMapDataService>();
+            kernel.Bind<CodeProject.Interfaces.IFolderDataService>().To<CodeProject.Data.EntityFramework.FolderDataService>();
+            kernel.Bind<CodeProject.Interfaces.IDocumentDataService>().To<CodeProject.Data.EntityFramework.DocumentDataService>();
         }        
     }
 }

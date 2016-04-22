@@ -151,6 +151,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DocumentViewModel.cs" />
+    <Compile Include="Models\FolderViewModel.cs" />
     <Compile Include="Models\ContentRightViewModel.cs" />
     <Compile Include="Models\ActionTypeViewModel.cs" />
     <Compile Include="Models\ActionViewModel.cs" />
@@ -172,6 +174,8 @@
     <Compile Include="Models\WorkflowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\CustomBundle.cs" />
+    <Compile Include="WebApiControllers\DocumentServiceController.cs" />
+    <Compile Include="WebApiControllers\FolderServiceController.cs" />
     <Compile Include="WebApiControllers\ContentFormMapServiceController.cs" />
     <Compile Include="WebApiControllers\FormFieldServiceController.cs" />
     <Compile Include="WebApiControllers\UserGroupServiceController.cs" />
@@ -266,10 +270,6 @@
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Content\angular-block-ui.css.map" />
     <Content Include="App_Code\GlyphIcon.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -280,6 +280,11 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <Content Include="Scripts\angular-block-ui.min.js.map" />
     <Content Include="Scripts\angular-block-ui.js.map" />
@@ -1048,6 +1053,8 @@
     <Content Include="Views\Customers\CustomerInquiryController.js" />
     <Content Include="Views\Customers\CustomerMaintenance.html" />
     <Content Include="Views\Customers\CustomerMaintenanceController.js" />
+    <Content Include="Views\Documents\Document.html" />
+    <Content Include="Views\Documents\DocumentController.js" />
     <Content Include="Views\Forms\ContentFormMap.html" />
     <Content Include="Views\Forms\ContentFormMapController.js" />
     <Content Include="Views\Forms\Form.html" />

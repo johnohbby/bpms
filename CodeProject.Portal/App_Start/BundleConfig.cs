@@ -102,6 +102,9 @@ namespace CodeProject.Portal
                "~/Views/Forms/FormController.js",
                 "~/Views/Forms/ContentFormMapController.js"
            ));
+            bundles.Add(new ScriptBundle("~/bundles/documents").Include(
+              "~/Views/Documents/DocumentController.js"
+          ));
         }
     }
 }
