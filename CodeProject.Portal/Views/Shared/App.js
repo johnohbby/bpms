@@ -6,7 +6,8 @@ angular
          'ngSanitize', 
          'blockUI',
          'trNgGrid',
-         'ngCookies'
+         'ngCookies',
+         'angularFileUpload'
         ])
     .config(['$controllerProvider', '$provide', function ($controllerProvider, $provide) {
         angular

@@ -1,6 +1,6 @@
 ﻿angular.module("app").register.controller('workflowController',
-    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService','$scope', '$compile', '$sce',
-    function ($routeParams, $location, ajaxService, alertService, loginService, $scope, $compile, $sce) {
+    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService','$scope', '$compile', '$sce','documentService',
+    function ($routeParams, $location, ajaxService, alertService, loginService, $scope, $compile, $sce, documentService) {
         "use strict";
         var vm = this;
         var id = $location.search().id;
@@ -167,11 +167,14 @@
                     }
                 }
                 vm.action.Delegated = selectedUsers;
-                
-                return ajaxService.ajaxPost(vm.action, "api/workflowService/CreateAction").then(function (data) {
-                    vm.action.Id = data.id;                
-                    vm.SaveForms();                    
-                });
+                console.log(documentService.getAttachedFiles());
+
+                //return ajaxService.ajaxPost(vm.action, "api/workflowService/CreateAction").then(function (data) {
+                //    vm.action.Id = data.id;
+                    
+                //    vm.SaveForms();
+                    
+                //});
             }
             function UpdateWorkflow() {
 
@@ -272,6 +275,3 @@
 
         }
     ]);
-
-
-

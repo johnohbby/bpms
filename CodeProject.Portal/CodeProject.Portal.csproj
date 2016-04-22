@@ -189,6 +189,7 @@
     <Compile Include="WebApiControllers\StatusServiceController.cs" />
     <Compile Include="WebApiControllers\UserServiceController.cs" />
     <Compile Include="WebApiControllers\FormsServiceController.cs" />
+    <Compile Include="WebApiControllers\UploadServiceController.cs" />
     <Compile Include="WebApiControllers\WorkflowTypeServiceController.cs" />
     <Compile Include="WebApiControllers\ProductServiceController.cs" />
   </ItemGroup>
@@ -1063,7 +1064,6 @@
     <Content Include="Views\Home\IndexController.js" />
     <Content Include="Views\Home\InitializeData.html" />
     <Content Include="Views\Home\InitializeDataController.js" />
-    <Content Include="Views\Home\Part3Controller.js" />
     <Content Include="Views\Products\ProductInquiry.html" />
     <Content Include="Views\Products\ProductInquiryController.js" />
     <Content Include="Views\Registries\UserGroupController.js" />
@@ -1074,9 +1074,13 @@
     <Content Include="Views\Registries\User.html" />
     <Content Include="Views\Registries\RightType.html" />
     <Content Include="Views\Registries\RightTypeController.js" />
+    <Content Include="Views\Shared\DocumentService.js" />
+    <Content Include="Views\Shared\documentRow.html" />
+    <Content Include="Views\Shared\UploadController.js" />
     <Content Include="Views\Shared\LoginService.js" />
     <Content Include="Views\Shared\modal.html" />
     <Content Include="Views\Shared\ModalDirective.js" />
+    <Content Include="Views\Shared\upload.html" />
     <Content Include="Views\Workflow\ActionType.html" />
     <Content Include="Views\Registries\ContentRight.html" />
     <Content Include="Views\Registries\ContentRightController.js" />

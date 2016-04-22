@@ -31,8 +31,10 @@ namespace CodeProject.Portal
                       "~/Content/font-awesome.min.css",
                       "~/Content/trNgGrid.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(                   
+               "~/Scripts/angular-file-upload-shim.js",
                "~/Scripts/angular.min.js",
+               "~/Scripts/angular-file-upload.js",
                "~/Scripts/angular-route.min.js",
                "~/Scripts/angular-sanitize.min.js",
                "~/Scripts/angular-ui.min.js",
@@ -52,10 +54,12 @@ namespace CodeProject.Portal
                 "~/Views/Shared/AjaxService.js",
                 "~/Views/Shared/AlertService.js",
                 "~/Views/Shared/LoginService.js",
+                "~/Views/Shared/DocumentService.js",
                 "~/Views/Shared/DataGridService.js",
                 "~/Views/Shared/MasterController.js",
-                "~/Views/Shared/ModalDirective.js"
-               
+                "~/Views/Shared/ModalDirective.js",
+                "~/Views/Shared/UploadController.js"
+
            ));
 
             bundles.Add(new ScriptBundle("~/bundles/routing-debug").Include(
@@ -69,7 +73,6 @@ namespace CodeProject.Portal
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
                 
                 "~/Views/Home/IndexController.js",
-                "~/Views/Home/Part3Controller.js",
                 "~/Views/Home/InitializeDataController.js"
          ));
 
@@ -91,6 +94,7 @@ namespace CodeProject.Portal
                 "~/Views/Workflow/ActionTypeController.js",
                 "~/Views/Workflow/StatusController.js"
             ));
+           
             bundles.Add(new ScriptBundle("~/bundles/registries").Include(
                "~/Views/Registries/RightTypeController.js",
                "~/Views/Registries/ContentRightController.js",

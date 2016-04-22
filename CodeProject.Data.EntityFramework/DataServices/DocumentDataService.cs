@@ -23,9 +23,38 @@ namespace CodeProject.Data.EntityFramework
         /// Create Document
         /// </summary>
         /// <param name="customer"></param>
-        public void CreateDocument(Document document)
+        public long CreateDocument(Document document)
         {
-            dbConnection.Documents.Add(document);
+            //dbConnection.Workflows.Add(workflow);
+            long retunvalue = -1;
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                sqlcon.Open();      
+                using (SqlCommand cmd = new SqlCommand("dbo.Document_Create", sqlcon))
+                {
+                    if (document.ContentId == null) document.ContentId = -1;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@name", SqlDbType.NVarChar, 255).Value = document.Name;
+                    cmd.Parameters.Add("@nameOnServer", SqlDbType.NVarChar, 255).Value = document.NameOnServer;
+                    cmd.Parameters.Add("@extension", SqlDbType.NVarChar, 255).Value = document.Extension;
+                    cmd.Parameters.Add("@contentId", SqlDbType.BigInt).Value = document.ContentId;
+                    cmd.Parameters.Add("@parentDocumentId", SqlDbType.BigInt).Value = document.ParentDocumentId;
+                    cmd.Parameters.Add("@contentTypeName", SqlDbType.NVarChar, 255).Value = document.ContentTypeName;
+                    
+
+                    SqlParameter pvNewId = new SqlParameter();
+                    pvNewId.ParameterName = "@insertedId";
+                    pvNewId.DbType = DbType.Int64;
+                    pvNewId.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(pvNewId);
+                    cmd.ExecuteNonQuery();
+                    retunvalue = (long)cmd.Parameters["@insertedId"].Value;
+                }
+
+                sqlcon.Close();
+            }
+
+            return retunvalue;
         }
 
         /// <summary>
@@ -72,15 +101,16 @@ namespace CodeProject.Data.EntityFramework
             dbConnection.Documents.Remove(document);
         }
 
-        public List<Document> GetDocumentsForFolder(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
+        public List<Document> GetDocumentsForContent(long contentTypeId, long contentId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
         {
             DataTable dt = new DataTable();
             using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("GetDocumentsForFolder", sqlcon))
+                using (SqlCommand cmd = new SqlCommand("GetDocumentsForContent", sqlcon))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@folderId", SqlDbType.BigInt).Value = folderId;
+                    cmd.Parameters.Add("@contentId", SqlDbType.BigInt).Value = contentId;
+                    cmd.Parameters.Add("@contentTypeId", SqlDbType.BigInt).Value = contentTypeId;
 
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {

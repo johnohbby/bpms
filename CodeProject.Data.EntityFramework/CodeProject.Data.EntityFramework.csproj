@@ -55,6 +55,7 @@
     <Compile Include="DataServices\FormFieldDataService.cs" />
     <Compile Include="DataServices\StatusTranslationDataService.cs" />
     <Compile Include="DataServices\FormDataService.cs" />
+    <Compile Include="DataServices\UploadDataService.cs" />
     <Compile Include="DataTableExtensions.cs" />
     <Compile Include="DataServices\ContentRightDataService.cs" />
     <Compile Include="DataServices\UserGroupDataService.cs" />

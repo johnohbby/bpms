@@ -34,10 +34,10 @@ namespace CodeProject.Business
         /// <param name="customer"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public Document CreateDocument(Document document, out TransactionalInformation transaction)
+        public long CreateDocument(Document document, out TransactionalInformation transaction)
         {
             transaction = new TransactionalInformation();
-
+            long insertedId = -1;
             try
             {
                 DocumentBusinessRules documentBusinessRules = new DocumentBusinessRules();
@@ -49,12 +49,12 @@ namespace CodeProject.Business
                 if (validationSucceeded == false)
                 {
                     transaction = ValidationErrors.PopulateValidationErrors(failures);
-                    return document;
+                    return insertedId;
                 }
 
                 _documentDataService.CreateSession();
                 _documentDataService.BeginTransaction();
-                _documentDataService.CreateDocument(document);
+                insertedId = _documentDataService.CreateDocument(document);
                 _documentDataService.CommitTransaction(true);
 
                 transaction.ReturnStatus = true;
@@ -72,7 +72,7 @@ namespace CodeProject.Business
                 _documentDataService.CloseSession();
             }
 
-            return document;
+            return insertedId;
 
 
         }
@@ -216,7 +216,7 @@ namespace CodeProject.Business
         /// <param name="sortDirection"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public List<Document> GetDocumentsForFolder(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
+        public List<Document> GetDocumentsForContent(long contentTypeId, long contentId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
         {
             transaction = new TransactionalInformation();
 
@@ -227,7 +227,7 @@ namespace CodeProject.Business
                 int totalRows;
 
                 _documentDataService.CreateSession();
-                documents = _documentDataService.GetDocumentsForFolder(folderId, currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
+                documents = _documentDataService.GetDocumentsForContent(contentTypeId, contentId, currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
                 _documentDataService.CloseSession();
 
                 transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);

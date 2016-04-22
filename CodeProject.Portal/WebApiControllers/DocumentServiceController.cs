@@ -77,10 +77,12 @@ namespace CodeProject.Portal.WebApiControllers
 
             Document document = new Document();
             document.Name = documentViewModel.Name;
-            document.Type = documentViewModel.Type;
-            document.FolderId = documentViewModel.FolderId;
+            document.Extension = documentViewModel.Extension;
+            document.ContentId = documentViewModel.ContentId;
             document.Created = documentViewModel.Created;
             document.ParentDocumentId = documentViewModel.ParentDocumentId;
+            document.NameOnServer = documentViewModel.NameOnServer;
+            document.ContentTypeId = documentViewModel.ContentTypeId;
 
             DocumentBusinessService documentBusinessService = new DocumentBusinessService(_documentDataService);
             documentBusinessService.CreateDocument(document, out transaction);
@@ -151,10 +153,11 @@ namespace CodeProject.Portal.WebApiControllers
             int pageSize = documentViewModel.PageSize;
             string sortExpression = documentViewModel.SortExpression;
             string sortDirection = documentViewModel.SortDirection;
-            long folderId = documentViewModel.FolderId;
+            long contentId = documentViewModel.ContentId;
+            long contentTypeId = documentViewModel.ContentTypeId;
 
             DocumentBusinessService documentBusinessService = new DocumentBusinessService(_documentDataService);
-            List<Document> documents = documentBusinessService.GetDocumentsForFolder(folderId, currentPageNumber,pageSize, sortExpression, sortDirection, out transaction);
+            List<Document> documents = documentBusinessService.GetDocumentsForContent(contentTypeId, contentId, currentPageNumber,pageSize, sortExpression, sortDirection, out transaction);
             if (transaction.ReturnStatus == false)
             {
                 documentViewModel.ReturnStatus = false;
