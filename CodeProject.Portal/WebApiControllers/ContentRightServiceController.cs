@@ -127,6 +127,7 @@ namespace CodeProject.Portal.WebApiControllers
             contentRight.ContentTypeId = contentRightViewModel.ContentTypeId;
             contentRight.ContentId = contentRightViewModel.ContentId;
             contentRight.RightTypeId = contentRightViewModel.RightTypeId;
+            contentRight.UserId = contentRightViewModel.UserId;
 
             ContentRightBusinessService contentRightBusinessService = new ContentRightBusinessService(_contentRightDataService);
             contentRightBusinessService.CreateContentRight(contentRight, out transaction);

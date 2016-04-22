@@ -22,6 +22,7 @@ namespace CodeProject.Portal.Models
         public List<UserGroup> UserGroups { get; set; }
         public List<Workflow> Workflows { get; set; }
         public List<User> Users { get; set; }
+        public long FolderId { get; set; }
 
         
     }

@@ -18,6 +18,9 @@ namespace CodeProject.Interfaces
         User GetUserByCredientials(string username, string password);
         List<User> GetUsers(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
         void DeleteUser(User user);
+        List<User> GetUsersForFolderShare(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
+        List<User> GetUsersSharedFolder(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
+
           
     }
 }

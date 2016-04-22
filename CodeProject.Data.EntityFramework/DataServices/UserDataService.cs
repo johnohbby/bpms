@@ -138,6 +138,59 @@ namespace CodeProject.Data.EntityFramework
             
         }
 
+        public List<User> GetUsersForFolderShare(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetUsersForFolderShare", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@folderId", SqlDbType.BigInt).Value = folderId;
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            List<User> users = dt.ToList<User>().ToList<User>();
+            totalRows = 0;
+
+            sortExpression = sortExpression + " " + sortDirection;
+
+            totalRows = dbConnection.Users.Count();
+
+            return users;
+        }
+
+        public List<User> GetUsersSharedFolder(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetUsersSharedFolder", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@folderId", SqlDbType.BigInt).Value = folderId;
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            List<User> users = dt.ToList<User>().ToList<User>();
+            totalRows = 0;
+
+            sortExpression = sortExpression + " " + sortDirection;
+
+            totalRows = dbConnection.Users.Count();
+
+            return users;
+        }
+
+
     }
 
 }

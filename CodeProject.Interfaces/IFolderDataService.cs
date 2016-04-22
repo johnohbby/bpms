@@ -16,7 +16,7 @@ namespace CodeProject.Interfaces
         Folder GetFolder(long folderID);
         void DeleteFolder(Folder folder);
         List<Folder> GetFolders(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
-        List<Folder> GetFoldersForUser(long userId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);  
+        List<Folder> GetFoldersForUser(long userId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
     }
 }
 

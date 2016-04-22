@@ -221,6 +221,91 @@ namespace CodeProject.Portal.WebApiControllers
 
         }
 
+        /// <summary>
+        /// Get Users
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="userViewModel"></param>
+        /// <returns></returns>
+        [Route("GetUsersForFolderShare")]
+        [HttpPost]
+        public HttpResponseMessage GetUsersForFolderShare(HttpRequestMessage request, [FromBody] UserViewModel userViewModel)
+        {
+
+            TransactionalInformation transaction;
+
+            int currentPageNumber = userViewModel.CurrentPageNumber;
+            int pageSize = userViewModel.PageSize;
+            string sortExpression = userViewModel.SortExpression;
+            string sortDirection = userViewModel.SortDirection;
+            long folderId = userViewModel.FolderId;
+
+            UserBusinessService userBusinessService = new UserBusinessService(_userDataService);
+            List<User> users = userBusinessService.GetUsersForFolderShare(folderId, currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
+            if (transaction.ReturnStatus == false)
+            {
+                userViewModel.ReturnStatus = false;
+                userViewModel.ReturnMessage = transaction.ReturnMessage;
+                userViewModel.ValidationErrors = transaction.ValidationErrors;
+
+                var responseError = Request.CreateResponse<UserViewModel>(HttpStatusCode.BadRequest, userViewModel);
+                return responseError;
+
+            }
+
+            userViewModel.TotalPages = transaction.TotalPages;
+            userViewModel.TotalRows = transaction.TotalRows;
+            userViewModel.Users = users;
+            userViewModel.ReturnStatus = true;
+            userViewModel.ReturnMessage = transaction.ReturnMessage;
+
+            var response = Request.CreateResponse<UserViewModel>(HttpStatusCode.OK, userViewModel);
+            return response;
+
+        }
+
+        /// <summary>
+        /// Get Users
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="userViewModel"></param>
+        /// <returns></returns>
+        [Route("GetUsersSharedFolder")]
+        [HttpPost]
+        public HttpResponseMessage getUsersSharedFolder(HttpRequestMessage request, [FromBody] UserViewModel userViewModel)
+        {
+
+            TransactionalInformation transaction;
+
+            int currentPageNumber = userViewModel.CurrentPageNumber;
+            int pageSize = userViewModel.PageSize;
+            string sortExpression = userViewModel.SortExpression;
+            string sortDirection = userViewModel.SortDirection;
+            long folderId = userViewModel.FolderId;
+
+            UserBusinessService userBusinessService = new UserBusinessService(_userDataService);
+            List<User> users = userBusinessService.GetUsersSharedFolder(folderId, currentPageNumber, pageSize, sortExpression, sortDirection, out transaction);
+            if (transaction.ReturnStatus == false)
+            {
+                userViewModel.ReturnStatus = false;
+                userViewModel.ReturnMessage = transaction.ReturnMessage;
+                userViewModel.ValidationErrors = transaction.ValidationErrors;
+
+                var responseError = Request.CreateResponse<UserViewModel>(HttpStatusCode.BadRequest, userViewModel);
+                return responseError;
+
+            }
+
+            userViewModel.TotalPages = transaction.TotalPages;
+            userViewModel.TotalRows = transaction.TotalRows;
+            userViewModel.Users = users;
+            userViewModel.ReturnStatus = true;
+            userViewModel.ReturnMessage = transaction.ReturnMessage;
+
+            var response = Request.CreateResponse<UserViewModel>(HttpStatusCode.OK, userViewModel);
+            return response;
+
+        }
 
     }
 }

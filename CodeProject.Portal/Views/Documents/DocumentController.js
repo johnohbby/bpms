@@ -30,15 +30,28 @@ function ($scope,$routeParams, $location, ajaxService, alertService, loginServic
             vm.mySelectedItemsR = [];
             vm.showModalCreateFolder = false;
             vm.showModalShareFolder = false;
-            
+            vm.users = [];
+            vm.rightTypes = [];
+            vm.contentRight = { id: "0" };
+            vm.contentTypeId = null;
+            vm.sharedUsers = [];
+            vm.rightTypeIdRead = null;
 
             //functions
             vm.toggleModalCreateFolder = toggleModalCreateFolder;
             vm.toggleModalShareFolder = toggleModalShareFolder;
             vm.createFolder = createFolder;
+            vm.getUsersForFolderShare = getUsersForFolderShare;
+            vm.getRightTypes = getRightTypes;
+            vm.shareFolder = shareFolder;
+            vm.getContentTypes = getContentTypes;
+            vm.showShare = showShare;
 
             function init() {
+                getRightTypes();
+                getContentTypes();
                 getAllFoldersForUser();
+                
             }
 
             init();
@@ -68,10 +81,12 @@ function ($scope,$routeParams, $location, ajaxService, alertService, loginServic
             }
 
             function toggleModalShareFolder(folderId) {
+                vm.sharedUsers = [];
                 $scope.title = "Share Folder";
                 vm.contentRight = getContentRight();
                 vm.contentRight.contentId = folderId;
-                vm.showModalShareFolder = !vm.showModalShareFolder;
+                vm.pagination.folderId = folderId;
+                getUsersForFolderShare();
             }
 
             function getParentFolder(folderId)
@@ -116,8 +131,48 @@ function ($scope,$routeParams, $location, ajaxService, alertService, loginServic
                 });
             };
 
-           
-          
+            function shareFolder()
+            {
+                var contentRight = new Object();
+                contentRight.Id = vm.contentRight.id;
+                contentRight.ContentId = vm.contentRight.contentId;
+                contentRight.RightTypeId = vm.contentRight.rightTypeId;
+                contentRight.GroupId = null;
+                contentRight.UserId = vm.contentRight.userId;
+                contentRight.ContentTypeId = vm.contentTypeId;
+
+                return ajaxService.ajaxPost(contentRight, "api/contentRightService/CreateContentRight").then(function (data) {
+                    vm.showModalShareFolder = !vm.showModalShareFolder;
+                })
+                .catch(function (fallback) {
+                    console.log(fallback);
+                });
+            }
+
+            function getUsersForFolderShare()
+            {
+                return ajaxService.ajaxPost(vm.pagination, "api/userService/GetUsersForFolderShare").then(function (data) {
+                    if (data.users) {
+                        vm.users = data.users;
+                        getUsersSharedFolder();
+                    }
+                    return vm.users;
+                });
+            }
+
+            //useri sa kojima je vec folder share-an
+            function getUsersSharedFolder() {
+                return ajaxService.ajaxPost(vm.pagination, "api/userService/GetUsersSharedFolder").then(function (data) {
+                    for (var i = 0; i < data.users.length; i++)
+                    {
+                        if (data.users[i].id!==vm.pagination.userId)
+                         vm.sharedUsers.push(data.users[i]);
+                    }
+                    
+                    vm.showModalShareFolder = !vm.showModalShareFolder;
+                    return vm.sharedUsers;
+                });
+            }
            
             function getFolder()
             {
@@ -128,6 +183,44 @@ function ($scope,$routeParams, $location, ajaxService, alertService, loginServic
             function getContentRight() {
                 vm.contentRight = { id: "0"};
                 return vm.contentRight;
+            }
+
+            function getContentTypes()
+            {
+                return ajaxService.ajaxPost(vm.pagination, "api/contentRightService/GetContentTypes").then(function (data) {
+                    vm.contentTypes = data.contentTypes;
+                    for (var i = 0; i < vm.contentTypes.length; i++)
+                    {
+                        if(vm.contentTypes[i].code==='FOLDER')
+                        {
+                            vm.contentTypeId = vm.contentTypes[i].id;
+                        }
+                    }
+                    return vm.contentTypes;
+                });
+            }
+
+
+            function getRightTypes()
+            {
+                return ajaxService.ajaxPost(vm.pagination, "api/rightTypeService/GetRightTypes").then(function (data) {
+                    vm.rightTypes = data.rightTypes;
+                    for (var i = 0; i < vm.rightTypes.length; i++)
+                    {
+                        if(vm.rightTypes[i].code==='READ')
+                        {
+                            vm.rightTypeIdRead = vm.rightTypes[i].id;
+                            break;
+                        }
+                    }
+                    return vm.rightTypes;
+                });
+            }
+
+            function showShare(folderId)
+            {
+
+               //to do
             }
 
           

@@ -13,7 +13,7 @@
                 <div class="panel-body">
                     <ul class="list-unstyled">
                         <li ng-repeat="folder in vm.folders" ng-click=""><span class="glyphicon glyphicon-folder-close"></span>&nbsp; &nbsp;{{folder.name}}
-                            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalShareFolder()" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
+                            <button ng-show="true" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalShareFolder(folder.id)" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
                                 <span class="fa fa-share-alt"></span>
                             </button>
                         </li>
@@ -76,6 +76,25 @@
 
     <modal id="0" title="Share Folder" visible="vm.showModalShareFolder">
         <form role="form">
+            <div class="form-group">
+                <label>User</label>
+                <select class="form-control" ng-model="vm.contentRight.userId" ng-options="user.id as user.name for user in vm.users"></select>
+            </div>
+            <div class="form-group">
+                <label>Right Type</label>
+                <select class="form-control" ng-model="vm.contentRight.rightTypeId" ng-options="rightType.id as rightType.name for rightType in vm.rightTypes"></select>
+            </div>
+            <div class="form-group">
+                <label>Folder already shared with:</label>
+                <ul class="list-unstyled">
+                    <li ng-repeat="user in vm.sharedUsers" ng-click="">
+                        <span class="glyphicon glyphicon-user"></span>&nbsp; &nbsp;{{user.name}} {{user.surname}}
+                        <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalDisableShareFolder(user.id)" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </li>
+                </ul>            
+            </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary" ng-click="vm.shareFolder()">Save</button>
             </div>

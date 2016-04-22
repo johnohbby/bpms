@@ -291,6 +291,77 @@ namespace CodeProject.Business
 
         }
 
+        public List<User> GetUsersForFolderShare(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            List<User> users = new List<User>();
+
+            try
+            {
+                int totalRows;
+
+                _userDataService.CreateSession();
+                users = _userDataService.GetUsersForFolderShare(folderId, currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
+                _userDataService.CloseSession();
+
+                transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);
+                transaction.TotalRows = totalRows;
+
+                transaction.ReturnStatus = true;
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _userDataService.CloseSession();
+            }
+
+            return users;
+        }
+
+
+        public List<User> GetUsersSharedFolder(long folderId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            List<User> users = new List<User>();
+
+            try
+            {
+                int totalRows;
+
+                _userDataService.CreateSession();
+                users = _userDataService.GetUsersSharedFolder(folderId, currentPageNumber, pageSize, sortExpression, sortDirection, out totalRows);
+                _userDataService.CloseSession();
+
+                transaction.TotalPages = CodeProject.Business.Common.Utilities.CalculateTotalPages(totalRows, pageSize);
+                transaction.TotalRows = totalRows;
+
+                transaction.ReturnStatus = true;
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _userDataService.CloseSession();
+            }
+
+            return users;
+        }
+
+
+
         /// <summary>
         /// Initialize Data
         /// </summary>
