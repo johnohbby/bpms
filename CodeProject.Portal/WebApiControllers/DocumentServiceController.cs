@@ -142,9 +142,9 @@ namespace CodeProject.Portal.WebApiControllers
         /// <param name="request"></param>
         /// <param name="workflowTypeViewModel"></param>
         /// <returns></returns>
-        [Route("GetDocumentsForFolder")]
+        [Route("GetDocumentsForContent")]
         [HttpPost]
-        public HttpResponseMessage GetDocumentsForFolder(HttpRequestMessage request, [FromBody] DocumentViewModel documentViewModel)
+        public HttpResponseMessage GetDocumentsForContent(HttpRequestMessage request, [FromBody] DocumentViewModel documentViewModel)
         {
 
             TransactionalInformation transaction;

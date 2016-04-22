@@ -17,7 +17,7 @@
                 currentPageNumber: 1,
                 sortExpression: "Id",
                 sortDirection: "ASC",
-                pageSize: 15
+                pageSize: 1000
             };
             vm.showModalCreate = false;
             vm.showModalUpdate = false;
@@ -231,6 +231,7 @@
                 contentRight.ContentTypeId = vm.contentRight.contentTypeId;
                 contentRight.ContentId = vm.contentRight.contentId;
                 contentRight.RightTypeId = vm.contentRight.rightTypeId;
+                contentRight.UserId = null;
                
                 return ajaxService.ajaxPost(contentRight, "api/contentRightService/CreateContentRight").then(function (data) {
                     vm.showModalCreate = !vm.showModalCreate;
@@ -249,6 +250,7 @@
                 contentRight.ContentTypeId = vm.contentright.contentTypeId;
                 contentRight.ContentId = vm.contentright.contentId;
                 contentRight.RightTypeId = vm.contentright.rightTypeId;
+                contentRight.UserId = null;
                 return ajaxService.ajaxPost(contentRight, "api/contentRightService/UpdateContentRight").then(function (data) {
                     vm.showModalUpdate = !vm.showModalUpdate;
                     vm.getAllContentRights();
@@ -265,6 +267,7 @@
                 contentRight.ContentTypeId = vm.mySelectedItems[0].contentTypeId;
                 contentRight.ContentId = vm.mySelectedItems[0].contentId;
                 contentRight.RightTypeId = vm.mySelectedItems[0].rightTypeId;
+                contentRight.UserId = null;
 
                 return ajaxService.ajaxPost(contentRight, "api/contentRightService/DeleteContentRight").then(function (data) {
                     vm.showModalDelete = !vm.showModalDelete;

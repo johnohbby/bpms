@@ -17,7 +17,7 @@
                 currentPageNumber: 1,
                 sortExpression: "Name",
                 sortDirection: "ASC",
-                pageSize: 15
+                pageSize: 1000
             };
             vm.showModalCreate = false;
             vm.showModalUpdate = false;

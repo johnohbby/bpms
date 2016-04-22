@@ -12,10 +12,14 @@
                 </div>
                 <div class="panel-body">
                     <ul class="list-unstyled">
-                        <li ng-repeat="folder in vm.folders" ng-click=""><span class="glyphicon glyphicon-folder-close"></span>&nbsp; &nbsp;{{folder.name}}
-                            <button ng-show="true" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalShareFolder(folder.id)" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
+                        <li ng-repeat="folder in vm.folders" ng-click="vm.getDocumentsForFolder(folder.id)"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; &nbsp;{{folder.name}}
+                            <button ng-show="vm.showShare(folder.id)" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalDeleteFolder(folder)" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>    
+                            <button ng-show="vm.showShare(folder.id)" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalShareFolder(folder.id)" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
                                 <span class="fa fa-share-alt"></span>
                             </button>
+                           
                         </li>
                     </ul>
                 </div>
@@ -31,12 +35,12 @@
                     </button>
                 </div>
                 <div class="panel-body">
-                    <table tr-ng-grid="" items="vm.documents" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                    <table tr-ng-grid="" items="vm.parentDocuments" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
                         <thead>
                             <tr>
                                 <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
                                 <th field-name="name" display-name="Name"></th>
-                                <th field-name="type" display-name="Type"></th>
+                                <th field-name="extension" display-name="Extension"></th>
                                 <th field-name="created" display-name="Created"></th>
                             </tr>
                         </thead>
@@ -49,12 +53,23 @@
                             <tr>
                                 <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
                                 <th field-name="name" display-name="Name"></th>
-                                <th field-name="version" display-name="Version"></th>
-                                <th field-name="type" display-name="Type"></th>
                                 <th field-name="created" display-name="Created"></th>
+                                <th display-name="Actions" cell-width="10em"></th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-default btn-sm col-xs-3 col-sm-3 col-sm-offset-1 " ng-click="vm.downloadDocument()" style="border: 0px solid transparent; background-color: transparent">
+                                        <span class="glyphicon glyphicon-download-alt"></span>
+                                    </button>
+
+                                    <button class="btn btn-default btn-sm col-xs-3 col-sm-3 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -89,7 +104,7 @@
                 <ul class="list-unstyled">
                     <li ng-repeat="user in vm.sharedUsers" ng-click="">
                         <span class="glyphicon glyphicon-user"></span>&nbsp; &nbsp;{{user.name}} {{user.surname}}
-                        <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalDisableShareFolder(user.id)" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
+                        <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.disableShareFolder(user.id)" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </li>
@@ -97,6 +112,17 @@
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary" ng-click="vm.shareFolder()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Delete Folder" visible="vm.showModalDeleteFolder">
+        <form role="form">
+            <label>Are you sure you want to delete folder {{vm.folderToDelete.name}}?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.deleteFolder()">Delete</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
             </div>
         </form>
     </modal>

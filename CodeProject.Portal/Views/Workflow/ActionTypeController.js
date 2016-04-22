@@ -17,13 +17,13 @@
                 currentPageNumber: 1,
                 sortExpression: "Id",
                 sortDirection: "ASC",
-                pageSize: 15
+                pageSize: 1000
             };
             vm.paginationSt = {
                 currentPageNumber: 1,
                 sortExpression: "Id",
                 sortDirection: "ASC",
-                pageSize: 15
+                pageSize: 1000
             };
             vm.showModalCreate = false;
             vm.showModalUpdate = false;

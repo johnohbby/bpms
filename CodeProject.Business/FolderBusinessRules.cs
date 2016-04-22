@@ -14,8 +14,7 @@ namespace CodeProject.Business
     {
 
         public FolderBusinessRules()
-        {
-            RuleFor(a => a.Name).NotEmpty().WithMessage("Name is required.");   
+        { 
         }
 
     }
