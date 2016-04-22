@@ -1,0 +1,84 @@
+﻿<div ng-controller="documentController as vm" ng-init="vm.initializeController()">
+    <h4 class="page-header">Documents</h4>
+    <!-- Document -->
+    <div class="container-fluid col-md-12">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Folders
+                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateFolder()" style="border: 0px solid transparent; background-color: transparent">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li ng-repeat="folder in vm.folders" ng-click=""><span class="glyphicon glyphicon-folder-close"></span>&nbsp; &nbsp;{{folder.name}}
+                            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalShareFolder()" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
+                                <span class="fa fa-share-alt"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--Documents-->
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Document
+                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateDocument()" style="border: 0px solid transparent; background-color: transparent">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <table tr-ng-grid="" items="vm.documents" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                        <thead>
+                            <tr>
+                                <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                                <th field-name="name" display-name="Name"></th>
+                                <th field-name="type" display-name="Type"></th>
+                                <th field-name="created" display-name="Created"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <br />
+                    <br />
+                    <table tr-ng-grid="" items="vm.documentRevisions" selected-items="vm.mySelectedItemsR" selection-mode="SingleRow" enable-filtering="false">
+                        <thead>
+                            <tr>
+                                <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                                <th field-name="name" display-name="Name"></th>
+                                <th field-name="version" display-name="Version"></th>
+                                <th field-name="type" display-name="Type"></th>
+                                <th field-name="created" display-name="Created"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <modal id="0" title="Create Folder" visible="vm.showModalCreateFolder">
+        <form role="form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="vm.folder.name" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.createFolder()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Share Folder" visible="vm.showModalShareFolder">
+        <form role="form">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.shareFolder()">Save</button>
+            </div>
+        </form>
+    </modal>
+</div>
