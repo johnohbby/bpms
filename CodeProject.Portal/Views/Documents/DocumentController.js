@@ -79,7 +79,6 @@ function ($scope, $routeParams, $location, ajaxService, alertService, loginServi
             function init() {
                 getRightTypes();
                 getContentTypes();
-                sendEmail();
             }
 
             init();
