@@ -173,6 +173,7 @@ namespace CodeProject.Portal.WebApiControllers
                 userViewModel.Id = user.Id;
                 userViewModel.Name = user.Name;
                 userViewModel.Email = user.Email;
+                userViewModel.Surname = user.Surname;
             }
 
             userViewModel.ReturnStatus = true;

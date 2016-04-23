@@ -1,15 +1,21 @@
 ﻿<div ng-controller="uploadController as up" ng-init="up.initializeController(contentTypeName)">
-   <b>Attach document:</b><br/> <input type="file" ng-file-select="up.onFileSelect($files)" multiple>
-    <div id="attachedFiles" >  
-
-        <ul class="list-unstyled col-md-4" style="max-height:50px; min-height:50px; overflow-y:auto;">
+    <div>
+        <label>Documents</label>
+    </div>
+    <div class="col-md-12 offset2">
+        <span class="file-input btn btn-primary btn-file">
+            Browse&hellip; <input type="file" ng-file-select="up.onFileSelect($files)" multiple>
+        </span>
+    </div>
+    <div id="attachedFiles" style=" ">
+        <ul class="list-unstyled col-md-8">
             <li ng-repeat="model in up.attachedFiles" ng-click="" class="search-results">
                 <span class="fa fa-file-text"></span>&nbsp; &nbsp;{{model.name}}
-                <button  type="button" class="btn btn-default btn-sm pull-right" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
+                <button type="button" class="btn btn-default btn-sm pull-right" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
             </li>
         </ul>
     </div>
-    <br/>
+        <br />
 </div>

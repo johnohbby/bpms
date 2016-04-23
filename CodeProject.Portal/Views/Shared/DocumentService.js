@@ -1,4 +1,4 @@
-﻿angular.module('app').service('documentService', ['ajaxService', '$http', function (ajaxService, $http) {
+﻿angular.module('app').service('documentService', ['$rootScope','ajaxService', '$http', function ($rootScope, ajaxService, $http) {
 
     var attachedFiles = [];
     var contentId = -1;
@@ -17,13 +17,15 @@
        parentDocumentId = id;
    }
    this.pushFile = function (file) {
+       
        attachedFiles.push(file);        
    }
-
+   
    this.saveDocuments = function () {
        var data = { Documents: attachedFiles, ContentId: contentId, ParentDocumentId: parentDocumentId }
        attachedFiles = [];
         return ajaxService.ajaxPost(data, "api/documentService/UpdateDocumentsContentId").then(function (data) {
+            $rootScope.$broadcast('documentsUpladed', '');
         });
    }
 

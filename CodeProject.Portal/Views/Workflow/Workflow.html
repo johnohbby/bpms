@@ -18,30 +18,37 @@
                 
             </div>
             <div class="panel-body">
-                <form role="form">
-                    <div class="form-group">
-                        <label>Workflow type</label>
-                        <select class="form-control" ng-model="vm.action.ActionTypeId"
-                                ng-options="model.id as model.name for model in vm.nextActionTypes" ng-change="vm.GetDelegatedUsers()"></select>
+                <form role="form ">
+                    <div class="form-group row col-lg-12 offset2">
+                        <div>
+                            <label>Action type</label>
+                        </div>
+                        <div class="col-md-3 offset2">
+                            <select class="form-control" ng-model="vm.action.ActionTypeId"
+                                    ng-options="model.id as model.name for model in vm.nextActionTypes" ng-change="vm.GetDelegatedUsers()"></select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Delegated to</label>
-                        <label ng-repeat="model in vm.nextDelegated">
-                            <input type="checkbox" ng-model="vm.selected[model.id]" checklist-value="model.id"> {{model.name}}
-                        </label>
-                    </div>
+                    <div class="form-group row  col-lg-12 offset2">
+                        <div>
+                            <label>Send to</label>
+                        </div>
+                        <div class="col-md-3 offset2">
+                            <label ng-repeat="model in vm.nextDelegated" style="display:block">
+                                <input type="checkbox" ng-model="vm.selected[model.id]" checklist-value="model.id"> {{model.name}}
+                            </label>
+                        </div>
+                        </div>
                     <hr/>
 
-                    <div ng-repeat="contentTypeName in ['action']" ng-include="'/Views/Shared/upload.html'">
+                    <div class="form-group row col-lg-6 offset2" ng-repeat="contentTypeName in ['action']" ng-include="'/Views/Shared/upload.html'">
                             
                     
                     </div>
-                    <br/>
+                   
                     
                     <div class="panel panel-default" style="border:0px">                        
                         <div class="panel-body" id="forms" ng-show="vm.showForms"></div>
                     </div>
-
 
                     <div class="form-group" style="clear:both;">
                         <button type="submit" class="btn btn-primary" ng-click="vm.CreateAction()">Save</button>
@@ -170,7 +177,11 @@
                                             <span class="glyphicon glyphicon-paperclip"></span>
                                         </button>
                                     </td>
-                                    
+                                    <td>
+                                        <button class="btn btn-default btn-sm col-xs-12" style="border:0px solid transparent; background-color:transparent">
+                                            <span class="glyphicon glyphicon-trash" ng-show="vm.showDeleteAction($index)" ng-click="vm.DeleteAction(vm.actions.splice(vm.actions.indexOf(gridItem),1))"></span>
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

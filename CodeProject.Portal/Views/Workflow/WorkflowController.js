@@ -7,7 +7,7 @@
         
         //alert(a);
         this.initializeController = function () {
-            
+            console.log(loginService.getLoggedUser());
         //VARIABLES
             //glogal
             vm.title = "Workflows";
@@ -18,7 +18,7 @@
                 sortExpression: "Name",
                 sortDirection: "ASC",
                 pageSize: 10,
-                UserId: loginService.getLoggedUser().id,
+                UserId: loginService.getLoggedUser(),
                 Forms:[]
             };
             vm.showForms = false;
@@ -32,8 +32,8 @@
             //Workflows 
             vm.showWorkflows = true;
             vm.showWorkflow = false;
-            vm.workflow = { name: "", workflowTypeId: -1, createdBy: loginService.getLoggedUser().id }; //get user from session
-            vm.action = { Id:-1, WorkflowId: id, ActionTypeId: -1, createdBy: loginService.getLoggedUser().id, DelegatedId: -1 }; //get user from session
+            vm.workflow = { name: "", workflowTypeId: -1, createdBy: loginService.getLoggedUser() }; //get user from session
+            vm.action = { Id:-1, WorkflowId: id, ActionTypeId: -1, createdBy: loginService.getLoggedUser(), DelegatedId: -1 }; //get user from session
             vm.selectedWorkflow = {name:""};
             
             //New Workflow
@@ -46,9 +46,11 @@
 
             vm.selected = {};
 
-            //New Action
+            //Action
             vm.showModalActionCreate = false;
             vm.ToggleModalActionCreate = ToggleModalActionCreate;
+            vm.showDeleteAction = showDeleteAction;
+            vm.DeleteAction = DeleteAction;
 
             //Documents
             vm.showModalDocuments = false;
@@ -89,7 +91,14 @@
             }
 
             init();
+            
 
+            function showDeleteAction(index) {
+                if (index === vm.actions.length - 1) {
+                    return true;
+                }
+                return false;
+            }
             function GetFileType(name) {
                 console.log(name);
                 if (name.indexOf(".pdf") > -1)
@@ -140,14 +149,10 @@
                         vm.actions[i].forms = $sce.trustAsHtml(vm.actions[i].forms);
                         
                     }
-
-
-
                     vm.nextActionTypes = data.nextActionTypes;
-                    console.log("next");
-                    console.log(vm.nextActionTypes);
+
                     if (vm.nextActionTypes.length > 0)
-                    vm.action.ActionTypeId = vm.nextActionTypes[0].id;
+                        vm.action.ActionTypeId = vm.nextActionTypes[0].id;
                     $("#tableActions").show();
                 });
             }
@@ -234,13 +239,21 @@
                     GetWorkflows(vm.folderId);
                 });
             }
-            
+            function DeleteAction(item) {               
+                vm.action.Id = item[0].id;
+                vm.action.WorkflowId = item[0].workflowId;              
+                return ajaxService.ajaxPost(vm.action, "api/workflowService/DeleteAction").then(function (data) {
+                    
+                    GetWorkflowDataById(data.workflowId);
+                });
+            }
             function ToggleModalCreate() {
                 vm.showModalCreate = !vm.showModalCreate;
             };
             function ToggleModalActionCreate() {
                 
                 GetDelegated();
+                vm.showModalActionCreate = true;
             }
             function CancelAction() {                
                 vm.showModalActionCreate = false;               
@@ -281,8 +294,8 @@
                 vm.formsData.ContentTypeName = "action";
                 vm.formsData.ContentId = vm.action.Id;
                 return ajaxService.ajaxPost(vm.formsData, "api/formService/SaveForms").then(function (data) {
-                    vm.showModalActionCreate = false;
                     GetWorkflowDataById(vm.action.WorkflowId);
+
                 });
             }
             function GetDelegatedUsers() {GetDelegated(); }
@@ -290,7 +303,7 @@
                 vm.GetForms();
                 return ajaxService.ajaxPost(vm.action, "api/workflowService/GetDelegated").then(function (data) {
                     
-                    vm.showModalActionCreate = true;
+                    
                     vm.nextDelegated = data.delegated;
                     vm.nextActionTypes = vm.nextActionTypes;
                 });                

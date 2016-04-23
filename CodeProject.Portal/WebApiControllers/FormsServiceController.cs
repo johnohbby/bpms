@@ -183,7 +183,9 @@ namespace CodeProject.Portal.WebApiControllers
             {
                 string name = item.Name;
                 name = name.Replace(" ", "");
-                string value = (string)(((Newtonsoft.Json.Linq.JObject)formsViewModel.Forms)).GetValue(name);
+                string value = "";
+                try { value = (string)(((Newtonsoft.Json.Linq.JObject)formsViewModel.Forms)).GetValue(name); }
+                catch (System.Exception e) { value = ""; }
                 allFields += name + "=" + value + ";";
             }
 

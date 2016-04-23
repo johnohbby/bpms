@@ -127,6 +127,38 @@ namespace CodeProject.Portal.WebApiControllers
 
         }
 
+        [Route("DeleteAction")]
+        [HttpPost]
+        public HttpResponseMessage DeleteAction(HttpRequestMessage request, [FromBody] ActionViewModel actionVM)
+        {
+            TransactionalInformation transaction;
+
+            Business.Entities.Action action = new Business.Entities.Action();
+            action.Id = actionVM.Id;
+
+            WorkflowBusinessService wfBusinessService = new WorkflowBusinessService(_workflowDataService);
+            wfBusinessService.DeleteAction(action, out transaction);
+            WorkflowViewModel wd = new WorkflowViewModel();
+            if (transaction.ReturnStatus == false)
+            {
+                wd.ReturnStatus = false;
+                wd.ReturnMessage = transaction.ReturnMessage;
+                wd.ValidationErrors = transaction.ValidationErrors;
+
+                var responseError = Request.CreateResponse<WorkflowViewModel>(HttpStatusCode.BadRequest, wd);
+                return responseError;
+
+            }
+
+            
+            wd.ReturnStatus = true;
+            wd.ReturnMessage = transaction.ReturnMessage;
+
+            var response = Request.CreateResponse<ActionViewModel>(HttpStatusCode.OK, actionVM);
+            return response;
+
+
+        }
 
         [Route("UpdateWorkflow")]
         [HttpPost]

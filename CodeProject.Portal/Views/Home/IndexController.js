@@ -3,8 +3,12 @@
 angular.module('app').register.controller('indexController', ['$routeParams', '$location', 'ajaxService','$cookieStore','loginService', function ($routeParams, $location, ajaxService,$cookieStore, loginService) {
 
     "use strict";
+
     var vm = this;
+    
     vm.IsLogedIn = false;
+    if (loginService.getLoggedUser() != -1 && loginService.getLoggedUser() != undefined)
+        vm.IsLogedIn = true
     vm.Message = '';
     vm.Submitted = false;
     vm.IsFormValid = false;

@@ -157,6 +157,36 @@ namespace CodeProject.Business
 
 
         }
+
+        public void DeleteAction(Entities.Action action, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+
+            try
+            {
+                WorkflowBusinessRules workflowBusinessRules = new WorkflowBusinessRules();
+
+
+                _workflowDataService.CreateSession();
+                _workflowDataService.BeginTransaction();
+                _workflowDataService.DeleteAction(action);
+                _workflowDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("Action successfully deleted.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _workflowDataService.CloseSession();
+            }
+        }
         /// <summary>
         /// Get Workflows
         /// </summary>

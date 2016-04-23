@@ -76,6 +76,22 @@ namespace CodeProject.Data.EntityFramework
                 }
             }
         }
+
+        public void DeleteAction(Business.Entities.Action action)
+        {
+            //dbConnection.Workflows.Add(workflow);
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                sqlcon.Open();
+                using (SqlCommand cmd = new SqlCommand("dbo.Action_Delete", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = action.Id;
+                    cmd.ExecuteNonQuery();
+                    sqlcon.Close();
+                }
+            }
+        }
         /// <summary>
         /// Get Workflow
         /// </summary>

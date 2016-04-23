@@ -9,7 +9,9 @@
         up.attachedFiles = [];
         up.contentTypeName = contentTypeName;
         up.onFileSelect = onFileSelect;
-
+        $scope.$on('documentsUpladed', function (event, arg) {
+            up.attachedFiles = [];
+        });
         function onFileSelect ($files) {
             
             //$files: an array of files selected, each file has name, size, and type.
