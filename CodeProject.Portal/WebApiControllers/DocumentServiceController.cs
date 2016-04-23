@@ -9,6 +9,7 @@ using CodeProject.Business.Entities;
 using CodeProject.Business;
 using CodeProject.Interfaces;
 using Ninject;
+using System.IO;
 
 namespace CodeProject.Portal.WebApiControllers
 {
@@ -105,7 +106,79 @@ namespace CodeProject.Portal.WebApiControllers
             return response;
 
         }
+        [Route("UpdateDocumentsContentId")]
+        [HttpPost]
+        public HttpResponseMessage UpdateDocumentsContentId(HttpRequestMessage request, [FromBody] SaveDocumentViewModel documentViewModel)
+        {
+            TransactionalInformation transaction;
 
+            List<Document> list = new List<Document>();
+
+            foreach (DocumentViewModel doc in documentViewModel.Documents)
+            {
+                Document document = new Document();
+                document.Id = doc.Id;
+                document.ParentDocumentId = documentViewModel.ParentDocumentId;
+                list.Add(document);
+            }
+            
+           
+
+            DocumentBusinessService documentBusinessService = new DocumentBusinessService(_documentDataService);
+            documentBusinessService.UpdateDocumentsContentId(list, documentViewModel.ContentId, out transaction);
+
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            return response;
+
+        }
+        [Route("DownoadDocument")]
+        [HttpGet]
+        public HttpResponseMessage DownoadDocument()
+        {
+            HttpResponseMessage result = null;
+            IEnumerable<string> headerValues = Request.Headers.GetValues("id");
+            int id = Int32.Parse(headerValues.FirstOrDefault());
+
+            TransactionalInformation transaction;
+            DocumentBusinessService documentBusinessService = new DocumentBusinessService(_documentDataService);
+            Document doc =  documentBusinessService.GetDocument(id, out transaction);
+
+
+            var localFilePath = doc.NameOnServer;// HttpContext.Current.Server.MapPath("~/timetable.jpg");
+
+            if (!File.Exists(localFilePath))
+            {
+                result = Request.CreateResponse(HttpStatusCode.Gone);
+            }
+            else
+            {
+                // Serve the file to the client
+                result = Request.CreateResponse(HttpStatusCode.OK);
+                result.Content = new StreamContent(new FileStream(localFilePath, FileMode.Open, FileAccess.Read));
+                result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                result.Content.Headers.ContentDisposition.FileName = "SampleImg";
+            }
+
+            return result;
+        }
+
+        [Route("GetDocumentsByActionId")]
+        [HttpPost]
+        public HttpResponseMessage GetDocumentsByActionId(HttpRequestMessage request, [FromBody] ActionViewModel documentViewModel)
+        {
+            HttpResponseMessage result = null;
+            
+
+            TransactionalInformation transaction;
+            DocumentBusinessService documentBusinessService = new DocumentBusinessService(_documentDataService);
+            List<Document> docs = documentBusinessService.GetDocumentByActionId(documentViewModel.Id, out transaction);
+
+            DocumentViewModel dvm = new DocumentViewModel();
+
+            dvm.Documents = docs;
+            var response = Request.CreateResponse<DocumentViewModel>(HttpStatusCode.OK, dvm);
+            return response;
+        }
         [Route("DeleteDocument")]
         [HttpPost]
         public HttpResponseMessage DeleteDocument(HttpRequestMessage request, [FromBody] DocumentViewModel documentViewModel)

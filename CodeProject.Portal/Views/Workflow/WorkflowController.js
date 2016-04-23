@@ -1,6 +1,6 @@
 ﻿angular.module("app").register.controller('workflowController',
-    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService','$scope', '$compile', '$sce','documentService',
-    function ($routeParams, $location, ajaxService, alertService, loginService, $scope, $compile, $sce, documentService) {
+    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService','$scope', '$compile', '$sce','documentService','$http',
+    function ($routeParams, $location, ajaxService, alertService, loginService, $scope, $compile, $sce, documentService, $http) {
         "use strict";
         var vm = this;
         var id = $location.search().id;
@@ -48,6 +48,9 @@
             //New Action
             vm.showModalActionCreate = false;
             vm.ToggleModalActionCreate = ToggleModalActionCreate;
+
+            //Documents
+            vm.showModalDocuments = false;
             
             
 
@@ -68,7 +71,9 @@
             vm.CancelWorkflow = CancelWorkflow;
             vm.GetForms = GetForms;
             vm.SaveForms = SaveForms;
-            
+            vm.GetFile = GetFile;
+            vm.ViewDocuments = ViewDocuments;
+            vm.CloseDocumentModal = CloseDocumentModal;
 
             function init() {
                 if (id == undefined) {
@@ -91,6 +96,20 @@
                 vm.folderId = folderId;
 
                 GetWorkflows(folderId);
+            }
+            function ViewDocuments(id) {
+                var data = { Id: id }
+                console.log(11);
+                return ajaxService.ajaxPost(data, "api/documentService/GetDocumentsByActionId").then(function (data) {
+                    vm.Documents = data.documents;
+                    vm.showModalDocuments = true;
+                });
+            }
+            function CloseDocumentModal() {
+                vm.showModalDocuments = false;
+            }
+            function GetFile(id, name) {                
+                documentService.downloadDocument(id, name);
             }
             function GetWorkflowDataById(id) {
                 vm.pagination.Id = id;
@@ -167,14 +186,20 @@
                     }
                 }
                 vm.action.Delegated = selectedUsers;
-                console.log(documentService.getAttachedFiles());
+                
+                return ajaxService.ajaxPost(vm.action, "api/workflowService/CreateAction").then(function (data) {
+                    vm.action.Id = data.id;
 
-                //return ajaxService.ajaxPost(vm.action, "api/workflowService/CreateAction").then(function (data) {
-                //    vm.action.Id = data.id;
+                    //Save documents
+                    documentService.setContentId(vm.action.Id);                    
+                    documentService.SaveDocuments();    
+
+                    //Save forms
+                    vm.SaveForms();
+
+                    vm.showModalActionCreate = false;
                     
-                //    vm.SaveForms();
-                    
-                //});
+                });
             }
             function UpdateWorkflow() {
 

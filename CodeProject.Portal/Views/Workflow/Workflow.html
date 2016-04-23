@@ -33,10 +33,11 @@
                     <hr/>
 
                     <div ng-repeat="contentTypeName in ['action']" ng-include="'/Views/Shared/upload.html'">
-                        
-                    </div>
+                            
                     
-                   
+                    </div>
+                    <br/>
+                    
                     <div class="panel panel-default" style="border:0px">                        
                         <div class="panel-body" id="forms" ng-show="vm.showForms"></div>
                     </div>
@@ -162,14 +163,34 @@
                                     <td>
 
                                         <div ng-bind-html="gridItem.forms" ></div>
-                                        
+                                        </td>
+                                    <td>
+                                        <button class="btn btn-default btn-sm col-xs-4 " ng-click="vm.ViewDocuments(gridItem.id)" style="border:0px solid transparent; background-color:transparent">
+                                            <span class="fa fa-file-text-o"></span>
+                                        </button>
                                     </td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
                 </div>
+
+                <modal id="0" title="Action documents" visible="vm.showModalDocuments">
+                    <ul class="list-unstyled col-md-12">
+                        <li ng-repeat="model in vm.Documents" ng-click="">
+                            <span class="fa fa-file-text-o"></span>&nbsp; &nbsp;{{model.name}}
+                            <button type="button" ng-click="vm.GetFile(model.id, model.name)" class="btn btn-default btn-sm pull-right" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
+                                <span class="glyphicon glyphicon-download-alt"></span>
+                            </button>
+                        </li>
+                    </ul>
+                    <hr/>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" ng-click="vm.CloseDocumentModal()">Close</button>
+                    </div>
+                </modal>
             </div>
             
             </div>
