@@ -379,7 +379,15 @@ function ($scope, $routeParams, $location, ajaxService, alertService, loginServi
             {
                 var document = new Object();
                 document.ContentId = vm.pagination.contentId;
-                document.ParentDocumentId = null;
+                document.ParentDocumentId = -1;
+
+                //Save documents
+                documentService.setContentId(document.ContentId);
+                documentService.setParentDocumentId(document.ParentDocumentId);
+                documentService.saveDocuments().then(function () {
+                    vm.getDocumentsForFolder(vm.pagination.contentId);
+                    vm.showModalCreateDocument = !vm.showModalCreateDocument;
+                })
             }
 
             function getDocumentVersion() {
@@ -394,6 +402,14 @@ function ($scope, $routeParams, $location, ajaxService, alertService, loginServi
                 var documentVersion = new Object();
                 documentVersion.ContentId = vm.pagination.contentId;
                 documentVersion.ParentDocumentId = vm.mySelectedItems[0].id;
+
+                //Save documents
+                documentService.setContentId(documentVersion.ContentId);
+                documentService.setParentDocumentId(documentVersion.ParentDocumentId);
+                documentService.saveDocuments().then(function (data) {
+                    vm.getDocumentsForFolder(vm.pagination.contentId);
+                    vm.showModalCreateVersion = !vm.showModalCreateVersion;
+                })
             }
 
             function showDeleteVersion(index)

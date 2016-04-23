@@ -21,7 +21,8 @@
    }
 
    this.saveDocuments = function () {
-       var data = { Documents: attachedFiles, ContentId: contentId, ParentDocumentId: parentDocumentId }     
+       var data = { Documents: attachedFiles, ContentId: contentId, ParentDocumentId: parentDocumentId }
+       attachedFiles = [];
         return ajaxService.ajaxPost(data, "api/documentService/UpdateDocumentsContentId").then(function (data) {
         });
    }

@@ -192,7 +192,7 @@
 
                     //Save documents
                     documentService.setContentId(vm.action.Id);                    
-                    documentService.SaveDocuments();    
+                    documentService.saveDocuments();    
 
                     //Save forms
                     vm.SaveForms();
