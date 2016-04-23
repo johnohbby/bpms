@@ -22,5 +22,6 @@ namespace CodeProject.Portal.Models
 
         public List<User> Delegated { get; set; }
         public long DelegatedId { get; set; }
+        
     }
 }

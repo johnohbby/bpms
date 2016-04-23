@@ -103,9 +103,9 @@
     </div>
 
             <div class="row">
-                <div class="col-sm-3 category" visible="vm.showWorkflows">
+                <div class="col-sm-3 category " visible="vm.showWorkflows">
                     <ul>
-                        <li ng-repeat="model in vm.workflowFolders" ng-click="vm.GetWorkflowsByFolderId(model.id)" class="blue"><a href="">{{model.name}}</a></li>
+                        <li ng-repeat="model in vm.workflowFolders" ng-click="vm.GetWorkflowsByFolderId($index, model.id)" ng-class="{ 'selected': $index == vm.selectedFolderIndex }"class="blue"><a href="">{{model.name}}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-9" visible="vm.showWorkflows">
@@ -154,7 +154,8 @@
                             <th field-name="createdByName" display-name="Created by"></th>
                             <th field-name="created" display-name="Created"></th>
                             <th field-name="delegatedName" display-name="Delegated"></th>
-                            
+                            <th display-name="Forms"></th>
+                            <th display-name="Documents"></th>
                             </thead>
                             <tbody>
 
@@ -165,8 +166,8 @@
                                         <div ng-bind-html="gridItem.forms" ></div>
                                         </td>
                                     <td>
-                                        <button class="btn btn-default btn-sm col-xs-4 " ng-click="vm.ViewDocuments(gridItem.id)" style="border:0px solid transparent; background-color:transparent">
-                                            <span class="fa fa-file-text-o"></span>
+                                        <button ng-show="gridItem.hasDocuments" class="btn btn-default btn-sm col-xs-12 " ng-click="vm.ViewDocuments(gridItem.id)" style="border:0px solid transparent; background-color:transparent">
+                                            <span class="glyphicon glyphicon-paperclip"></span>
                                         </button>
                                     </td>
                                     
@@ -180,7 +181,7 @@
                 <modal id="0" title="Action documents" visible="vm.showModalDocuments">
                     <ul class="list-unstyled col-md-12">
                         <li ng-repeat="model in vm.Documents" ng-click="">
-                            <span class="fa fa-file-text-o"></span>&nbsp; &nbsp;{{model.name}}
+                            <span class="fa fa-file-{{vm.GetFileType(model.name)}}-o"></span>&nbsp; &nbsp;{{model.name}}
                             <button type="button" ng-click="vm.GetFile(model.id, model.name)" class="btn btn-default btn-sm pull-right" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
                                 <span class="glyphicon glyphicon-download-alt"></span>
                             </button>

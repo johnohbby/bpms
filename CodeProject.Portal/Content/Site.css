@@ -62,13 +62,14 @@ body {
     display: block;
     height: 30px;
     margin: 0 0 7px 0;
-    background: #F7F5F2 ;
     font-size: 18px;
     color: #333;
     padding: 5px 0 0 20px;
     text-decoration: none;
 }
-
+.selected {
+    background: #F7F5F2;
+}
 .form-control {
     height: 32px;
 }

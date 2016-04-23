@@ -27,6 +27,7 @@
             vm.folderId = -1;
             vm.formsData = { Forms: [] , FormId: -1, ActionTypeId: -1};
             vm.mySelectedItems = [];
+            vm.selectedFolderIndex = 0;
             
             //Workflows 
             vm.showWorkflows = true;
@@ -51,7 +52,7 @@
 
             //Documents
             vm.showModalDocuments = false;
-            
+            vm.GetFileType = GetFileType;
             
 
 
@@ -89,10 +90,26 @@
 
             init();
 
+            function GetFileType(name) {
+                console.log(name);
+                if (name.indexOf(".pdf") > -1)
+                    return "pdf";
+                if (name.indexOf(".doc") > -1)
+                    return "word";
+                if (name.indexOf(".xls") > -1)
+                    return "excel";
+                if (name.indexOf(".png") > -1 || name.indexOf(".jpg") > -1 || name.indexOf(".jpeg") > -1)
+                    return "image";
+                
+                return "text";
+            }
             function ViewWorkflow(path) {
                 $location.url(path);
             }
-            function GetWorkflowsByFolderId(folderId) {
+            function GetWorkflowsByFolderId(index, folderId) {
+                console.log(index);
+                console.log(vm.selectedFolderIndex);
+                vm.selectedFolderIndex = index;
                 vm.folderId = folderId;
 
                 GetWorkflows(folderId);

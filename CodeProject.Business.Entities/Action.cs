@@ -28,6 +28,7 @@ namespace CodeProject.Business.Entities
         public String CreatedByName { get; set; }
         public String OrdinalNo { get; set; }
         public String Forms { get; set; }
+        public int HasDocuments { get; set;}
 
 
 
