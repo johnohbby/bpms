@@ -77,7 +77,37 @@ namespace CodeProject.Business
 
         }
 
+        public void UpdateDocumentsContentId(List<Document> documents, long contentId, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
+            long insertedId = -1;
+            try
+            {
+                
 
+                _documentDataService.CreateSession();
+                _documentDataService.BeginTransaction();
+                _documentDataService.UpdateDocumentsContentId(documents, contentId);
+                _documentDataService.CommitTransaction(true);
+
+                transaction.ReturnStatus = true;
+                transaction.ReturnMessage.Add("Document successfully created.");
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _documentDataService.CloseSession();
+            }
+            
+
+
+        }
         /// <summary>
         /// Get Documents
         /// </summary>
@@ -121,7 +151,35 @@ namespace CodeProject.Business
             return documents;
 
         }
+        public List<Document> GetDocumentByActionId(long actionId, out TransactionalInformation transaction)
+        {
+            transaction = new TransactionalInformation();
 
+            List<Document> documents = new List<Document>();
+
+            try
+            {
+                int totalRows;
+
+                _documentDataService.CreateSession();
+                documents = _documentDataService.GetDocumentByActionId(actionId);
+                _documentDataService.CloseSession();
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _documentDataService.CloseSession();
+            }
+
+            return documents;
+
+        }
         /// <summary>
         /// Get Document
         /// </summary>

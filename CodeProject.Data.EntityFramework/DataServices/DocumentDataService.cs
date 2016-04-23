@@ -57,6 +57,28 @@ namespace CodeProject.Data.EntityFramework
             return retunvalue;
         }
 
+        public void UpdateDocumentsContentId(List<Document> documents, long contentId)
+        {
+            //dbConnection.Workflows.Add(workflow);
+            long retunvalue = -1;
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                sqlcon.Open();
+                foreach (var document in documents)
+                {
+                    using (SqlCommand cmd = new SqlCommand("dbo.Document_UpdateDocumentsContentId", sqlcon))
+                    {
+                        if (document.ContentId == null) document.ContentId = -1;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@documentId", SqlDbType.BigInt).Value = document.Id;
+                        cmd.Parameters.Add("@parentDocumentId", SqlDbType.BigInt).Value = document.ParentDocumentId;
+                        cmd.Parameters.Add("@contentId", SqlDbType.BigInt).Value = contentId;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                sqlcon.Close();
+            }
+        }
         /// <summary>
         /// Get Document
         /// </summary>
@@ -64,8 +86,25 @@ namespace CodeProject.Data.EntityFramework
         /// <returns></returns>
         public Document GetDocument(long documentID)
         {
-            Document Document = dbConnection.Documents.Where(a => a.Id == documentID).FirstOrDefault();
-            return Document;
+            DataTable dt = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetDocumentById", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = documentID;
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            List<Document> documents = dt.ToList<Document>().ToList<Document>();
+
+            if (documents.Count > 0)
+                return documents[0];
+            return null;
         }
 
         /// <summary>
@@ -124,6 +163,29 @@ namespace CodeProject.Data.EntityFramework
             sortExpression = sortExpression + " " + sortDirection;
 
             totalRows = dbConnection.Documents.Count();
+
+            return documents;
+        }
+
+
+        public List<Document> GetDocumentByActionId(long actionId)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetDocumentsByActionId", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@actionId", SqlDbType.BigInt).Value = actionId;
+                    
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            List<Document> documents = dt.ToList<Document>().ToList<Document>();
+            
 
             return documents;
         }

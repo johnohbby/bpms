@@ -13,9 +13,12 @@ namespace CodeProject.Interfaces
     public interface IDocumentDataService : IDataRepository, IDisposable
     {
         long CreateDocument(Document document);
+
+        void UpdateDocumentsContentId(List<Document> documents, long contentId);
         Document GetDocument(long documentID);
         void DeleteDocument(Document document);
         List<Document> GetDocuments(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
+        List<Document> GetDocumentByActionId(long actionId);
         List<Document> GetDocumentsForContent(long contentTypeId, long contentId, int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);  
     }
 }
