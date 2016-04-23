@@ -1,0 +1,131 @@
+﻿<div ng-controller="mailTemplateController as vm" ng-init="vm.initializeController()">
+    <h4 class="page-header"></h4>
+    <!--Mail Template-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Mail Template
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+        <div class="panel-body">
+            <table tr-ng-grid="" items="vm.mailTemplates" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                <thead>
+                    <tr>
+                        <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                        <th field-name="subject" display-name="Subject"></th>
+                        <th field-name="body" display-name="Body"></th>
+                        <th display-name="Actions" cell-width="10em"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+
+                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--Mail Template Maps-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            MAIL TEMPLATE MAP
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateMap()" style="border: 0px solid transparent; background-color: transparent">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+        <div class="panel-body">
+            <table tr-ng-grid="" items="vm.mailTemplateMaps" selected-items="vm.mySelectedItemsMap" selection-mode="SingleRow" enable-filtering="false">
+                <thead>
+                    <tr>
+                        <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                        <th field-name="actionTypeName" display-name="Action Type"></th>
+                        <th display-name="Actions" cell-width="10em"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-default btn-sm col-xs-12 col-sm-12" ng-click="vm.toggleModalDeleteMap(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <modal id="0" title="Create Mail Template" visible="vm.showModalCreate">
+        <form role="form">
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text" class="form-control" ng-model="vm.mailTemplate.subject" />
+            </div>
+            <div class="form-group">
+                <label>Body</label>
+                <textarea class="form-control" rows="5" ng-model="vm.mailTemplate.body"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.createMailTemplate()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Edit Mail Template" visible="vm.showModalUpdate">
+        <form role="form">
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text" class="form-control" ng-model="vm.mailtemplate.subject" />
+            </div>
+            <div class="form-group">
+                <label>Body</label>
+                <textarea class="form-control" rows="5" ng-model="vm.mailtemplate.body"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.updateMailTemplate()">Save</button>
+            </div>
+        </form>
+    </modal>
+    <modal id="0" title="Delete Mail Template" visible="vm.showModalDelete">
+        <form role="form">
+            <label>Are you sure you want to delete item?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.deleteMailTemplate()">Delete</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Create Mail Template Map" visible="vm.showModalCreateMap">
+        <form role="form">
+            <div class="form-group">
+                <label>Action Type</label>
+                <select class="form-control" ng-model="vm.mailTemplateMap.actionTypeId" ng-options="actionType.id as actionType.name for actionType in vm.actionTypes"></select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.createMailTemplateMap()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Delete Mail Template Map" visible="vm.showModalDeleteMap">
+        <form role="form">
+            <label>Are you sure you want to delete item?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" ng-click="vm.deleteMailTemplateMap()">Delete</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>
+</div>

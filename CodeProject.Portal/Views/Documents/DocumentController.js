@@ -1,6 +1,6 @@
 ﻿angular.module("app").register.controller('documentController',
-    ['$scope','$routeParams', '$location', 'ajaxService', 'alertService', 'loginService', 'documentService',
-function ($scope, $routeParams, $location, ajaxService, alertService, loginService, documentService) {
+    ['$scope','$routeParams', '$location', 'ajaxService', 'alertService', 'loginService', 'documentService', 'emailService',
+function ($scope, $routeParams, $location, ajaxService, alertService, loginService, documentService, emailService) {
 
         "use strict";
 
@@ -73,11 +73,13 @@ function ($scope, $routeParams, $location, ajaxService, alertService, loginServi
             vm.showDeleteVersion = showDeleteVersion;
             vm.deleteDocument = deleteDocument;
             vm.toggleModalDeleteDocument = toggleModalDeleteDocument;
+            vm.sendEmail = sendEmail;
             
 
             function init() {
                 getRightTypes();
                 getContentTypes();
+                sendEmail();
             }
 
             init();
@@ -442,6 +444,20 @@ function ($scope, $routeParams, $location, ajaxService, alertService, loginServi
              .catch(function (fallback) {
                  console.log(fallback);
              });
+            }
+
+            function sendEmail()
+            {
+                var email = new Object();
+                email.To = "melika.kiselica@gmail.com";
+                email.Subject = "Test";
+                email.MailBody = "Cao";
+                return emailService.sendEmail(email, "api/emailService/SendEmail").then(function (data) {
+                    
+                })
+                .catch(function (fallback) {
+                    console.log(fallback);
+                });
             }
           
         }

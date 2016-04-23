@@ -151,7 +151,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\SaveDocumentViewModel.cs" />
+    <Compile Include="Models\MailTemplateMapViewModel.cs" />
+    <Compile Include="Models\MailTemplateViewModel.cs" />
+    <Compile Include="Models\EmailViewModel.cs" />
     <Compile Include="Models\DocumentViewModel.cs" />
     <Compile Include="Models\FolderViewModel.cs" />
     <Compile Include="Models\ContentRightViewModel.cs" />
@@ -165,6 +167,7 @@
     <Compile Include="Models\GroupViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\RightTypeViewModel.cs" />
+    <Compile Include="Models\SaveDocumentViewModel.cs" />
     <Compile Include="Models\StatusTranslationViewModel.cs" />
     <Compile Include="Models\StatusViewModel.cs" />
     <Compile Include="Models\UserGroupViewModel.cs" />
@@ -175,6 +178,9 @@
     <Compile Include="Models\WorkflowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\CustomBundle.cs" />
+    <Compile Include="WebApiControllers\MailTemplateMapServiceControlle.cs" />
+    <Compile Include="WebApiControllers\MailTemplateServiceController.cs" />
+    <Compile Include="WebApiControllers\EmailServiceController.cs" />
     <Compile Include="WebApiControllers\DocumentServiceController.cs" />
     <Compile Include="WebApiControllers\FolderServiceController.cs" />
     <Compile Include="WebApiControllers\ContentFormMapServiceController.cs" />
@@ -1051,10 +1057,6 @@
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\trNgGrid.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Customers\CustomerInquiry.html" />
-    <Content Include="Views\Customers\CustomerInquiryController.js" />
-    <Content Include="Views\Customers\CustomerMaintenance.html" />
-    <Content Include="Views\Customers\CustomerMaintenanceController.js" />
     <Content Include="Views\Documents\Document.html" />
     <Content Include="Views\Documents\DocumentController.js" />
     <Content Include="Views\Forms\ContentFormMap.html" />
@@ -1065,8 +1067,8 @@
     <Content Include="Views\Home\IndexController.js" />
     <Content Include="Views\Home\InitializeData.html" />
     <Content Include="Views\Home\InitializeDataController.js" />
-    <Content Include="Views\Products\ProductInquiry.html" />
-    <Content Include="Views\Products\ProductInquiryController.js" />
+    <Content Include="Views\MailTemplates\MailTemplate.html" />
+    <Content Include="Views\MailTemplates\MailTemplateController.js" />
     <Content Include="Views\Registries\UserGroupController.js" />
     <Content Include="Views\Registries\UserGroup.html" />
     <Content Include="Views\Registries\Group.html" />
@@ -1075,6 +1077,7 @@
     <Content Include="Views\Registries\User.html" />
     <Content Include="Views\Registries\RightType.html" />
     <Content Include="Views\Registries\RightTypeController.js" />
+    <Content Include="Views\Shared\EmailService.js" />
     <Content Include="Views\Shared\DocumentService.js" />
     <Content Include="Views\Shared\documentRow.html" />
     <Content Include="Views\Shared\UploadController.js" />
@@ -1091,9 +1094,7 @@
     <Content Include="Views\Workflow\Workflow.html" />
     <Content Include="Views\Workflow\WorkflowController.js" />
     <Content Include="Views\Workflow\WorkflowType.html" />
-    <Content Include="Views\Products\ProductMaintenance.html" />
     <Content Include="Views\Workflow\WorkflowTypeController.js" />
-    <Content Include="Views\Products\ProductMaintenanceController.js" />
     <Content Include="Views\Shared\AjaxService.js" />
     <Content Include="Views\Shared\AlertService.js" />
     <Content Include="Views\Shared\App.js" />

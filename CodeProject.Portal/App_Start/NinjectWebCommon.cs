@@ -83,6 +83,9 @@ namespace CodeProject.Portal.App_Start
             kernel.Bind<CodeProject.Interfaces.IUploadDataService>().To<CodeProject.Data.EntityFramework.UploadDataService>();
             kernel.Bind<CodeProject.Interfaces.IFolderDataService>().To<CodeProject.Data.EntityFramework.FolderDataService>();
             kernel.Bind<CodeProject.Interfaces.IDocumentDataService>().To<CodeProject.Data.EntityFramework.DocumentDataService>();
+            kernel.Bind<CodeProject.Interfaces.IEmailDataService>().To<CodeProject.Data.EntityFramework.EmailDataService>();
+            kernel.Bind<CodeProject.Interfaces.IMailTemplateDataService>().To<CodeProject.Data.EntityFramework.MailTemplateDataService>();
+            kernel.Bind<CodeProject.Interfaces.IMailTemplateMapDataService>().To<CodeProject.Data.EntityFramework.MailTemplateMapDataService>();
         }        
     }
 }

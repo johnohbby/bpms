@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MailTemplateMap.cs" />
+    <Compile Include="MailTemplate.cs" />
+    <Compile Include="Email.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="Folder.cs" />
     <Compile Include="ContentFormMap.cs" />

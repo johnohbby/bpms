@@ -42,6 +42,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServices\MailTemplateMapDataService.cs" />
+    <Compile Include="DataServices\MailTemplateDataService.cs" />
     <Compile Include="DataServices\DocumentDataService.cs" />
     <Compile Include="DataServices\FolderDataService.cs" />
     <Compile Include="DataServices\ContentFormMapDataService.cs" />
@@ -56,6 +59,7 @@
     <Compile Include="DataServices\StatusTranslationDataService.cs" />
     <Compile Include="DataServices\FormDataService.cs" />
     <Compile Include="DataServices\UploadDataService.cs" />
+    <Compile Include="DataServices\EmailDataService.cs" />
     <Compile Include="DataTableExtensions.cs" />
     <Compile Include="DataServices\ContentRightDataService.cs" />
     <Compile Include="DataServices\UserGroupDataService.cs" />

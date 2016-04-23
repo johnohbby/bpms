@@ -58,7 +58,8 @@ namespace CodeProject.Portal
                 "~/Views/Shared/DataGridService.js",
                 "~/Views/Shared/MasterController.js",
                 "~/Views/Shared/ModalDirective.js",
-                "~/Views/Shared/UploadController.js"
+                "~/Views/Shared/UploadController.js",
+                 "~/Views/Shared/EmailService.js"
 
            ));
 
@@ -108,6 +109,9 @@ namespace CodeProject.Portal
            ));
             bundles.Add(new ScriptBundle("~/bundles/documents").Include(
               "~/Views/Documents/DocumentController.js"
+          ));
+            bundles.Add(new ScriptBundle("~/bundles/mailTemplates").Include(
+              "~/Views/MailTemplates/MailTemplateController.js"
           ));
         }
     }

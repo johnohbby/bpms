@@ -47,8 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MailTemplateMapBusinessService.cs" />
+    <Compile Include="MailTemplateMapBusinessRules.cs" />
+    <Compile Include="MailTemplateBusinessService.cs" />
+    <Compile Include="MailTemplateBusinessRules.cs" />
+    <Compile Include="EmailBusinessRules.cs" />
     <Compile Include="DocumentBusinessRules.cs" />
     <Compile Include="DocumentBusinessService.cs" />
+    <Compile Include="EmailBusinessService.cs" />
     <Compile Include="FolderBusinessService.cs" />
     <Compile Include="FolderBusinessRules.cs" />
     <Compile Include="ContentRightBusinessRules.cs" />
