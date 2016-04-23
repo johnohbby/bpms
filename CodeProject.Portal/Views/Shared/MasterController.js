@@ -12,15 +12,18 @@ angular.module('app').controller('masterController',
             this.initializeController = function () {
                 vm.applicationVersion = applicationConfiguration.version;
                 vm.UserFullname = loginService.GetFullname();
-                
+                vm.IsUserLogged = false;
                 vm.Logout = Logout;
 
                 function Logout() {
                     loginService.Logout();
+                    vm.UserFullname = "";
+                    vm.IsUserLogged = false;
                 }
             }
             $scope.$on('Fullname', function (event, arg) {
                 vm.UserFullname = arg;
+                vm.IsUserLogged = true;
             });
 
         }]);

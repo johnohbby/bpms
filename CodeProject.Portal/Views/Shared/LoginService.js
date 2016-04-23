@@ -1,4 +1,4 @@
-﻿angular.module('app').service('loginService', ['$cookies', '$rootScope', function ($cookies, $rootScope) {
+﻿angular.module('app').service('loginService', ['$cookies', '$rootScope','$location', function ($cookies, $rootScope,$location) {
 
    this.getLoggedUser = function ()
    {
@@ -22,10 +22,13 @@
        $cookies.put("Name", user.name, true);
        $cookies.put("Lastname", user.surname, true);
        $rootScope.$broadcast('Fullname', this.GetFullname());
-       loggedUser = user.id;       
+       loggedUser = user.id;   
+       $location.url('/Workflow/Workflow');
    }
    this.Logout = function(){
+        
        $cookies.put("Id", -1, true);
+       
    }
    
 }]);
