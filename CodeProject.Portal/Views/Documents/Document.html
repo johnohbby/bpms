@@ -1,8 +1,8 @@
 ﻿<div ng-controller="documentController as vm" ng-init="vm.initializeController()">
-    <h4 class="page-header">Documents</h4>
+    <h5 class="page-header"><b>DOCUMENT</b></h5>
     <!-- Document -->
     <div class="container-fluid col-md-12">
-        <div class="col-md-3">
+        <div class="col-md-3 page-panel">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Folders
@@ -12,24 +12,25 @@
                 </div>
                 <div class="panel-body">
                     <ul class="list-unstyled">
-                        <li ng-repeat="folder in vm.folders" ng-click="vm.getDocumentsForFolder(folder.id)"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; &nbsp;{{folder.name}}
+                        <li ng-repeat="folder in vm.folders" ng-click="vm.getDocumentsForFolder(folder.id)" class="search-results">
+                            <span class="glyphicon glyphicon-folder-close"></span>&nbsp; &nbsp;{{folder.name}}
                             <button ng-show="vm.showShare(folder.id)" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalDeleteFolder(folder)" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
                                 <span class="glyphicon glyphicon-trash"></span>
-                            </button>    
+                            </button>
                             <button ng-show="vm.showShare(folder.id)" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalShareFolder(folder.id)" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
                                 <span class="fa fa-share-alt"></span>
                             </button>
-                           
+
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
         <!--Documents-->
-        <div class="col-md-9">
+        <div class="col-md-9 page-panel">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Document
+                    Documents
                     <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateDocument()" style="border: 0px solid transparent; background-color: transparent">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
@@ -39,32 +40,36 @@
                         <thead>
                             <tr>
                                 <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
-                                <th field-name="name" display-name="Name"></th>
-                                <th field-name="extension" display-name="Extension"></th>
-                                <th field-name="created" display-name="Created"></th>
+                                <th field-name="name" display-name="Name" cell-width="40em"></th>
+                                <th field-name="extension" display-name="Extension" cell-width="10em"></th>
+                                <th field-name="created" display-name="Created" cell-width="20em" display-format=" date:'yyyy-mm-dd hh:mm:ss'"></th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
-                    <br />
-                    <br />
-                    <table tr-ng-grid="" items="vm.documentRevisions" selected-items="vm.mySelectedItemsR" selection-mode="SingleRow" enable-filtering="false">
+                    <div class="second-part">
+                        Versions
+                        <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateVersion()" style="border: 0px solid transparent; background-color: transparent">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div>
+                    <table tr-ng-grid="" items="vm.documentVersions" selected-items="vm.mySelectedItemsR" selection-mode="SingleRow" enable-filtering="false">
                         <thead>
                             <tr>
                                 <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
-                                <th field-name="name" display-name="Name"></th>
-                                <th field-name="created" display-name="Created"></th>
+                                <th field-name="name" display-name="Name" cell-width="40em"></th>
+                                <th field-name="created" display-name="Created" cell-width="20em" display-format=" date:'yyyy-mm-dd hh:mm:ss'"></th>
                                 <th display-name="Actions" cell-width="10em"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    <button class="btn btn-default btn-sm col-xs-3 col-sm-3 col-sm-offset-1 " ng-click="vm.downloadDocument()" style="border: 0px solid transparent; background-color: transparent">
+                                    <button class="btn btn-default btn-sm col-xs-3 col-sm-3 col-sm-offset-1 " ng-click="vm.downloadDocument(); $event.stopPropagation()" style="border: 0px solid transparent; background-color: transparent">
                                         <span class="glyphicon glyphicon-download-alt"></span>
                                     </button>
 
-                                    <button class="btn btn-default btn-sm col-xs-3 col-sm-3 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                    <button ng-show="vm.showDeleteVersion($index)" class="btn btn-default btn-sm col-xs-3 col-sm-3 col-sm-offset-1 " ng-click="vm.toggleModalDeleteDocument(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                 </td>
@@ -84,7 +89,7 @@
                 <input type="text" class="form-control" ng-model="vm.folder.name" />
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-click="vm.createFolder()">Save</button>
+                <button type="submit" class="btn btn-primary pull-right" ng-click="vm.createFolder()">Save</button>
             </div>
         </form>
     </modal>
@@ -102,7 +107,7 @@
             <div class="form-group">
                 <label>Folder already shared with:</label>
                 <ul class="list-unstyled">
-                    <li ng-repeat="user in vm.sharedUsers" ng-click="">
+                    <li ng-repeat="user in vm.sharedUsers" ng-click="" class="search-results">
                         <span class="glyphicon glyphicon-user"></span>&nbsp; &nbsp;{{user.name}} {{user.surname}}
                         <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.disableShareFolder(user.id)" style="border: 0px solid transparent; background-color: transparent; padding-top:0px; padding-bottom:0px;">
                             <span class="glyphicon glyphicon-remove"></span>
@@ -111,7 +116,7 @@
                 </ul>            
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-click="vm.shareFolder()">Save</button>
+                <button type="submit" class="btn btn-primary pull-right" ng-click="vm.shareFolder()">Save</button>
             </div>
         </form>
     </modal>
@@ -120,8 +125,41 @@
         <form role="form">
             <label>Are you sure you want to delete folder {{vm.folderToDelete.name}}?</label>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-click="vm.deleteFolder()">Delete</button>
-                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary pull-right" ng-click="vm.deleteFolder()">Delete</button>
+                <button type="submit" class="btn btn-primary pull-right" ng-click="vm.toggleModal()">Cancel</button>
+
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Create Document" visible="vm.showModalCreateDocument">
+        <form role="form">
+            <div class="form-group">
+                <div ng-repeat="contentTypeName in ['folder']" ng-include="'/Views/Shared/upload.html'"></div>
+            </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary pull-right" ng-click="vm.saveDocument()">Save</button>
+                </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Create Version" visible="vm.showModalCreateVersion">
+        <form role="form">
+            <div class="form-group">
+                <div ng-repeat="contentTypeName in ['folder']" ng-include="'/Views/Shared/upload.html'"></div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary pull-right" ng-click="vm.saveVersion()">Save</button>
+            </div>
+        </form>
+    </modal>
+
+    <modal id="0" title="Delete Document" visible="vm.showModalDeleteDocument">
+        <form role="form">
+            <label>Are you sure you want to delete document {{vm.mySelectedItemsR[0].name}}?</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary pull-right" ng-click="vm.deleteDocument()">Delete</button>
+                <button type="submit" class="btn btn-primary pull-right" ng-click="vm.toggleModal()">Cancel</button>
 
             </div>
         </form>

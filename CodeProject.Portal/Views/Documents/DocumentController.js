@@ -1,6 +1,6 @@
 ﻿angular.module("app").register.controller('documentController',
-    ['$scope','$routeParams', '$location', 'ajaxService', 'alertService', 'loginService', 
-function ($scope,$routeParams, $location, ajaxService, alertService, loginService) {
+    ['$scope','$routeParams', '$location', 'ajaxService', 'alertService', 'loginService', 'documentService',
+function ($scope, $routeParams, $location, ajaxService, alertService, loginService, documentService) {
 
         "use strict";
 
@@ -44,7 +44,13 @@ function ($scope,$routeParams, $location, ajaxService, alertService, loginServic
             vm.folderToDelete = {};
             vm.documents = [];
             vm.parentDocuments = [];
-            vm.documentRevisions = [];
+            vm.documentVersions = [];
+            vm.showModalCreateDocument = false;
+            vm.extensions = [".txt", ".doc", ".docx", ".xls", ".csv", ".pdf"];
+            vm.document = { id: "0" };
+            vm.showModalCreateVersion = false;
+            vm.documentVersion = {};
+            vm.showModalDeleteDocument = false;
 
             //functions
             vm.toggleModalCreateFolder = toggleModalCreateFolder;
@@ -60,6 +66,14 @@ function ($scope,$routeParams, $location, ajaxService, alertService, loginServic
             vm.toggleModalDeleteFolder = toggleModalDeleteFolder;
             vm.deleteFolder = deleteFolder;
             vm.getDocumentsForFolder = getDocumentsForFolder;
+            vm.toggleModalCreateDocument = toggleModalCreateDocument;
+            vm.saveDocument = saveDocument;
+            vm.toggleModalCreateVersion = toggleModalCreateVersion;
+            vm.saveVersion = saveVersion;
+            vm.showDeleteVersion = showDeleteVersion;
+            vm.deleteDocument = deleteDocument;
+            vm.toggleModalDeleteDocument = toggleModalDeleteDocument;
+            
 
             function init() {
                 getRightTypes();
@@ -70,28 +84,31 @@ function ($scope,$routeParams, $location, ajaxService, alertService, loginServic
 
 
             $scope.$watch('vm.mySelectedItems[0]', function (value) {
-                if(vm.mySelectedItems[0])
+                vm.documentVersions = [];
+                if (vm.mySelectedItems[0])
                 {
-                    vm.documentRevisions=[];
-                    vm.documentRevisions.push(vm.mySelectedItems[0]);
-                    for(var i=0; i<vm.documents.length; i++)
-                    {
-                        if(vm.documents[i].parentDocumentId===vm.mySelectedItems[0].id)
-                        {
-                            vm.documentRevisions.push(vm.documents[i]);
-                        }
-                    }
-                }
-                else {
-                    vm.documentRevisions = [];
+                    fillDocumentVersions();
                 }
             });
+
+            function fillDocumentVersions()
+            {
+                vm.documentVersions.push(vm.mySelectedItems[0]);
+                for (var i = 0; i < vm.documents.length; i++) {
+                    if (vm.documents[i].parentDocumentId === vm.mySelectedItems[0].id) {
+                        vm.documentVersions.push(vm.documents[i]);
+                    }
+                }
+            }
 
             function toggleModal()
             {
                 vm.showModalCreateFolder = false;
                 vm.showModalShareFolder = false;
                 vm.showModalDeleteFolder = false;
+                vm.showModalCreateDocument = false;
+                vm.showModalCreateVersion = false;
+                vm.showModalDeleteDocument = false;
             }
 
             function toggleModalCreateFolder()
@@ -116,6 +133,26 @@ function ($scope,$routeParams, $location, ajaxService, alertService, loginServic
                 vm.folderToDelete = folder;
                 vm.showModalDeleteFolder = !vm.showModalDeleteFolder;
             }
+
+            function toggleModalCreateDocument() {
+                $scope.title = "Create Document";
+                vm.document = getDocument();
+                vm.showModalCreateDocument = !vm.showModalCreateDocument;
+            }
+
+            function toggleModalCreateVersion() {
+                $scope.title = "Create Version";
+                vm.documentVersion = getDocumentVersion(); 
+
+                vm.showModalCreateVersion = !vm.showModalCreateVersion;
+            }
+
+            function toggleModalDeleteDocument()
+            {
+                $scope.title = "Delete Document";
+                vm.showModalDeleteDocument = !vm.showModalDeleteDocument;
+            }
+
 
             function getParentFolder(folderId)
             {
@@ -152,6 +189,15 @@ function ($scope,$routeParams, $location, ajaxService, alertService, loginServic
                 folder.id = vm.folderToDelete.id;
                 return ajaxService.ajaxPost(folder, "api/folderService/DeleteFolder").then(function (data) {
                     vm.showModalDeleteFolder = !vm.showModalDeleteFolder;
+                    if (vm.parentDocuments.length>0)
+                    {
+                        vm.parentDocuments = [];
+                        if(vm.documentVersions.length>0)
+                        {
+                            vm.documentVersions = [];
+                        }
+                        vm.mySelectedItems = [];
+                    }
                     getAllFoldersForUser();
                 })
                 .catch(function (fallback) {
@@ -307,16 +353,79 @@ function ($scope,$routeParams, $location, ajaxService, alertService, loginServic
                
                 return ajaxService.ajaxPost(vm.pagination, "api/documentService/GetDocumentsForContent").then(function (data) {
                     vm.parentDocuments = [];
+                    vm.documentVersions = [];
                     for (var i = 0; i < data.documents.length; i++) {
                         if (!data.documents[i].parentDocumentId || data.documents[i].parentDocumentId===-1)
                         {
                             vm.parentDocuments.push(data.documents[i]);
                         }
                     }
+                    if (vm.parentDocuments.length === 1)
+                    {
+                        vm.mySelectedItems[0] = vm.parentDocuments[0];
+                    }
                     vm.documents = data.documents;
 
                     return vm.documents;
                 });
+            }
+
+            function getDocument() {
+                vm.document = { id: "0" };
+                return vm.document;
+            }
+
+            function saveDocument()
+            {
+                var document = new Object();
+                document.ContentId = vm.pagination.contentId;
+                document.ParentDocumentId = null;
+            }
+
+            function getDocumentVersion() {
+                vm.documentVersion = {
+                    id:"0"
+            };
+                return vm.documentVersion;
+            }
+
+            function saveVersion()
+            {
+                var documentVersion = new Object();
+                documentVersion.ContentId = vm.pagination.contentId;
+                documentVersion.ParentDocumentId = vm.mySelectedItems[0].id;
+            }
+
+            function showDeleteVersion(index)
+            {
+                
+                if(index===vm.documentVersions.length-1)
+                    {
+                        return true;
+                    }
+                
+                return false;
+            }
+
+            function deleteDocument()
+            {
+                var document = new Object();
+                document.Id = vm.mySelectedItemsR[0].id;
+                document.Name = vm.mySelectedItemsR[0].name;
+                document.NameOnServer = vm.mySelectedItemsR[0].nameOnServer;
+                document.Extension = vm.mySelectedItemsR[0].extension;
+                document.ContentTypeId = vm.mySelectedItemsR[0].contentTypeId;
+                document.ContentId = vm.mySelectedItemsR[0].contentId;
+                document.ParentDocumentId = vm.mySelectedItemsR[0].parentDocumentId;
+                document.Created = vm.mySelectedItemsR[0].created;
+
+                return ajaxService.ajaxPost(document, "api/documentService/DeleteDocument").then(function (data) {
+                    getDocumentsForFolder(vm.pagination.contentId);
+                    vm.showModalDeleteDocument = !vm.showModalDeleteDocument;
+                })
+             .catch(function (fallback) {
+                 console.log(fallback);
+             });
             }
           
         }

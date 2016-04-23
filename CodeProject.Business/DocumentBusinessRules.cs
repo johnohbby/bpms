@@ -15,7 +15,6 @@ namespace CodeProject.Business
 
         public DocumentBusinessRules()
         {
-            RuleFor(a => a.Name).NotEmpty().WithMessage("Name is required.");
 
         }
 
