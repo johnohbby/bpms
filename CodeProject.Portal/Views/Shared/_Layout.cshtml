@@ -85,54 +85,54 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="color:white !important">
                 <ul class="nav navbar-nav" style="color:white !important">
-                    <li ng-show="vm.IsUserLogged" ><a href="#/Workflow/Workflow">Workflows</a></li>
+                    <li ng-show="vm.IsUserLogged" ><a target="_parent" href="#/Workflow/Workflow/">Workflows</a></li>
                     <li ng-show="!vm.IsUserLogged"><a href="#/Home/Index">Login</a></li>
                     <li ng-show="vm.IsUserLogged" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Workflow <span class="caret"></span></a>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Workflow <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/Workflow/WorkflowType">Workflow Types</a></li>
+                            <li><a href="#/Workflow/WorkflowType/">Workflow Types</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#/Workflow/ActionType">Action Types</a></li>
+                            <li><a href="#/Workflow/ActionType/">Action Types</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#/Workflow/Status">Statuses</a></li>
+                            <li><a href="#/Workflow/Status/">Statuses</a></li>
 
                         </ul>
                     </li>
                     <li ng-show="vm.IsUserLogged"  class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registries <span class="caret"></span></a>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registries <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/Registries/RightType">Right Types</a></li>
+                            <li><a href="#/Registries/RightType/">Right Types</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#/Registries/ContentRight">Content Rights</a></li>
+                            <li><a href="#/Registries/ContentRight/">Content Rights</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#/Registries/User">Users</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#/Registries/Group">Groups</a></li>
+                            <li><a href="#/Registries/Group/">Groups</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#/Registries/UserGroup">User Groups</a></li>
+                            <li><a href="#/Registries/UserGroup/">User Groups</a></li>
                         </ul>
 
                     </li>
                     <li ng-show="vm.IsUserLogged"  class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Forms <span class="caret"></span></a>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Forms <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/Forms/Form">Forms</a></li>
+                            <li><a href="#/Forms/Form/">Forms</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#/Forms/ContentFormMap">Content Form Maps</a></li>
+                            <li><a href="#/Forms/ContentFormMap/">Content Form Maps</a></li>
                         </ul>
 
                     </li>
                     <li ng-show="vm.IsUserLogged" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documents <span class="caret"></span></a>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documents <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/Documents/Document">Documents</a></li>
+                            <li><a href="#/Documents/Document/">Documents</a></li>
                         </ul>
 
                     </li>
                     <li ng-show="vm.IsUserLogged" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mail<span class="caret"></span></a>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mail<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/MailTemplates/MailTemplate">Mail Templates</a></li>
+                            <li><a href="#/MailTemplates/MailTemplate/">Mail Templates</a></li>
                         </ul>
 
                     </li>
@@ -142,7 +142,7 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <li class="dropdown">
-                        <a ng-show="vm.IsUserLogged" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{vm.UserFullname}}<span class="caret"></span></a>
+                        <a ng-show="vm.IsUserLogged" href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{vm.UserFullname}}<span class="caret"></span></a>
                         <ul ng-show="vm.IsUserLogged"  class="dropdown-menu">
                             <li><a href="#">User profile</a></li>
                             <li><a href="#">Help</a></li>

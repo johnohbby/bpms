@@ -26,7 +26,8 @@
        $location.url('/Workflow/Workflow');
    }
    this.Logout = function(){        
-       $cookies.put("Id", -1, true);       
+       $cookies.put("Id", -1, true);  
+       
    }
    this.broadcastFullname = function(){
         $rootScope.$broadcast('Fullname', this.GetFullname());
