@@ -17,7 +17,7 @@ function ($scope, $routeParams, $location, ajaxService, alertService, loginServi
                 sortExpression: "Id",
                 sortDirection: "ASC",
                 pageSize: 1000,
-                userId: loginService.getLoggedUser().id
+                userId: loginService.getLoggedUser()
             };
             vm.paginationD = {
                 currentPageNumber: 1,
@@ -73,7 +73,7 @@ function ($scope, $routeParams, $location, ajaxService, alertService, loginServi
             vm.showDeleteVersion = showDeleteVersion;
             vm.deleteDocument = deleteDocument;
             vm.toggleModalDeleteDocument = toggleModalDeleteDocument;
-            vm.sendEmail = sendEmail;
+            vm.downloadDocument = downloadDocument;
             
 
             function init() {
@@ -413,9 +413,9 @@ function ($scope, $routeParams, $location, ajaxService, alertService, loginServi
                 })
             }
 
-            function showDeleteVersion(index)
+            function showDeleteVersion(gridItem)
             {
-                
+                var index = vm.documentVersions.indexOf(gridItem);
                 if(index===vm.documentVersions.length-1)
                     {
                         return true;
@@ -445,18 +445,9 @@ function ($scope, $routeParams, $location, ajaxService, alertService, loginServi
              });
             }
 
-            function sendEmail()
+            function downloadDocument(id, name)
             {
-                var email = new Object();
-                email.To = "melika.kiselica@gmail.com";
-                email.Subject = "Test";
-                email.MailBody = "Cao";
-                return emailService.sendEmail(email, "api/emailService/SendEmail").then(function (data) {
-                    
-                })
-                .catch(function (fallback) {
-                    console.log(fallback);
-                });
+                documentService.downloadDocument(id, name);
             }
           
         }

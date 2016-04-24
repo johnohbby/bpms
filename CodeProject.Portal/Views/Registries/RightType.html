@@ -1,87 +1,90 @@
 ﻿<div ng-controller="rightTypeController as vm" ng-init="vm.initializeController()">
 
-    <h4 class="page-header">{{vm.title}}</h4>
+    <h5 class="page-header2"><b>RIGHT TYPE</b></h5>
+    <div class="container-fluid col-md-12 page-panel">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                RIGHT TYPES
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+            <div class="panel-body">
+               
+                <table tr-ng-grid="" page-items="10"  items="vm.rightTypes" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                    <thead>
+                        <tr>
+                            <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                            <th field-name="code" display-name="Code"></th>
+                            <th field-name="name" display-name="Name"></th>
+                            <th field-name="description" display-name="Description"></th>
+                            <th display-name="Actions" cell-width="10em"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
 
-    <div>
-        <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)"><div ng-bind-html="vm.messageBox"></div></alert>
-    </div>
-    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
-        <span class="glyphicon glyphicon-plus"></span>
-    </button>
-    <table tr-ng-grid="" items="vm.rightTypes" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
-        <thead>
-            <tr>
-                <th field-name="id" display-name="ID"  cell-width="10em" display-align="right"></th>
-                <th field-name="code" display-name="Code"></th>
-                <th field-name="name" display-name="Name"></th>
-                <th field-name="description" display-name="Description"></th>
-                <th display-name="Actions" cell-width="10em"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
+                                <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            </div>
+            <modal id="0" title="Create Right Type" visible="vm.showModalCreate">
+                <form role="form">
+                    <div class="form-group">
+                        <label>Code</label>
+                        <input type="text" class="form-control" ng-model="vm.rightType.code" />
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="vm.rightType.name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Description</label>
+                        <textarea class="form-control" rows="5" ng-model="vm.rightType.description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="vm.createRightType()">Save</button>
+                    </div>
+                </form>
+            </modal>
 
-                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            <modal id="0" title="Edit Right Type" visible="vm.showModalUpdate">
+                <form role="form">
+                    <div class="form-group">
+                        <label>Code</label>
+                        <input type="text" class="form-control" ng-model="vm.righttype.code" />
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="vm.righttype.name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Description</label>
+                        <textarea class="form-control" rows="5" ng-model="vm.righttype.description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="vm.updateRightType()">Save</button>
+                    </div>
+                </form>
+            </modal>
+            <modal id="0" title="Delete Right Type" visible="vm.showModalDelete">
+                <form role="form">
+                    <label>Are you sure you want to delete item?</label>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="vm.deleteRightType()">Delete</button>
+                        <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
 
-    <modal id="0" title="Create Right Type" visible="vm.showModalCreate">
-        <form role="form">
-            <div class="form-group">
-                <label>Code</label>
-                <input type="text" class="form-control" ng-model="vm.rightType.code" />
-            </div>
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" ng-model="vm.rightType.name" />
-            </div>
-            <div class="form-group">
-                <label for="comment">Description</label>
-                <textarea class="form-control" rows="5" ng-model="vm.rightType.description"></textarea>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-click="vm.createRightType()">Save</button>          
-            </div>
-        </form>
-    </modal>
-
-
-    <modal id="0" title="Edit Right Type" visible="vm.showModalUpdate">
-        <form role="form">
-            <div class="form-group">
-                <label>Code</label>
-                <input type="text" class="form-control" ng-model="vm.righttype.code" />
-            </div>
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" ng-model="vm.righttype.name" />
-            </div>
-            <div class="form-group">
-                <label for="comment">Description</label>
-                <textarea class="form-control" rows="5" ng-model="vm.righttype.description"></textarea>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-click="vm.updateRightType()">Save</button>
-            </div>
-        </form>
-    </modal>
-
-    <modal id="0" title="Delete Right Type" visible="vm.showModalDelete">
-        <form role="form">
-            <label>Are you sure you want to delete item?</label>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-click="vm.deleteRightType()">Delete</button>
-                <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
-
-            </div>
-        </form>
-    </modal>
-
+                    </div>
+                </form>
+            </modal>
+        </div>

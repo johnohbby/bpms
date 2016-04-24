@@ -1442,7 +1442,7 @@ th {
 .table caption + thead tr:first-child td,
 .table colgroup + thead tr:first-child td,
 .table thead:first-child tr:first-child td {
-  border-top: 0;
+  border-top: 1;
 }
 
 .table tbody + tbody {
@@ -1472,12 +1472,12 @@ th {
 .table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
-  border: 1px solid #dddddd;
+  border: 1px solid rgb(199, 197, 197);
 }
 
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
-  border-bottom-width: 2px;
+  border-bottom-width: 1px;
 }
 
 .table-striped > tbody > tr:nth-child(odd) > td,
@@ -4692,10 +4692,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
   z-index: 2;
-  color: #ffffff;
+  color: #000000;
   cursor: default;
-  background-color: #428bca;
-  border-color: #428bca;
+  background-color: #C2DFDE;
+  border-color: #C2DFDE;
 }
 
 .pagination > .disabled > span,

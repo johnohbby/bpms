@@ -95,6 +95,32 @@ namespace CodeProject.Data.EntityFramework
             dbConnection.MailTemplates.Remove(mailTemplate);
         }
 
+        public MailTemplate GetMailTemplateForAction(long actionId)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["CodeProjectDatabase"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetMailTemplateForAction", sqlcon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@actionId", SqlDbType.BigInt, 255).Value = actionId;
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+
+
+                        da.Fill(dt);
+                    }
+                }
+            }
+            List<MailTemplate> mailTemplates = dt.ToList<MailTemplate>().ToList<MailTemplate>();
+            if(mailTemplates.Count>0)
+            {
+                return mailTemplates[0];
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Initialize Data
         /// </summary>

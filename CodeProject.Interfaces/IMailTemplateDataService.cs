@@ -17,7 +17,7 @@ namespace CodeProject.Interfaces
         MailTemplate GetMailTemplate(long mailTemplateID);
         void DeleteMailTemplate(MailTemplate mailTemplate);
         List<MailTemplate> GetMailTemplates(int currentPageNumber, int pageSize, string sortExpression, string sortDirection, out int totalRows);
-          
+        MailTemplate GetMailTemplateForAction(long actionId);  
     }
 }
 

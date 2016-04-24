@@ -12,5 +12,6 @@ namespace CodeProject.Portal.Models
         public String From { get; set; }
         public String MailBody { get; set; }
         public String Subject { get; set; }
+        public long ActionId { get; set; }
     }
 }

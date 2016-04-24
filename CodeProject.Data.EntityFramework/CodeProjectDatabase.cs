@@ -49,7 +49,7 @@ namespace CodeProject.Data.EntityFramework
             modelBuilder.Entity<Customer>().ToTable("dbo.Customers");
             modelBuilder.Entity<Product>().ToTable("dbo.Products");
             modelBuilder.Entity<User>().ToTable("dbo.Users");
-            modelBuilder.Entity<CodeProject.Business.Entities.Action>().ToTable("dbo.Actions");
+            modelBuilder.Entity<CodeProject.Business.Entities.Action>().Ignore(p => p.DelegatedName).Ignore(p => p.ActionTypeName).Ignore(p => p.CreatedByName).Ignore(p => p.OrdinalNo).Ignore(p => p.Forms).Ignore(p => p.HasDocuments).ToTable("dbo.Actions");
             modelBuilder.Entity<ActionType>().ToTable("dbo.ActionTypes");
             modelBuilder.Entity<ContentRight>().ToTable("dbo.ContentRights");
             modelBuilder.Entity<ContentType>().ToTable("dbo.ContentTypes");

@@ -1,33 +1,41 @@
 ﻿<div ng-controller="groupController as vm" ng-init="vm.initializeController()">
-    <h4 class="page-header">Group</h4>
+    <h5 class="page-header2"><b>GROUP</b></h5>
+    <div class="container-fluid col-md-12 page-panel">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                GROUPS
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <table tr-ng-grid="" page-items="10" items="vm.groups" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                    <thead>
+                        <tr>
+                            <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                            <th field-name="name" display-name="Name"></th>
+                            <th field-name="email" display-name="Email"></th>
+                            <th field-name="groupTypeName" display-name="Group Type"></th>
+                            <th display-name="Actions" cell-width="10em"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
 
-    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
-        <span class="glyphicon glyphicon-plus"></span>
-    </button>
-    <table tr-ng-grid="" items="vm.groups" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
-        <thead>
-            <tr>
-                <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
-                <th field-name="name" display-name="Name"></th>
-                <th field-name="email" display-name="Email"></th>
-                <th field-name="groupTypeName" display-name="Group Type"></th>
-                <th display-name="Actions" cell-width="10em"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalUpdate()" style="border: 0px solid transparent; background-color: transparent">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-
-                    <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                                <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <modal id="0" title="Create Group" visible="vm.showModalCreate">
         <form role="form">
             <div class="form-group">
@@ -77,3 +85,4 @@
             </div>
         </form>
     </modal>
+</div>

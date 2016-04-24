@@ -1,80 +1,93 @@
 ﻿<div ng-controller="contentRightController as vm" ng-init="vm.initializeController()">
-    <div class="form-group">Content Right</div>
-    
-    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
-        <span class="glyphicon glyphicon-plus"></span>
-    </button>
-    <div id="0" ng-show="vm.showModalCreate">
-        <div class="panel panel-default">
-            <div class="panel-heading">Create Content Right</div>
-            <div class="panel-body">
-                <form class="form-horizontal" role="form" >
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="control-label col-md-3">Group</label>
-                            <div class="col-sm-9">
-                                <select class="form-control" ng-model="vm.contentRight.groupId" ng-options="group.id as group.name for group in vm.groups"></select>
+    <h5 class="page-header2"><b>CONTENT RIGHT</b></h5>
+    <div class="container-fluid col-md-12 page-panel">
+
+        <button ng-show="!vm.showModalCreate" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent; padding-right: 17px; padding-top: 12px">
+            <span class="glyphicon glyphicon-plus colorWhite"></span>
+        </button>
+        <button ng-hide="!vm.showModalCreate" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent; padding-right: 17px; padding-top: 12px">
+            <span class="glyphicon glyphicon-minus colorWhite"></span>
+        </button>
+        <div id="0" ng-show="vm.showModalCreate">
+            <div class="panel panel-default">
+                <div class="panel-heading">Create Content Right</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label col-md-3">Group</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="vm.contentRight.groupId" ng-options="group.id as group.name for group in vm.groups"></select>
+                                </div>
                             </div>
-                         </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label col-md-3">Content Type</label>
-                            <div class="col-sm-9">
-                                <select class="form-control" ng-model="vm.contentRight.contentTypeId" ng-options="contentType.id as contentType.name for contentType in vm.contentTypes" ng-change="vm.getAllContents(vm.contentRight.contentTypeId)"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="control-label col-md-3">Content</label>
-                            <div class="col-sm-9">
-                                <select class="form-control" ng-model="vm.contentRight.contentId" ng-options="content.id as content.name for content in vm.contents"></select>
+                            <div class="form-group col-md-6">
+                                <label class="control-label col-md-3">Content Type</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="vm.contentRight.contentTypeId" ng-options="contentType.id as contentType.name for contentType in vm.contentTypes" ng-change="vm.getAllContents(vm.contentRight.contentTypeId)"></select>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label col-md-3">Right Type</label>
-                            <div class="col-sm-9">
-                                <select class="form-control col-md-9 col-sm-12" ng-model="vm.contentRight.rightTypeId" ng-options="rightType.id as rightType.name for rightType in vm.rightTypes"></select>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label col-md-3">Content</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="vm.contentRight.contentId" ng-options="content.id as content.name for content in vm.contents"></select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label col-md-3">Right Type</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control col-md-9 col-sm-12" ng-model="vm.contentRight.rightTypeId" ng-options="rightType.id as rightType.name for rightType in vm.rightTypes"></select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary pull-right" ng-click="vm.toggleModal()">Cancel</button>
-                        <button type="submit" class="btn btn-primary pull-right" ng-click="vm.createContentRight()">Save</button>
-                    </div>
-                </form>
+                        <div class="row">
+                            <div class="col-md-12" style="padding-bottom:0px;">
+                                <button type="submit" class="btn btn-default pull-right" ng-click="vm.toggleModal()">Cancel</button>
+                                <button type="submit" class="btn btn-primary pull-right" ng-click="vm.createContentRight()" style="margin-right:5px;">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                CONTENT RIGHTS
             </div>
+            <div class="panel-body">
+                <table tr-ng-grid="" page-items="10"  items="vm.contentRights" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                    <thead>
+                        <tr>
+                            <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
+                            <th field-name="groupName" display-name="Group"></th>
+                            <th field-name="contentTypeName" display-name="Content Type"></th>
+                            <th field-name="contentName" display-name="Content"></th>
+                            <th field-name="rightTypeName" display-name="Right Type"></th>
+                            <th display-name="Actions" cell-width="10em"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+                <modal id="0" title="Delete Content Right" visible="vm.showModalDelete">
+                    <form role="form">
+                        <label>Are you sure you want to delete item?</label>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" ng-click="vm.deleteContentRight()">Delete</button>
+                            <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
 
-            <table tr-ng-grid="" items="vm.contentRights" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
-                <thead>
-                    <tr>
-                        <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
-                        <th field-name="groupName" display-name="Group"></th>
-                        <th field-name="contentTypeName" display-name="Content Type"></th>
-                        <th field-name="contentName" display-name="Content"></th>
-                        <th field-name="rightTypeName" display-name="Right Type"></th>
-                        <th display-name="Actions" cell-width="10em"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <button class="btn btn-default btn-sm col-xs-4 col-sm-4 col-sm-offset-1 " ng-click="vm.toggleModalDelete(); $event.stopPropagation()" style="border:0px solid transparent; background-color:transparent">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <modal id="0" title="Delete Content Right" visible="vm.showModalDelete">
-                <form role="form">
-                    <label>Are you sure you want to delete item?</label>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" ng-click="vm.deleteContentRight()">Delete</button>
-                        <button type="submit" class="btn btn-primary" ng-click="vm.toggleModal()">Cancel</button>
-
-                    </div>
-                </form>
-            </modal>
+                        </div>
+                    </form>
+                </modal>
+</div>

@@ -259,6 +259,34 @@ namespace CodeProject.Business
 
         }
 
+        public MailTemplate GetMailTemplateForAction(long actionId)
+        {
+           TransactionalInformation transaction = new TransactionalInformation();
+
+            MailTemplate mailTemplate = new MailTemplate();
+
+            try
+            {
+
+                _mailTemplateDataService.CreateSession();
+                mailTemplate = _mailTemplateDataService.GetMailTemplateForAction(actionId);
+                _mailTemplateDataService.CloseSession();
+                transaction.ReturnStatus = true;
+
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                transaction.ReturnMessage.Add(errorMessage);
+                transaction.ReturnStatus = false;
+            }
+            finally
+            {
+                _mailTemplateDataService.CloseSession();
+            }
+
+            return mailTemplate;
+        }
 
         /// <summary>
         /// Initialize Data

@@ -1,6 +1,6 @@
 ﻿angular.module("app").register.controller('workflowController',
-    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService','$scope', '$compile', '$sce','documentService','$http',
-    function ($routeParams, $location, ajaxService, alertService, loginService, $scope, $compile, $sce, documentService, $http) {
+    ['$routeParams', '$location', 'ajaxService', 'alertService', 'loginService','$scope', '$compile', '$sce','documentService','$http', 'emailService',
+    function ($routeParams, $location, ajaxService, alertService, loginService, $scope, $compile, $sce, documentService, $http, emailService) {
         "use strict";
         var vm = this;
         var id = $location.search().id;
@@ -16,7 +16,7 @@
             vm.pagination = {
                 currentPageNumber: 1,
                 sortExpression: "Name",
-                sortDirection: "ASC",
+                sortDirection: "DESC",
                 pageSize: 10,
                 UserId: loginService.getLoggedUser(),
                 Forms:[]
@@ -295,6 +295,7 @@
                 vm.formsData.ContentId = vm.action.Id;
                 return ajaxService.ajaxPost(vm.formsData, "api/formService/SaveForms").then(function (data) {
                     GetWorkflowDataById(vm.action.WorkflowId);
+                    sendEmail(vm.action.Id);
 
                 });
             }
@@ -325,6 +326,19 @@
 
             function ClearValidationErrors() {
                 vm.workflowNameInputError = false;
+            }
+
+            function sendEmail(actionId)
+            {
+                var email = new Object();
+                email.ActionId = actionId;
+                return emailService.sendEmail(email, "api/emailService/SendEmail").then(function (data) {
+
+                    })
+                    .catch(function (fallback) {
+                        console.log(fallback);
+                    });
+                
             }
         }
 
