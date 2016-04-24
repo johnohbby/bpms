@@ -7,7 +7,9 @@
         
         //alert(a);
         this.initializeController = function () {
-            console.log(loginService.getLoggedUser());
+            if(loginService.getLoggedUser() == -1 || loginService.getLoggedUser() == "undefined")
+            return;
+            loginService.broadcastFullname();
         //VARIABLES
             //glogal
             vm.title = "Workflows";
