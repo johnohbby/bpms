@@ -5,8 +5,13 @@
         "use strict";
 
         var vm = this;
+        var id = $location.search().id;
 
         this.initializeController = function () {
+
+            if (loginService.getLoggedUser() == -1 || loginService.getLoggedUser() === "undefined")
+                return;
+            loginService.broadcastFullname();
 
             //variables
             vm.groups = [];

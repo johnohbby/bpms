@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Folders
-                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateFolder()" style="border: 0px solid transparent; background-color: transparent">
+                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateFolder()" style="border: 0px solid transparent; background-color: transparent; padding-top:1px;">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
                 </div>
@@ -31,35 +31,39 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Documents
-                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateDocument()" style="border: 0px solid transparent; background-color: transparent">
+                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateDocument()" style="border: 0px solid transparent; background-color: transparent; padding-top:1px;">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
                 </div>
                 <div class="panel-body">
-                    <table tr-ng-grid="" items="vm.parentDocuments" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false" page-items="5">
+                    <table tr-ng-grid="" items="vm.parentDocuments" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="true" page-items="5">
                         <thead>
                             <tr>
-                                <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
-                                <th field-name="name" display-name="Name" cell-width="40em"></th>
-                                <th field-name="extension" display-name="Extension" cell-width="10em"></th>
-                                <th field-name="created" display-name="Created" cell-width="20em" display-format=" date:'yyyy-mm-dd hh:mm:ss'"></th>
+                                <th field-name="id" display-name="ID" cell-width="10em" display-align="right" enable-filtering="false"></th>
+                                <th field-name="name" display-name="Name" cell-width="40em" enable-filtering="false"></th>
+                                <th field-name="extension" display-name="Extension" cell-width="10em" enable-filtering="false"></th>
+                                <th field-name="created" display-name="Created" cell-width="20em" display-format=" date:'yyyy-mm-dd hh:mm:ss'" enable-filtering="false"></th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
-                    <div class="second-part">
-                        Versions
-                        <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateVersion()" style="border: 0px solid transparent; background-color: transparent">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                    </div>
-                    <table tr-ng-grid="" items="vm.documentVersions" selected-items="vm.mySelectedItemsR" selection-mode="SingleRow" enable-filtering="false" page-items="5">
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Versions
+                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateVersion()" style="border: 0px solid transparent; background-color: transparent; padding-top:1px;">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <table tr-ng-grid="" items="vm.documentVersions" selected-items="vm.mySelectedItemsR" selection-mode="SingleRow" enable-filtering="true" page-items="5">
                         <thead>
                             <tr>
-                                <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
-                                <th field-name="name" display-name="Name" cell-width="40em"></th>
-                                <th field-name="created" display-name="Created" cell-width="20em" display-format=" date:'yyyy-mm-dd hh:mm:ss'"></th>
-                                <th display-name="Actions" cell-width="10em"></th>
+                                <th field-name="id" display-name="ID" cell-width="10em" display-align="right" enable-filtering="false"></th>
+                                <th field-name="name" display-name="Name" cell-width="40em" enable-filtering="false"></th>
+                                <th field-name="created" display-name="Created" cell-width="20em" display-format=" date:'yyyy-mm-dd hh:mm:ss'" enable-filtering="false"></th>
+                                <th display-name="Actions" cell-width="10em" enable-filtering="false"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,10 +80,11 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
-            </div>
+                </div>
         </div>
-    </div>
+      
 
 
     <modal id="0" title="Create Folder" visible="vm.showModalCreateFolder">
@@ -98,7 +103,7 @@
         <form role="form">
             <div class="form-group">
                 <label>User</label>
-                <select class="form-control" ng-model="vm.contentRight.userId" ng-options="user.id as user.name for user in vm.users"></select>
+                <select class="form-control" ng-model="vm.contentRight.userId" ng-options="user.id as (user.name + ' ' + user.surname) for user in vm.users"></select>
             </div>
             <div class="form-group">
                 <label>Right Type</label>
@@ -133,22 +138,22 @@
     </modal>
 
     <modal id="0" title="Create Document" visible="vm.showModalCreateDocument">
-        <form role="form">
-            <div class="form-group">
-                <div ng-repeat="contentTypeName in ['folder']" ng-include="'/Views/Shared/upload.html'"></div>
+        <form class="form-horizontal" role="form" >
+            <div class="row">
+                <div class="form-group row col-md-12"  ng-repeat="contentTypeName in ['folder']" ng-include="'/Views/Shared/upload.html'"></div>
             </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary pull-right" ng-click="vm.saveDocument()">Save</button>
-                </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary pull-right" ng-click="vm.saveDocument()">Save</button>
+            </div>
         </form>
     </modal>
 
     <modal id="0" title="Create Version" visible="vm.showModalCreateVersion">
-        <form role="form">
-            <div class="form-group">
-                <div ng-repeat="contentTypeName in ['folder']" ng-include="'/Views/Shared/upload.html'"></div>
+        <form class="form-horizontal" role="form" >
+            <div class="row">
+                <div class="form-group row col-md-12"  ng-repeat="contentTypeName in ['folder']" ng-include="'/Views/Shared/upload.html'"></div>
             </div>
-            <div class="form-group">
+            <div class="row">
                 <button type="submit" class="btn btn-primary pull-right" ng-click="vm.saveVersion()">Save</button>
             </div>
         </form>

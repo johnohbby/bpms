@@ -5,7 +5,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 MAIL TEMPLATES
-                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent; padding-top: 1px;">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
             </div>
@@ -39,7 +39,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 MAIL TEMPLATE MAPS
-                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateMap()" style="border: 0px solid transparent; background-color: transparent">
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreateMap()" style="border: 0px solid transparent; background-color: transparent; padding-top: 1px;">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
             </div>
@@ -67,7 +67,7 @@
     </div>
         <modal id="0" title="Create Mail Template" visible="vm.showModalCreate">
             <form role="form">
-                <div class="form-group" style="padding-bottom:0px;">
+                <div class="form-group" style="padding-bottom:0px; margin-bottom:0px;">
                     <label><span class="glyphicon glyphicon-tags"></span>&nbsp;Available Tags:</label><br />
                     <label class="tags">$WORKFLOW_NAME,</label>&nbsp;
                     <label class="tags">$SENDER_NAME,</label>&nbsp;
@@ -90,7 +90,7 @@
 
         <modal id="0" title="Edit Mail Template" visible="vm.showModalUpdate">
             <form role="form">
-                <div class="form-group" style="padding-bottom:0px;">
+                <div class="form-group" style="padding-bottom: 0px; margin-bottom: 0px;">
                     <label><span class="glyphicon glyphicon-tags"></span>&nbsp;Available Tags:</label><br />
                     <label class="tags">$WORKFLOW_NAME,</label>&nbsp;
                     <label class="tags">$SENDER_NAME,</label>&nbsp;

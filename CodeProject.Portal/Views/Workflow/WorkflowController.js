@@ -269,7 +269,7 @@
                 vm.pagination.ActionTypeId = vm.action.ActionTypeId;
                 return ajaxService.ajaxPost(vm.pagination, "api/formService/GetFormData").then(function (data) {
                   
-                    $("#forms").html("<h4>Metadata</h4>");
+                    $("#forms").html("<label class='control-label col-md-3' style='padding-right:10px'>Metadata</label>");
                     for (var i = 0; i < data.formFields.length; i++) {
                         vm.showForms = true;
                         
@@ -280,9 +280,9 @@
                         console.log(elType);
                         var element = "";
                         if (elType == "text" || elType == "date")
-                            element = "<div class='row col-md-12'><div class='col-sm-3'> <label >" + formField.name + "</label><input class='form-control' type='" + elType + "' ng-model='" + ngModel + "' /></div></div>";
+                            element = "<div class='row col-md-12'><div class='col-md-8'> <label class='control-label col-md-3' style='text-align:left'>" + formField.name + "</label><input class='form-control col-md-6' type='" + elType + "' ng-model='" + ngModel + "' /></div></div>";
                         else if (elType == "textarea")
-                            element = "<div class='row col-md-12'><div class='col-sm-6'> <label >" + formField.name + "</label><textarea class='form-control' rows='4' cols='50' ng-model='" + ngModel + "'></textarea></div></div>";
+                            element = "<div class='row col-md-12'><div class='col-md-8'> <label class='control-label col-md-3' style='text-align:left'>" + formField.name + "</label><textarea class='form-control col-md-9' rows='4' cols='50' ng-model='" + ngModel + "'></textarea></div></div>";
                         $("#forms").append($compile(element)($scope));
                     }
                     

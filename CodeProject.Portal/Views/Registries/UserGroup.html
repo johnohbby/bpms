@@ -4,18 +4,18 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 USER GROUPS
-                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent; padding-top: 1px;">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
             </div>
             <div class="panel-body">
-                <table tr-ng-grid="" page-items="10"  items="vm.userGroups" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                <table tr-ng-grid="" page-items="10"  items="vm.userGroups" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="true">
                     <thead>
                         <tr>
-                            <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
-                            <th field-name="userName" display-name="User"></th>
-                            <th field-name="groupName" display-name="Group"></th>
-                            <th display-name="Actions" cell-width="10em"></th>
+                            <th field-name="id" display-name="ID" cell-width="10em" display-align="right" enable-filtering="false"></th>
+                            <th field-name="userName" display-name="User" enable-filtering="false"></th>
+                            <th field-name="groupName" display-name="Group" enable-filtering="false"></th>
+                            <th display-name="Actions" cell-width="10em" enable-filtering="false"></th>
                         </tr>
                     </thead>
                     <tbody>

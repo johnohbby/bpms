@@ -158,7 +158,7 @@
                 var actionType = new Object();
                 actionType.Id = vm.actiontype.id;
                 actionType.Name = vm.actiontype.name;
-                actionType.WorkflowTypeId = vm.actionType.workflowTypeId;
+                actionType.WorkflowTypeId = vm.actiontype.workflowTypeId;
                 return ajaxService.ajaxPost(actionType, "api/actionTypeService/UpdateActionType").then(function (data) {
                     vm.showModalUpdate = !vm.showModalUpdate;
                     getAllActionTypes();

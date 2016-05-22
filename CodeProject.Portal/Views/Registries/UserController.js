@@ -5,8 +5,13 @@
         "use strict";
 
         var vm = this;
+        var id = $location.search().id;
 
         this.initializeController = function () {
+
+        if(loginService.getLoggedUser() == -1 || loginService.getLoggedUser() === "undefined")
+                    return;
+         loginService.broadcastFullname();
 
             //variables
             vm.messageBox = "";
@@ -24,7 +29,7 @@
             vm.showModalDelete = false;
             vm.mySelectedItems = [];
             vm.user_ = {};
-            vm.loggedUser = "";
+            vm.loggedUser = loginService.getLoggedUser();
 
             //functions
             vm.getAllUsers = getAllUsers;
@@ -97,7 +102,7 @@
                 user.Email = vm.user.email;
                 user.IsActive = vm.user.isActive;
                 user.Created = new Date();
-                user.CreatedBy = loginService.getLoggedUser().username;
+                user.CreatedBy = loginService.GetFullname();
                 return ajaxService.ajaxPost(user, "api/userService/CreateUser").then(function (data) {
                     vm.showModalCreate = !vm.showModalCreate;
                     vm.getAllUsers();

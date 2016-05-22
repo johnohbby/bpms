@@ -1,55 +1,59 @@
 ﻿<div ng-controller="workflowController as vm" ng-init="vm.initializeController()">
-    <h5 class="page-header"><b>WORKFLOW</b></h5>
+    <h5 class="page-header2"><b>WORKFLOW</b></h5>
     <!-- Document -->
-    <div class="container-fluid col-md-12">
+    <div class="container-fluid col-md-12" style="padding-left:10px; padding-right:5px;">
 
         <!--     ACTION CREATE-->
         <div class="" ng-show="vm.showModalActionCreate">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Create new action
-
+                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.CancelAction()" style="border: 0px solid transparent; background-color: transparent; padding-top: 1px;">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
                 </div>
                 <div class="panel-body">
-                    <form role="form ">
-                        <div class="form-group row col-lg-12 offset2">
-                            <div>
-                                <label>Action type</label>
+                    <form class="form-horizontal" role="form">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label col-md-3">Action type</label>
+
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="vm.action.ActionTypeId"
+                                            ng-options="model.id as model.name for model in vm.nextActionTypes" ng-change="vm.GetDelegatedUsers()"></select>
+                                </div>
                             </div>
-                            <div class="col-md-3 offset2">
-                                <select class="form-control" ng-model="vm.action.ActionTypeId"
-                                        ng-options="model.id as model.name for model in vm.nextActionTypes" ng-change="vm.GetDelegatedUsers()"></select>
+                            <div class="form-group col-md-6">
+                                <label class="control-label col-md-3">Send to</label>
+                                <div class="col-sm-9" style="margin-top:5px;">
+                                    <label ng-repeat="model in vm.nextDelegated" style="display:block">
+                                        <input type="checkbox" ng-model="vm.selected[model.id]" checklist-value="model.id"> {{model.name}} &nbsp;{{model.surname}}
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row  col-lg-12 offset2">
-                            <div>
-                                <label>Send to</label>
+                        <div class="row">
+                            <div class="form-group row col-md-6" ng-repeat="contentTypeName in ['action']" ng-include="'/Views/Shared/upload.html'">
+
+
                             </div>
-                            <div class="col-md-3 offset2">
-                                <label ng-repeat="model in vm.nextDelegated" style="display:block">
-                                    <input type="checkbox" ng-model="vm.selected[model.id]" checklist-value="model.id"> {{model.name}}
-                                </label>
+
+                            <div class="form-group col-md-6">
+                                <!--div class="panel panel-default" style="border:0px"-->
+                                <div id="forms" ng-show="vm.showForms"></div>
+                                <!--/div-->
                             </div>
-                        </div>
-                        <hr />
-
-                        <div class="form-group row col-lg-6 offset2" ng-repeat="contentTypeName in ['action']" ng-include="'/Views/Shared/upload.html'">
-
-
-                        </div>
-
-
-                        <div class="panel panel-default" style="border:0px">
-                            <div class="panel-body" id="forms" ng-show="vm.showForms"></div>
-                        </div>
-
-                        <div class="form-group" style="clear:both;">
-                            <button type="submit" class="btn btn-primary" ng-click="vm.CreateAction()">Save</button>
-                            <button type="button" class="btn btn-default" ng-click="vm.CancelAction()">Cancel</button>
-                        </div>
-                    </form>
-
+                            </div>
+</form>
                 </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-md-12" style="padding-bottom:0px;">
+                                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.CancelAction()">Cancel</button>
+                                    <button type="submit" class="btn btn-primary pull-right" ng-click="vm.CreateAction()" style="margin-right:5px;">Save</button>
+                                </div>
+                            </div>
+                        </div>
             </div>
         </div>
 
@@ -58,6 +62,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Create new workflow
+                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.CancelWorkflow()" style="border: 0px solid transparent; background-color: transparent; padding-top: 1px;">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
 
                 </div>
                 <div class="panel-body">
@@ -71,9 +78,14 @@
                             <label>Name</label>
                             <input type="text" class="form-control" ng-model="vm.workflow.name" />
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" ng-click="vm.CreateWorkflow()">Save</button>
-                            <button type="button" class="btn btn-default" ng-click="vm.CancelWorkflow()">Cancel</button>
+                        
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-md-12" style="padding-bottom:0px;">
+                                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.CancelWorkflow()">Cancel</button>
+                                    <button type="submit" class="btn btn-primary pull-right" ng-click="vm.CreateWorkflow()" style="margin-right:5px;">Save</button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -102,39 +114,33 @@
             </div>
         </div>
 
-        <div class="col-md-3 page-panel">
+        <div class="col-md-3 page-panel" ng-show="vm.showWorkflows">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    FOLDERS
+                    CASES
                 </div>
                 <div class="panel-body">
-                        <ul class="list-unstyled category" visible="vm.showWorkflows">
-                            <li ng-repeat="model in vm.workflowFolders" ng-click="vm.GetWorkflowsByFolderId($index, model.id)" ng-class="{ 'selected': $index == vm.selectedFolderIndex }">
+                    <ul class="list-unstyled category">
+                        <li ng-repeat="model in vm.workflowFolders" ng-click="vm.GetWorkflowsByFolderId($index, model.id)" ng-class="{ 'selected': $index == vm.selectedFolderIndex }">
                             <span class="fa fa-list-alt"></span>&nbsp;&nbsp;{{model.name}}
                             <span class="badge badge-info">{{model.number}}</span>
-                            </li>
-                        </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="col-md-9 page-panel">
+        <div class="col-md-9 page-panel" ng-show="vm.showWorkflows">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     WORKFLOWS
-                    <button type="button" class="btn btn-default btn-sm pull-right" ng-show="vm.showWorkflows" ng-click="vm.ToggleModalCreate()" style="border: 0px solid transparent; background-color: transparent">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-
-                    <button type="button" class="btn btn-default btn-sm pull-right" ng-show="!vm.showWorkflows" ng-click="vm.ToggleModalActionCreate()" style="border: 0px solid transparent; background-color: transparent">
+                    <button type="button" class="btn btn-default btn-sm pull-right"  ng-click="vm.ToggleModalCreate()" style="border: 0px solid transparent; background-color: transparent; padding-top: 1px;">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
                 </div>
                 <div class="panel-body">
-                    <div visible="vm.showWorkflows">
-
+                    <div>
                         <div>
-
-                            <table page-items="10"  id="tableWorkflows" style="display:none" style="height:100% !important;" tr-ng-grid="" items="vm.workflows" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                            <table page-items="10" id="tableWorkflows" style="display:none" style="height:100% !important;" tr-ng-grid="" items="vm.workflows" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
                                 <thead>
                                 <th field-name="name" display-name="Name"></th>
                                 <th field-name="caseNumber" display-name="Case number"></th>
@@ -161,11 +167,22 @@
                         </div>
 
                     </div>
-                
-                    <div class="col-sm-12" id="divWorkflow" style="display:none">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 page-panel" ng-hide="vm.showWorkflows" style="padding-left:0px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    ACTIONS
+                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.ToggleModalActionCreate()" style="border: 0px solid transparent; background-color: transparent; padding-top: 1px;">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
 
+                <div class="panel-body">
+                    <div id="divWorkflow" style="display:none">
                         <div>
-                            <table id="tableActions" page-items="3"  style="display:none" style="height:100% !important;" tr-ng-grid="" items="vm.actions" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                            <table id="tableActions" page-items="10" style="display:none" style="height:100% !important;" tr-ng-grid="" items="vm.actions" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
                                 <thead>
                                 <th field-name="ordinalNo" display-name="No"></th>
                                 <th field-name="actionTypeName" display-name="Action type"></th>
@@ -198,7 +215,6 @@
                             </table>
                         </div>
 
-                    </div>
                     </div>
                 </div>
             </div>

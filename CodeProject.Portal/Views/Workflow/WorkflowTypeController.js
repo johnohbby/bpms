@@ -1,12 +1,17 @@
 ﻿angular.module("app").register.controller('workflowTypeController',
-    ['$scope', '$routeParams', '$location', 'ajaxService', 'alertService',
-    function ($scope, $routeParams, $location, ajaxService, alertService) {
+    ['$scope', '$routeParams', '$location', 'ajaxService', 'alertService', 'loginService',
+    function ($scope, $routeParams, $location, ajaxService, alertService, loginService) {
 
         "use strict";
 
         var vm = this;
+        var id = $location.search().id;
 
         this.initializeController = function () {
+
+            if (loginService.getLoggedUser() == -1 || loginService.getLoggedUser() === "undefined")
+                return;
+            loginService.broadcastFullname();
 
             //variables
             vm.messageBox = "";

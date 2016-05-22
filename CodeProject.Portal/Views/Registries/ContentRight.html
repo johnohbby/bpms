@@ -2,10 +2,10 @@
     <h5 class="page-header2"><b>CONTENT RIGHT</b></h5>
     <div class="container-fluid col-md-12 page-panel">
 
-        <button ng-show="!vm.showModalCreate" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent; padding-right: 17px; padding-top: 12px">
+        <button ng-show="!vm.showModalCreate" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent; padding-right: 17px; padding-top: 1px">
             <span class="glyphicon glyphicon-plus colorWhite"></span>
         </button>
-        <button ng-hide="!vm.showModalCreate" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent; padding-right: 17px; padding-top: 12px">
+        <button ng-hide="!vm.showModalCreate" type="button" class="btn btn-default btn-sm pull-right" ng-click="vm.toggleModalCreate()" style="border: 0px solid transparent; background-color: transparent; padding-right: 17px; padding-top: 1px">
             <span class="glyphicon glyphicon-minus colorWhite"></span>
         </button>
         <div id="0" ng-show="vm.showModalCreate">
@@ -56,15 +56,15 @@
                 CONTENT RIGHTS
             </div>
             <div class="panel-body">
-                <table tr-ng-grid="" page-items="10"  items="vm.contentRights" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="false">
+                <table tr-ng-grid="" page-items="10"  items="vm.contentRights" selected-items="vm.mySelectedItems" selection-mode="SingleRow" enable-filtering="true">
                     <thead>
                         <tr>
-                            <th field-name="id" display-name="ID" cell-width="10em" display-align="right"></th>
-                            <th field-name="groupName" display-name="Group"></th>
-                            <th field-name="contentTypeName" display-name="Content Type"></th>
-                            <th field-name="contentName" display-name="Content"></th>
-                            <th field-name="rightTypeName" display-name="Right Type"></th>
-                            <th display-name="Actions" cell-width="10em"></th>
+                            <th field-name="id" display-name="ID" cell-width="10em" display-align="right" enable-filtering="false"></th>
+                            <th field-name="groupName" display-name="Group" enable-filtering="false"></th>
+                            <th field-name="contentTypeName" display-name="Content Type" enable-filtering="false"></th>
+                            <th field-name="contentName" display-name="Content" enable-filtering="false"></th>
+                            <th field-name="rightTypeName" display-name="Right Type" enable-filtering="false"></th>
+                            <th display-name="Actions" cell-width="10em" enable-filtering="false"></th>
                         </tr>
                     </thead>
                     <tbody>
